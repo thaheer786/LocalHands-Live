@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sign In / Register - Local Hands</title>
+  <link rel="stylesheet" href="myStyle.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+</head>
+<body style="display: flex; flex-direction: column; min-height: 100vh;">
+
+  <!-- Header -->
+  <header class="navbar">
+    <a href="index.html" class="nav-brand">
+      <img src="assets/localhandsicon.jpg" alt="Logo" style="border-radius: 8px;" />
+      <span>Local <em style="color: var(--primary); font-style: normal;">Hands</em></span>
+    </a>
+  </header>
+
+  <!-- Login Form Main -->
+  <main style="flex: 1; display: flex; align-items: center; justify-content: center; padding: 3rem 1rem;">
+    <div class="card" style="width: 100%; max-width: 440px; box-shadow: var(--shadow-lg);">
+      
+      <!-- Mode Tabs -->
+      <div style="display: flex; border-bottom: 1px solid var(--border-color); margin-bottom: 1.75rem;">
+        <button id="auth-tab-login" class="btn btn-primary" style="flex: 1; border-radius: var(--radius-sm) var(--radius-sm) 0 0;" onclick="AuthPage.switchMode('login')">Sign In</button>
+        <button id="auth-tab-register" class="btn btn-secondary" style="flex: 1; border-radius: var(--radius-sm) var(--radius-sm) 0 0;" onclick="AuthPage.switchMode('register')">Register</button>
+      </div>
+
+      <!-- Quick Demo Login Presets -->
+      <div style="background: var(--bg-cream); padding: 1rem; border-radius: var(--radius-md); border: 1px solid var(--border-color); margin-bottom: 1.5rem;">
+        <span style="font-size: 0.75rem; font-weight: 700; color: var(--secondary); display: block; margin-bottom: 0.5rem; text-transform: uppercase;">⚡ Quick Demo Presets</span>
+        <div style="display: flex; gap: 0.5rem;">
+          <button class="btn btn-outline btn-sm" style="flex: 1; font-size: 0.75rem;" onclick="AuthPage.demoLogin('customer')">Customer</button>
+          <button class="btn btn-outline btn-sm" style="flex: 1; font-size: 0.75rem;" onclick="AuthPage.demoLogin('provider')">Provider</button>
+          <button class="btn btn-outline btn-sm" style="flex: 1; font-size: 0.75rem;" onclick="AuthPage.demoLogin('admin')">Admin</button>
+        </div>
+      </div>
+
+      <!-- Form -->
+      <form id="auth-form" onsubmit="AuthPage.handleSubmit(event)">
+        <!-- Register Name (hidden in login mode) -->
+        <div class="form-group" id="group-name" style="display: none;">
+          <label>Full Name</label>
+          <input type="text" id="auth-name" class="form-control" placeholder="Alex Johnson" />
+        </div>
+
+        <div class="form-group">
+          <label>Email Address</label>
+          <input type="email" id="auth-email" class="form-control" placeholder="name@example.com" required />
+        </div>
+
+        <div class="form-group">
+          <label>Password</label>
+          <input type="password" id="auth-password" class="form-control" placeholder="••••••••" required />
+        </div>
+
+        <!-- Register Role Selector (hidden in login mode) -->
+        <div class="form-group" id="group-role" style="display: none;">
+          <label>I want to join as</label>
+          <select id="auth-role" class="form-control">
+            <option value="customer">Customer (Book Services)</option>
+            <option value="provider">Service Provider (Offer Services)</option>
+          </select>
+        </div>
+
+        <button type="submit" id="auth-submit-btn" class="btn btn-primary" style="width: 100%; margin-top: 1rem;">Sign In <i class="fas fa-arrow-right"></i></button>
+      </form>
+
+    </div>
+  </main>
+
+  <!-- Scripts -->
+  <script src="js/toast.js"></script>
+  <script src="js/modal.js"></script>
+  <script src="js/api.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/login.js"></script>
+</body>
+</html>

@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Booking Status Tracker - Local Hands</title>
+  <link rel="stylesheet" href="myStyle.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+</head>
+<body>
+
+  <!-- Navigation Header -->
+  <header class="navbar">
+    <a href="index.html" class="nav-brand">
+      <img src="assets/localhandsicon.jpg" alt="Logo" style="border-radius: 8px;" />
+      <span>Local <em style="color: var(--primary); font-style: normal;">Hands</em></span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="Allservices.html">All Services</a></li>
+      <li><a href="customer-dashboard.html">Booking Status</a></li>
+    </ul>
+    <div class="nav-actions" id="nav-actions-container"></div>
+  </header>
+
+  <!-- Tracker Container -->
+  <main class="container section-padding" style="max-width: 840px;">
+    <div class="card" style="margin-bottom: 2rem;">
+      <div style="display: flex; justify-content: space-between; align-items: center; padding-bottom: 1.25rem; border-bottom: 1px solid var(--border-color);" id="status-header">
+        <div>
+          <span style="font-size: 0.85rem; color: var(--text-muted); font-weight: 600;">BOOKING NUMBER</span>
+          <h2 id="booking-number-display" style="font-size: 1.6rem; color: var(--primary);">LH-2026-0000</h2>
+        </div>
+        <span class="badge badge-pending" id="booking-status-badge" style="font-size: 0.9rem; padding: 0.5rem 1rem;">PENDING</span>
+      </div>
+
+      <!-- Step Tracker Progress Bar -->
+      <div class="step-tracker" id="step-tracker-bar">
+        <div class="step-item" id="step-1">
+          <div class="step-icon"><i class="fas fa-paper-plane"></i></div>
+          <div class="step-label">Requested</div>
+        </div>
+        <div class="step-item" id="step-2">
+          <div class="step-icon"><i class="fas fa-user-check"></i></div>
+          <div class="step-label">Accepted</div>
+        </div>
+        <div class="step-item" id="step-3">
+          <div class="step-icon"><i class="fas fa-tools"></i></div>
+          <div class="step-label">In Progress</div>
+        </div>
+        <div class="step-item" id="step-4">
+          <div class="step-icon"><i class="fas fa-check-circle"></i></div>
+          <div class="step-label">Completed</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Booking Info Grid -->
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem;" class="stats-grid">
+      <!-- Service & Schedule -->
+      <div class="card">
+        <h3 style="font-size: 1.1rem; margin-bottom: 1rem; color: var(--secondary);"><i class="fas fa-info-circle" style="color: var(--primary);"></i> Service Details</h3>
+        <div id="status-service-details">
+          <div class="skeleton" style="height: 100px;"></div>
+        </div>
+      </div>
+
+      <!-- Provider Card -->
+      <div class="card">
+        <h3 style="font-size: 1.1rem; margin-bottom: 1rem; color: var(--secondary);"><i class="fas fa-id-badge" style="color: var(--primary);"></i> Assigned Provider</h3>
+        <div id="status-provider-details">
+          <div class="skeleton" style="height: 100px;"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Actions Footer -->
+    <div style="display: flex; gap: 1rem; justify-content: flex-end; margin-top: 2rem;" id="status-action-btns">
+      <!-- Injected dynamically -->
+    </div>
+  </main>
+
+  <!-- Review Modal -->
+  <div class="modal-overlay" id="reviewModal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 style="color: var(--secondary);">Rate & Review Service</h3>
+        <button class="modal-close" onclick="Modal.close('reviewModal')">&times;</button>
+      </div>
+      <form onsubmit="BookingTracker.submitReview(event)">
+        <div class="form-group">
+          <label>Rating (1 to 5 Stars)</label>
+          <select id="review-rating" class="form-control" required>
+            <option value="5">⭐⭐⭐⭐⭐ 5 Stars (Excellent)</option>
+            <option value="4">⭐⭐⭐⭐ 4 Stars (Good)</option>
+            <option value="3">⭐⭐⭐ 3 Stars (Average)</option>
+            <option value="2">⭐⭐ 2 Stars (Poor)</option>
+            <option value="1">⭐ 1 Star (Very Bad)</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Your Feedback / Comments</label>
+          <textarea id="review-comment" class="form-control" rows="4" placeholder="How was the service quality, punctuality, and professionalism?" required></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary" style="width: 100%;">Submit Review</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="js/toast.js"></script>
+  <script src="js/modal.js"></script>
+  <script src="js/api.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/booking.js"></script>
+</body>
+</html>

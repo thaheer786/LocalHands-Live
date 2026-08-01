@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin Control Center - Local Hands</title>
+  <link rel="stylesheet" href="myStyle.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+</head>
+<body>
+
+  <!-- Navigation Header -->
+  <header class="navbar">
+    <a href="index.html" class="nav-brand">
+      <img src="assets/localhandsicon.jpg" alt="Logo" style="border-radius: 8px;" />
+      <span>Local <em style="color: var(--primary); font-style: normal;">Hands</em> Admin</span>
+    </a>
+    <div class="nav-actions" id="nav-actions-container"></div>
+  </header>
+
+  <main class="container section-padding">
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem; flex-wrap: wrap; gap: 1rem;">
+      <div>
+        <h1 class="section-title" style="text-align: left;">SYSTEM <span class="text-gradient">ADMINISTRATION</span></h1>
+        <p style="color: var(--text-muted);">Manage platform analytics, provider verifications, user roles, and service offerings.</p>
+      </div>
+
+      <div style="display: flex; gap: 0.75rem;">
+        <button class="btn btn-outline btn-sm" onclick="Modal.open('addCategoryModal')">+ New Category</button>
+        <button class="btn btn-primary btn-sm" onclick="Modal.open('addServiceModal')">+ New Service</button>
+      </div>
+    </div>
+
+    <!-- Analytics Cards Grid -->
+    <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.5rem; margin-bottom: 2.5rem;" class="stats-grid">
+      <div class="card">
+        <span style="font-size: 0.8rem; color: var(--text-muted); font-weight: 700;">TOTAL REVENUE</span>
+        <h2 style="font-size: 2.2rem; color: var(--primary);" id="admin-stat-revenue">$0.00</h2>
+      </div>
+      <div class="card">
+        <span style="font-size: 0.8rem; color: var(--text-muted); font-weight: 700;">TOTAL BOOKINGS</span>
+        <h2 style="font-size: 2.2rem; color: var(--secondary);" id="admin-stat-bookings">0</h2>
+      </div>
+      <div class="card">
+        <span style="font-size: 0.8rem; color: var(--text-muted); font-weight: 700;">REGISTERED USERS</span>
+        <h2 style="font-size: 2.2rem; color: var(--secondary);" id="admin-stat-users">0</h2>
+      </div>
+      <div class="card">
+        <span style="font-size: 0.8rem; color: var(--text-muted); font-weight: 700;">VERIFIED PROVIDERS</span>
+        <h2 style="font-size: 2.2rem; color: var(--primary);" id="admin-stat-providers">0</h2>
+      </div>
+    </div>
+
+    <!-- Provider Verification Management -->
+    <div class="card" style="margin-bottom: 2rem;">
+      <h3 style="font-size: 1.2rem; margin-bottom: 1.25rem; color: var(--secondary);"><i class="fas fa-user-check" style="color: var(--primary);"></i> Provider Verification & Moderation</h3>
+      
+      <div style="overflow-x: auto;">
+        <table style="width: 100%; border-collapse: collapse; text-align: left; font-size: 0.9rem;">
+          <thead>
+            <tr style="border-bottom: 1px solid var(--border-color); color: var(--text-muted);">
+              <th style="padding: 0.75rem;">Provider</th>
+              <th style="padding: 0.75rem;">Rating</th>
+              <th style="padding: 0.75rem;">Completed Jobs</th>
+              <th style="padding: 0.75rem;">Hourly Rate</th>
+              <th style="padding: 0.75rem;">Verification Status</th>
+              <th style="padding: 0.75rem;">Action</th>
+            </tr>
+          </thead>
+          <tbody id="admin-providers-table">
+            <tr><td colspan="6" style="padding: 1rem;"><div class="skeleton" style="height: 40px;"></div></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </main>
+
+  <!-- Add Category Modal -->
+  <div class="modal-overlay" id="addCategoryModal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 style="color: var(--secondary);">Add Service Category</h3>
+        <button class="modal-close" onclick="Modal.close('addCategoryModal')">&times;</button>
+      </div>
+      <form onsubmit="AdminDash.createCategory(event)">
+        <div class="form-group">
+          <label>Category Name</label>
+          <input type="text" id="cat-name" class="form-control" placeholder="Pest Control" required />
+        </div>
+        <div class="form-group">
+          <label>FontAwesome Icon Class</label>
+          <input type="text" id="cat-icon" class="form-control" placeholder="fa-bug" required />
+        </div>
+        <div class="form-group">
+          <label>Description</label>
+          <input type="text" id="cat-desc" class="form-control" placeholder="Professional home pest treatment services..." required />
+        </div>
+        <button type="submit" class="btn btn-primary" style="width: 100%;">Create Category</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Add Service Modal -->
+  <div class="modal-overlay" id="addServiceModal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 style="color: var(--secondary);">Add New Service</h3>
+        <button class="modal-close" onclick="Modal.close('addServiceModal')">&times;</button>
+      </div>
+      <form onsubmit="AdminDash.createService(event)">
+        <div class="form-group">
+          <label>Category ID</label>
+          <select id="srv-cat-id" class="form-control" required>
+            <option value="cat-plumbing">Plumbing</option>
+            <option value="cat-appliance">AC & Appliances</option>
+            <option value="cat-electrical">Electrical</option>
+            <option value="cat-cleaning">Cleaning & Maid</option>
+            <option value="cat-carpentry">Carpentry</option>
+            <option value="cat-painting">Painting</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Service Name</label>
+          <input type="text" id="srv-name" class="form-control" placeholder="Kitchen Drain Unclogging" required />
+        </div>
+        <div class="form-group">
+          <label>Price ($)</label>
+          <input type="number" step="0.01" id="srv-price" class="form-control" placeholder="59.99" required />
+        </div>
+        <div class="form-group">
+          <label>Description</label>
+          <textarea id="srv-desc" class="form-control" rows="3" required></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary" style="width: 100%;">Create Service</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="js/toast.js"></script>
+  <script src="js/modal.js"></script>
+  <script src="js/api.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/admin.js"></script>
+</body>
+</html>

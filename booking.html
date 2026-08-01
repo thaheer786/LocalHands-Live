@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Book Service - Local Hands</title>
+  <link rel="stylesheet" href="myStyle.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+</head>
+<body>
+
+  <!-- Navigation Header -->
+  <header class="navbar">
+    <a href="index.html" class="nav-brand">
+      <img src="assets/localhandsicon.jpg" alt="Logo" style="border-radius: 8px;" />
+      <span>Local <em style="color: var(--primary); font-style: normal;">Hands</em></span>
+    </a>
+    <div class="nav-actions" id="nav-actions-container"></div>
+  </header>
+
+  <!-- Checkout Container -->
+  <main class="container section-padding" style="max-width: 960px;">
+    <div style="margin-bottom: 2rem;">
+      <a href="Allservices.html" style="color: var(--text-muted); text-decoration: none; font-size: 0.9rem; font-weight: 600;">
+        <i class="fas fa-arrow-left"></i> Back to Catalog
+      </a>
+      <h1 class="section-title" style="text-align: left; margin-top: 0.5rem;">COMPLETE YOUR <span class="text-gradient">BOOKING</span></h1>
+    </div>
+
+    <div style="display: grid; grid-template-columns: 1.8fr 1.2fr; gap: 2rem;" class="stats-grid">
+      <!-- Left Column: Form -->
+      <div style="display: flex; flex-direction: column; gap: 1.5rem;">
+        <!-- Selected Service Banner -->
+        <div class="card" id="booking-service-summary">
+          <div class="skeleton" style="height: 80px;"></div>
+        </div>
+
+        <!-- Schedule Picker -->
+        <div class="card">
+          <h3 style="font-size: 1.1rem; margin-bottom: 1.25rem; color: var(--secondary);"><i class="far fa-calendar-alt" style="color: var(--primary);"></i> Select Date & Time Slot</h3>
+          <div class="form-group">
+            <label>Preferred Date</label>
+            <input type="date" id="booking-date" class="form-control" />
+          </div>
+          <div class="form-group">
+            <label>Preferred Time Slot</label>
+            <select id="booking-time" class="form-control">
+              <option value="09:00 AM">09:00 AM - 10:00 AM</option>
+              <option value="11:30 AM">11:30 AM - 12:30 PM</option>
+              <option value="02:30 PM">02:30 PM - 03:30 PM</option>
+              <option value="05:00 PM">05:00 PM - 06:00 PM</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Address Selection -->
+        <div class="card">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+            <h3 style="font-size: 1.1rem; color: var(--secondary);"><i class="fas fa-map-marker-alt" style="color: var(--primary);"></i> Service Location</h3>
+            <button class="btn btn-outline btn-sm" onclick="Modal.open('addAddressModal')">+ Add Address</button>
+          </div>
+
+          <div id="booking-address-list" style="display: flex; flex-direction: column; gap: 0.75rem;">
+            <div class="skeleton" style="height: 60px;"></div>
+          </div>
+        </div>
+
+        <!-- Special Instructions -->
+        <div class="card">
+          <h3 style="font-size: 1.1rem; margin-bottom: 1rem; color: var(--secondary);"><i class="fas fa-sticky-note" style="color: var(--primary);"></i> Notes & Instructions</h3>
+          <textarea id="booking-notes" class="form-control" rows="3" placeholder="Explain the specific repair issue or instructions for the provider..."></textarea>
+        </div>
+      </div>
+
+      <!-- Right Column: Order Summary & Checkout -->
+      <div>
+        <div class="card" style="position: sticky; top: 100px;">
+          <h3 style="font-size: 1.2rem; margin-bottom: 1.25rem; padding-bottom: 0.75rem; border-bottom: 1px solid var(--border-color); color: var(--secondary);">Payment Summary</h3>
+          
+          <div style="display: flex; flex-direction: column; gap: 0.75rem; font-size: 0.95rem; margin-bottom: 1.5rem;">
+            <div style="display: flex; justify-content: space-between;">
+              <span style="color: var(--text-muted);">Base Service Fee</span>
+              <span id="summary-base-price">$0.00</span>
+            </div>
+            <div style="display: flex; justify-content: space-between;">
+              <span style="color: var(--text-muted);">Inspection & Safety Fee</span>
+              <span>$5.00</span>
+            </div>
+            <div style="display: flex; justify-content: space-between;">
+              <span style="color: var(--text-muted);">Taxes & Service Charge</span>
+              <span>$4.50</span>
+            </div>
+            <div style="display: flex; justify-content: space-between; padding-top: 0.75rem; border-top: 1px dashed var(--border-color); font-weight: 800; font-size: 1.25rem; color: var(--secondary);">
+              <span>Total Payable</span>
+              <span id="summary-total-price" style="color: var(--primary);">$0.00</span>
+            </div>
+          </div>
+
+          <button class="btn btn-primary" style="width: 100%; font-size: 1.05rem;" onclick="BookingCheckout.submitBooking()">
+            Confirm & Book Service <i class="fas fa-arrow-right"></i>
+          </button>
+          
+          <p style="font-size: 0.78rem; color: var(--text-subtle); text-align: center; margin-top: 0.85rem;">
+            <i class="fas fa-shield-alt" style="color: var(--primary);"></i> Pay after service completion or online.
+          </p>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Add Address Modal -->
+  <div class="modal-overlay" id="addAddressModal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 style="color: var(--secondary);">Add New Service Address</h3>
+        <button class="modal-close" onclick="Modal.close('addAddressModal')">&times;</button>
+      </div>
+      <form id="add-address-form" onsubmit="BookingCheckout.handleAddAddress(event)">
+        <div class="form-group">
+          <label>Address Title (e.g. Home, Work)</label>
+          <input type="text" id="addr-title" class="form-control" placeholder="Home" required />
+        </div>
+        <div class="form-group">
+          <label>Street Address</label>
+          <input type="text" id="addr-street" class="form-control" placeholder="123 Main St" required />
+        </div>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+          <div class="form-group">
+            <label>City</label>
+            <input type="text" id="addr-city" class="form-control" placeholder="Springfield" required />
+          </div>
+          <div class="form-group">
+            <label>State</label>
+            <input type="text" id="addr-state" class="form-control" placeholder="OR" required />
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Zip Code</label>
+          <input type="text" id="addr-zip" class="form-control" placeholder="97477" required />
+        </div>
+        <button type="submit" class="btn btn-primary" style="width: 100%;">Save Address</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="js/toast.js"></script>
+  <script src="js/modal.js"></script>
+  <script src="js/api.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/booking.js"></script>
+</body>
+</html>

@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Local Hands - On-Demand Local Home Services</title>
+  <link rel="stylesheet" href="myStyle.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+</head>
+<body>
+
+  <!-- Navigation Bar -->
+  <header class="navbar">
+    <a href="index.html" class="nav-brand">
+      <img src="assets/logo2.jpg" alt="Local Hands Logo" />
+      <span>Local Hands</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="index.html" class="active">Home</a></li>
+      <li><a href="Allservices.html">All Services</a></li>
+      <li><a href="maps.html">Find Providers</a></li>
+      <li><a href="customer-dashboard.html">My Bookings</a></li>
+    </ul>
+    <div class="nav-actions" id="nav-actions-container">
+      <!-- Injected dynamically by Auth.js -->
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero-section">
+    <div class="container" style="display: flex; flex-direction: column; align-items: center;">
+      <span class="badge badge-verified" style="margin-bottom: 1.5rem; padding: 0.4rem 1rem;">
+        <i class="fas fa-shield-alt"></i> Verified Local Service Experts
+      </span>
+      <h1 class="hero-title">Your Trusted Link to <span class="text-gradient">Local Experts</span></h1>
+      <p class="hero-description">
+        Instantly book top-rated plumbers, electricians, maids, carpenters, and AC technicians in your area with upfront pricing and guaranteed quality.
+      </p>
+
+      <!-- Interactive Search -->
+      <div class="search-box">
+        <i class="fas fa-search" style="color: var(--text-muted); font-size: 1.2rem; margin-right: 0.75rem;"></i>
+        <input type="text" id="hero-search-input" placeholder="Search 'AC Repair', 'Plumber', 'Wiring'..." />
+        <button class="btn btn-primary" onclick="Landing.handleSearch()">Explore Services</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Categories Section -->
+  <section class="section-padding container">
+    <h2 class="section-title">Popular <span class="text-gradient">Service Categories</span></h2>
+    <p class="section-subtitle">Choose from our wide range of professional, verified home maintenance and repair services.</p>
+    
+    <div class="categories-grid" id="landing-categories">
+      <!-- Populated dynamically -->
+      <div class="skeleton" style="height: 140px;"></div>
+      <div class="skeleton" style="height: 140px;"></div>
+      <div class="skeleton" style="height: 140px;"></div>
+      <div class="skeleton" style="height: 140px;"></div>
+    </div>
+  </section>
+
+  <!-- Featured Services Section -->
+  <section class="section-padding container">
+    <div style="display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 2rem;">
+      <div>
+        <h2 class="section-title" style="text-align: left;">Top Recommended <span class="text-gradient">Services</span></h2>
+        <p class="section-subtitle" style="text-align: left; margin: 0;">Upfront pricing with zero hidden fees. Satisfaction guaranteed.</p>
+      </div>
+      <a href="Allservices.html" class="btn btn-outline">View All Services <i class="fas fa-arrow-right"></i></a>
+    </div>
+
+    <div class="services-grid" id="landing-services">
+      <!-- Populated dynamically -->
+      <div class="skeleton" style="height: 320px;"></div>
+      <div class="skeleton" style="height: 320px;"></div>
+      <div class="skeleton" style="height: 320px;"></div>
+    </div>
+  </section>
+
+  <!-- Top Verified Providers -->
+  <section class="section-padding container">
+    <h2 class="section-title">Featured <span class="text-gradient">Service Professionals</span></h2>
+    <p class="section-subtitle">Handpicked, background-checked, and top-rated experts ready to assist you.</p>
+    
+    <div class="providers-grid" id="landing-providers">
+      <!-- Populated dynamically -->
+      <div class="skeleton" style="height: 220px;"></div>
+      <div class="skeleton" style="height: 220px;"></div>
+    </div>
+  </section>
+
+  <!-- Platform Statistics -->
+  <section class="section-padding" style="background: var(--bg-surface-elevated); border-y: 1px solid var(--border-color);">
+    <div class="container">
+      <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 2rem; text-align: center;" class="stats-grid">
+        <div>
+          <h3 style="font-size: 2.8rem; color: var(--primary);" class="text-gradient">5,000+</h3>
+          <p style="color: var(--text-muted); font-weight: 600;">Completed Jobs</p>
+        </div>
+        <div>
+          <h3 style="font-size: 2.8rem; color: var(--secondary);" class="text-gradient">98.4%</h3>
+          <p style="color: var(--text-muted); font-weight: 600;">Satisfaction Rate</p>
+        </div>
+        <div>
+          <h3 style="font-size: 2.8rem; color: var(--accent);" class="text-gradient">250+</h3>
+          <p style="color: var(--text-muted); font-weight: 600;">Verified Providers</p>
+        </div>
+        <div>
+          <h3 style="font-size: 2.8rem; color: var(--success);" class="text-gradient">15 Mins</h3>
+          <p style="color: var(--text-muted); font-weight: 600;">Avg. Match Time</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Customer Testimonials -->
+  <section class="section-padding container">
+    <h2 class="section-title">What Our <span class="text-gradient">Customers Say</span></h2>
+    <p class="section-subtitle">Real experiences from homeowners and customers who rely on Local Hands daily.</p>
+
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem;">
+      <div class="card card-hover">
+        <div style="color: var(--accent); margin-bottom: 1rem;">
+          <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+        </div>
+        <p style="color: var(--text-muted); margin-bottom: 1.5rem;">"Booked a plumber for a midnight sink leak. Revanth arrived in 20 minutes, fixed the pipe cleanly, and charged exactly what was quoted!"</p>
+        <div style="display: flex; align-items: center; gap: 1rem;">
+          <img src="https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?auto=format&fit=crop&q=80&w=150" style="width: 48px; height: 48px; border-radius: 50%; object-fit: cover;" alt="Alex" />
+          <div>
+            <h4 style="font-size: 1rem;">Alex Johnson</h4>
+            <span style="font-size: 0.85rem; color: var(--text-subtle);">Verified Homeowner</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="card card-hover">
+        <div style="color: var(--accent); margin-bottom: 1rem;">
+          <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+        </div>
+        <p style="color: var(--text-muted); margin-bottom: 1.5rem;">"The AC gas refill and deep cleaning service was super professional. Smooth booking experience and transparent billing!"</p>
+        <div style="display: flex; align-items: center; gap: 1rem;">
+          <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&q=80&w=150" style="width: 48px; height: 48px; border-radius: 50%; object-fit: cover;" alt="Sophia" />
+          <div>
+            <h4 style="font-size: 1rem;">Sophia Chen</h4>
+            <span style="font-size: 0.85rem; color: var(--text-subtle);">Verified Customer</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container footer-grid">
+      <div class="footer-brand">
+        <div style="display: flex; align-items: center; gap: 0.75rem;">
+          <img src="assets/logo2.jpg" alt="Logo" style="height: 38px; border-radius: var(--radius-sm);" />
+          <span style="font-family: 'Outfit'; font-weight: 800; font-size: 1.4rem;" class="text-gradient">Local Hands</span>
+        </div>
+        <p>Connecting homeowners and businesses with verified, high-quality local service professionals instantly.</p>
+      </div>
+
+      <div class="footer-col">
+        <h4>Services</h4>
+        <ul>
+          <li><a href="Allservices.html?category=plumbing">Plumbing</a></li>
+          <li><a href="Allservices.html?category=ac-appliances">AC Repair</a></li>
+          <li><a href="Allservices.html?category=electrical">Electrical</a></li>
+          <li><a href="Allservices.html?category=cleaning">Deep Cleaning</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>Platform</h4>
+        <ul>
+          <li><a href="Allservices.html">All Services</a></li>
+          <li><a href="maps.html">Find Providers</a></li>
+          <li><a href="login.html?role=provider">Become a Provider</a></li>
+          <li><a href="login.html?role=admin">Admin Access</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>Support</h4>
+        <ul>
+          <li><a href="#">Help Center</a></li>
+          <li><a href="#">Safety & Security</a></li>
+          <li><a href="#">Terms of Service</a></li>
+          <li><a href="#">Privacy Policy</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer-bottom container">
+      &copy; 2026 Local Hands Inc. All rights reserved. Made for quality home services.
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="js/toast.js"></script>
+  <script src="js/modal.js"></script>
+  <script src="js/api.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/landing.js"></script>
+
+</body>
+</html>

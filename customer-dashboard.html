@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Customer Portal - Local Hands</title>
+  <link rel="stylesheet" href="myStyle.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+</head>
+<body>
+
+  <!-- Navigation Header -->
+  <header class="navbar">
+    <a href="index.html" class="nav-brand">
+      <img src="assets/localhandsicon.jpg" alt="Logo" style="border-radius: 8px;" />
+      <span>Local <em style="color: var(--primary); font-style: normal;">Hands</em></span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="Allservices.html">All Services</a></li>
+      <li><a href="customer-dashboard.html" class="active">Booking Status</a></li>
+    </ul>
+    <div class="nav-actions" id="nav-actions-container"></div>
+  </header>
+
+  <main class="container section-padding">
+    <div style="margin-bottom: 2rem;">
+      <h1 class="section-title" style="text-align: left;">CUSTOMER <span class="text-gradient">DASHBOARD</span></h1>
+      <p style="color: var(--text-muted);">Manage your active service bookings, history, reviews, and saved addresses.</p>
+    </div>
+
+    <!-- Dashboard Tabs -->
+    <div style="display: flex; gap: 1rem; border-bottom: 1px solid var(--border-color); margin-bottom: 2rem;">
+      <button class="btn btn-primary btn-sm" id="tab-btn-bookings" onclick="CustomerDash.switchTab('bookings')">My Bookings</button>
+      <button class="btn btn-secondary btn-sm" id="tab-btn-addresses" onclick="CustomerDash.switchTab('addresses')">Saved Addresses</button>
+      <button class="btn btn-secondary btn-sm" id="tab-btn-profile" onclick="CustomerDash.switchTab('profile')">Profile Settings</button>
+    </div>
+
+    <!-- Bookings Tab Content -->
+    <div id="tab-content-bookings">
+      <div id="customer-bookings-list" style="display: flex; flex-direction: column; gap: 1.5rem;">
+        <div class="skeleton" style="height: 120px;"></div>
+        <div class="skeleton" style="height: 120px;"></div>
+      </div>
+    </div>
+
+    <!-- Addresses Tab Content -->
+    <div id="tab-content-addresses" style="display: none;">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
+        <h3 style="font-size: 1.2rem; color: var(--secondary);">Your Saved Delivery Addresses</h3>
+        <button class="btn btn-primary btn-sm" onclick="Modal.open('addAddressModal')">+ Add New Address</button>
+      </div>
+      <div id="customer-address-grid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1.5rem;">
+        <!-- Injected dynamically -->
+      </div>
+    </div>
+
+    <!-- Profile Tab Content -->
+    <div id="tab-content-profile" style="display: none; max-width: 600px;">
+      <div class="card">
+        <h3 style="font-size: 1.2rem; margin-bottom: 1.5rem; color: var(--secondary);">Edit Profile Context</h3>
+        <form onsubmit="CustomerDash.saveProfile(event)">
+          <div class="form-group">
+            <label>Full Name</label>
+            <input type="text" id="cust-profile-name" class="form-control" required />
+          </div>
+          <div class="form-group">
+            <label>Email Address</label>
+            <input type="email" id="cust-profile-email" class="form-control" disabled />
+          </div>
+          <div class="form-group">
+            <label>Phone Number</label>
+            <input type="text" id="cust-profile-phone" class="form-control" />
+          </div>
+          <button type="submit" class="btn btn-primary">Save Profile</button>
+        </form>
+      </div>
+    </div>
+  </main>
+
+  <!-- Add Address Modal -->
+  <div class="modal-overlay" id="addAddressModal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 style="color: var(--secondary);">Add Address</h3>
+        <button class="modal-close" onclick="Modal.close('addAddressModal')">&times;</button>
+      </div>
+      <form onsubmit="CustomerDash.handleAddAddress(event)">
+        <div class="form-group">
+          <label>Title</label>
+          <input type="text" id="cust-addr-title" class="form-control" placeholder="Home / Office" required />
+        </div>
+        <div class="form-group">
+          <label>Street</label>
+          <input type="text" id="cust-addr-street" class="form-control" required />
+        </div>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+          <div class="form-group">
+            <label>City</label>
+            <input type="text" id="cust-addr-city" class="form-control" required />
+          </div>
+          <div class="form-group">
+            <label>State</label>
+            <input type="text" id="cust-addr-state" class="form-control" required />
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Zip</label>
+          <input type="text" id="cust-addr-zip" class="form-control" required />
+        </div>
+        <button type="submit" class="btn btn-primary" style="width: 100%;">Save Address</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="js/toast.js"></script>
+  <script src="js/modal.js"></script>
+  <script src="js/api.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/customer.js"></script>
+</body>
+</html>

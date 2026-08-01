@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Provider Portal - Local Hands</title>
+  <link rel="stylesheet" href="myStyle.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+</head>
+<body>
+
+  <!-- Navigation Header -->
+  <header class="navbar">
+    <a href="index.html" class="nav-brand">
+      <img src="assets/localhandsicon.jpg" alt="Logo" style="border-radius: 8px;" />
+      <span>Local <em style="color: var(--primary); font-style: normal;">Hands</em></span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="provider-dashboard.html" class="active">Provider Portal</a></li>
+    </ul>
+    <div class="nav-actions" id="nav-actions-container"></div>
+  </header>
+
+  <main class="container section-padding">
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem; flex-wrap: wrap; gap: 1rem;">
+      <div>
+        <h1 class="section-title" style="text-align: left;">PROVIDER <span class="text-gradient">PORTAL</span></h1>
+        <p style="color: var(--text-muted);">Manage incoming service dispatches, active jobs, working availability, and earnings.</p>
+      </div>
+
+      <!-- Availability Toggle Control -->
+      <div style="display: flex; align-items: center; gap: 1rem; background: var(--bg-surface); padding: 0.75rem 1.25rem; border-radius: var(--radius-full); border: 1px solid var(--border-color); box-shadow: var(--shadow-sm);">
+        <span style="font-weight: 600; font-size: 0.9rem; color: var(--secondary);">Status:</span>
+        <select id="provider-availability-select" class="form-control" style="width: auto; padding: 0.4rem 0.75rem;" onchange="ProviderDash.updateAvailability()">
+          <option value="available">🟢 Available for Dispatch</option>
+          <option value="busy">🟡 Busy on Job</option>
+          <option value="offline">🔴 Offline</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- Overview Stats Cards -->
+    <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; margin-bottom: 2.5rem;" class="stats-grid">
+      <div class="card" style="text-align: center;">
+        <span style="font-size: 0.85rem; color: var(--text-muted); text-transform: uppercase; font-weight: 700;">Total Jobs Completed</span>
+        <h2 style="font-size: 2.4rem; color: var(--secondary);" id="prov-stat-jobs">0</h2>
+      </div>
+      <div class="card" style="text-align: center;">
+        <span style="font-size: 0.85rem; color: var(--text-muted); text-transform: uppercase; font-weight: 700;">Overall Rating</span>
+        <h2 style="font-size: 2.4rem; color: var(--primary);" id="prov-stat-rating">5.0 ⭐</h2>
+      </div>
+      <div class="card" style="text-align: center;">
+        <span style="font-size: 0.85rem; color: var(--text-muted); text-transform: uppercase; font-weight: 700;">Estimated Earnings</span>
+        <h2 style="font-size: 2.4rem; color: var(--primary);" id="prov-stat-earnings">$0.00</h2>
+      </div>
+    </div>
+
+    <!-- Assigned Bookings List -->
+    <div class="card">
+      <h3 style="font-size: 1.2rem; margin-bottom: 1.5rem; color: var(--secondary);"><i class="fas fa-tasks" style="color: var(--primary);"></i> Assigned Booking Requests & Active Jobs</h3>
+      
+      <div id="provider-bookings-list" style="display: flex; flex-direction: column; gap: 1.25rem;">
+        <div class="skeleton" style="height: 100px;"></div>
+        <div class="skeleton" style="height: 100px;"></div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Scripts -->
+  <script src="js/toast.js"></script>
+  <script src="js/modal.js"></script>
+  <script src="js/api.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/provider.js"></script>
+</body>
+</html>
