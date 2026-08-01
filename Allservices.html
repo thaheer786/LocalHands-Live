@@ -3,80 +3,184 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>All Services & Providers - Local Hands</title>
+  <title>Explore Service Categories | Local Hands</title>
   <link rel="stylesheet" href="myStyle.css" />
+  <link rel="stylesheet" href="css/animations.css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet" />
 </head>
 <body>
 
-  <!-- Navigation Header -->
-  <header class="navbar">
+  <!-- Navigation Bar -->
+  <header class="navbar" style="position: sticky; top: 0; z-index: 1000; background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(10px); box-shadow: 0 4px 20px rgba(90, 70, 52, 0.06);">
     <a href="index.html" class="nav-brand">
-      <img src="assets/logo2.jpg" alt="Logo" />
-      <span>Local Hands</span>
+      <span style="display: inline-flex; align-items: center; justify-content: center; width: 36px; height: 36px; border-radius: 10px; background: #FF7A00; color: #fff;">
+        <i class="fas fa-map-marker-alt"></i>
+      </span>
+      <span>Local<em style="color: #FF7A00; font-style: normal;">Hands</em><small style="font-size: 0.75rem; color: #64748b; font-weight: 500;">.in</small></span>
     </a>
-    <ul class="nav-links">
-      <li><a href="index.html">Home</a></li>
-      <li><a href="Allservices.html" class="active">All Services</a></li>
-      <li><a href="maps.html">Find Providers</a></li>
-      <li><a href="customer-dashboard.html">My Bookings</a></li>
-    </ul>
-    <div class="nav-actions" id="nav-actions-container"></div>
+
+    <nav class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="Allservices.html" class="active">Categories</a>
+      <a href="maps.html">Find Providers</a>
+      <a href="customer-dashboard.html">Booking Status</a>
+    </nav>
+
+    <div class="nav-actions">
+      <!-- Container for Auth state (Login / Register / Profile) -->
+      <div id="nav-actions-container"></div>
+    </div>
   </header>
 
-  <!-- Service Catalog Main Container -->
-  <main class="container section-padding">
-    <div style="text-align: center; margin-bottom: 3rem;">
-      <h1 class="section-title">Explore All <span class="text-gradient">Professional Services</span></h1>
-      <p class="section-subtitle">Browse transparent pricing, select your required home service, and get matched with certified local providers.</p>
-    </div>
+  <!-- Categories Hero Banner & Search Section -->
+  <section class="cat-page-hero">
+    <div class="container">
+      <h1 class="cat-page-hero-title">Explore Our Service <span>Categories</span></h1>
+      <p class="cat-page-hero-subtitle">Choose from verified professionals and rental listings across all major categories in your city.</p>
 
-    <!-- Filter Bar & Search -->
-    <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 1.5rem; margin-bottom: 2.5rem; background: var(--bg-surface); padding: 1.25rem; border-radius: var(--radius-lg); border: 1px solid var(--border-color);">
-      <!-- Category Tabs -->
-      <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;" id="category-filter-tabs">
-        <button class="btn btn-primary btn-sm" onclick="ServicesApp.setCategory('all')">All Services</button>
-        <!-- Categories injected dynamically -->
+      <!-- Floating Search Box -->
+      <div style="max-width: 760px; margin: 0 auto;">
+        <div class="hero-search-card" style="border-radius: 20px; box-shadow: 0 12px 32px rgba(90, 70, 52, 0.08); padding: 0.85rem;">
+          <div class="hero-search-row">
+            <!-- Search Input -->
+            <div class="hero-search-input-wrap">
+              <i class="fas fa-search" style="color: #FF7A00; font-size: 1.2rem; margin-top: 2px;"></i>
+              <div style="flex: 1;">
+                <input type="text" id="cat-search-input" placeholder="Search service name (e.g. Plumber, Rent, Electrician)..." />
+              </div>
+            </div>
+
+            <!-- Location Selector Pill -->
+            <div class="hero-search-location-wrap">
+              <i class="fas fa-map-marker-alt" style="color: #FF7A00; font-size: 1.1rem;"></i>
+              <select id="cat-location-select">
+                <option value="piduguralla" selected>Piduguralla</option>
+                <option value="springfield">Springfield</option>
+                <option value="visakhapatnam">Visakhapatnam</option>
+                <option value="hyderabad">Hyderabad</option>
+                <option value="bangalore">Bangalore</option>
+              </select>
+            </div>
+          </div>
+        </div>
       </div>
 
-      <!-- Search & Sort -->
-      <div style="display: flex; gap: 1rem; align-items: center; flex: 1; justify-content: flex-end; min-width: 280px;">
-        <input type="text" id="service-search-input" class="form-control" placeholder="Search service name..." style="max-width: 260px;" />
-        <select id="service-sort-select" class="form-control" style="max-width: 180px;" onchange="ServicesApp.handleSortChange()">
-          <option value="name">Sort by Name</option>
-          <option value="price_asc">Price: Low to High</option>
-          <option value="price_desc">Price: High to Low</option>
-        </select>
+      <!-- Quick Jump Category Tabs -->
+      <div class="cat-quick-tabs" id="cat-quick-tabs-container">
+        <!-- Injected dynamically by ServicesApp -->
       </div>
     </div>
+  </section>
 
-    <!-- Services Grid -->
-    <div class="services-grid" id="services-catalog-grid">
-      <div class="skeleton" style="height: 320px;"></div>
-      <div class="skeleton" style="height: 320px;"></div>
-      <div class="skeleton" style="height: 320px;"></div>
-      <div class="skeleton" style="height: 320px;"></div>
+  <!-- Main Category Section Containers Wrapper -->
+  <main id="cat-sections-wrapper">
+    <!-- Category blocks injected dynamically by ServicesApp -->
+    <div class="container" style="padding: 4rem 0;">
+      <div class="skeleton" style="height: 300px; border-radius: 20px; margin-bottom: 2rem;"></div>
+      <div class="skeleton" style="height: 300px; border-radius: 20px; margin-bottom: 2rem;"></div>
+      <div class="skeleton" style="height: 300px; border-radius: 20px;"></div>
     </div>
   </main>
 
-  <!-- Provider Selection Modal -->
-  <div class="modal-overlay" id="providerSelectModal">
-    <div class="modal-content">
+  <!-- Post Requirement Modal -->
+  <div class="modal-overlay" id="requirementModal">
+    <div class="modal-content" style="border-radius: 20px;">
       <div class="modal-header">
-        <h3 id="modal-service-title">Select Service Provider</h3>
-        <button class="modal-close" onclick="Modal.close('providerSelectModal')">&times;</button>
+        <h3><i class="fas fa-sparkles" style="color: #FF7A00;"></i> Post your Requirement</h3>
+        <button class="modal-close" onclick="Modal.close('requirementModal')">&times;</button>
       </div>
-      <p style="color: var(--text-muted); margin-bottom: 1.5rem;">Choose a verified provider for this service or proceed with auto-match.</p>
-      <div id="modal-provider-list" style="display: flex; flex-direction: column; gap: 1rem;">
-        <!-- Provider items injected dynamically -->
-      </div>
+      <p style="color: #64748B; font-size: 0.9rem; margin-bottom: 1.5rem;">Fill out what service you need. Local providers will receive your request directly!</p>
+
+      <form onsubmit="Landing.submitRequirement(event)">
+        <div class="form-group">
+          <label>Your Full Name</label>
+          <input type="text" id="req-name" class="form-control" placeholder="e.g. Ramesh Kumar" required />
+        </div>
+
+        <div class="form-group">
+          <label>Phone / WhatsApp Number</label>
+          <input type="tel" id="req-phone" class="form-control" placeholder="e.g. 9876543210" required />
+        </div>
+
+        <div class="form-group">
+          <label>Select Category</label>
+          <select id="req-category" class="form-control">
+            <option value="Home Services">Home Services (Plumber, Electrician, AC)</option>
+            <option value="Property">Property Sell / Rent</option>
+            <option value="Events & Celebrations">Events & Celebrations</option>
+            <option value="Education">Education & Training</option>
+            <option value="Health">Health & Wellness</option>
+            <option value="Automobile">Automobile Repair</option>
+            <option value="Professional Services">Professional Services</option>
+            <option value="Daily Help & Labour">Daily Help & Labour</option>
+            <option value="Food & Catering">Food & Catering</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label>City / Location</label>
+          <input type="text" id="req-city" class="form-control" placeholder="e.g. Piduguralla" value="Piduguralla" required />
+        </div>
+
+        <div class="form-group">
+          <label>Describe your Requirement</label>
+          <textarea id="req-details" class="form-control" rows="3" placeholder="Explain your issue or service needed..." required></textarea>
+        </div>
+
+        <button type="submit" class="btn-view-all-orange" style="width: 100%; margin-top: 1rem; border-radius: 12px;">Submit Requirement <i class="fas fa-paper-plane"></i></button>
+      </form>
     </div>
   </div>
 
   <!-- Footer -->
-  <footer>
-    <div class="footer-bottom container">
-      &copy; 2026 Local Hands Inc. All rights reserved.
+  <footer style="background: #5A4634; color: #ffffff; padding: 4.5rem 0 2rem 0; margin-top: 0;">
+    <div class="container footer-grid">
+      <div class="footer-brand">
+        <div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1rem;">
+          <span style="display: inline-flex; align-items: center; justify-content: center; width: 36px; height: 36px; border-radius: 10px; background: #FF7A00; color: #fff;">
+            <i class="fas fa-map-marker-alt"></i>
+          </span>
+          <span style="font-family: 'Plus Jakarta Sans'; font-weight: 800; font-size: 1.4rem; color: #ffffff;">Local <span style="color: #FF7A00;">Hands</span></span>
+        </div>
+        <p style="color: #F4E7D3; line-height: 1.6;">India's trusted marketplace for finding verified local service providers. Direct deals with zero commission.</p>
+      </div>
+
+      <div class="footer-col">
+        <h4 style="color: #FF7A00; margin-bottom: 1rem;">Popular Categories</h4>
+        <ul style="list-style: none; display: flex; flex-direction: column; gap: 0.6rem;">
+          <li><a href="Allservices.html?category=property" style="color: #F4E7D3; text-decoration: none;">Property Sell / Rent</a></li>
+          <li><a href="Allservices.html?category=home-services" style="color: #F4E7D3; text-decoration: none;">Home Services</a></li>
+          <li><a href="Allservices.html?category=events" style="color: #F4E7D3; text-decoration: none;">Events & Celebrations</a></li>
+          <li><a href="Allservices.html?category=education" style="color: #F4E7D3; text-decoration: none;">Education & Tutors</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4 style="color: #FF7A00; margin-bottom: 1rem;">Top Cities</h4>
+        <ul style="list-style: none; display: flex; flex-direction: column; gap: 0.6rem;">
+          <li><a href="#" style="color: #F4E7D3; text-decoration: none;">Piduguralla</a></li>
+          <li><a href="#" style="color: #F4E7D3; text-decoration: none;">Springfield</a></li>
+          <li><a href="#" style="color: #F4E7D3; text-decoration: none;">Visakhapatnam</a></li>
+          <li><a href="#" style="color: #F4E7D3; text-decoration: none;">Hyderabad</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4 style="color: #FF7A00; margin-bottom: 1rem;">Quick Links</h4>
+        <ul style="list-style: none; display: flex; flex-direction: column; gap: 0.6rem;">
+          <li><a href="index.html" style="color: #F4E7D3; text-decoration: none;">Home</a></li>
+          <li><a href="login.html?role=provider" style="color: #F4E7D3; text-decoration: none;">Become a Provider</a></li>
+          <li><a href="maps.html" style="color: #F4E7D3; text-decoration: none;">Provider Map</a></li>
+          <li><a href="customer-dashboard.html" style="color: #F4E7D3; text-decoration: none;">Booking Status</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer-bottom container" style="border-top: 1px solid rgba(244, 231, 211, 0.2); margin-top: 3rem; padding-top: 2rem; color: #F4E7D3;">
+      &copy; 2026 Local Hands. All rights reserved. No Broker • No Commission • Direct Deal.
     </div>
   </footer>
 
@@ -85,6 +189,8 @@
   <script src="js/modal.js"></script>
   <script src="js/api.js"></script>
   <script src="js/auth.js"></script>
+  <script src="js/landing.js"></script>
   <script src="js/services.js"></script>
+  <script src="js/animations.js"></script>
 </body>
 </html>

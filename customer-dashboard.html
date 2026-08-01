@@ -3,115 +3,236 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Customer Portal - Local Hands</title>
+  <title>Customer Dashboard | Local Hands</title>
   <link rel="stylesheet" href="myStyle.css" />
+  <link rel="stylesheet" href="css/animations.css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet" />
+
+  <style>
+    body {
+      background-color: #F9F6F2;
+    }
+    .cust-dash-layout {
+      display: grid;
+      grid-template-columns: 360px 1fr;
+      gap: 2rem;
+      align-items: start;
+    }
+    @media (max-width: 900px) {
+      .cust-dash-layout {
+        grid-template-columns: 1fr;
+      }
+    }
+    .cust-card {
+      background: #FFFFFF;
+      border-radius: 20px;
+      border: 1px solid #E2E8F0;
+      padding: 1.75rem;
+      box-shadow: 0 4px 20px rgba(90, 70, 52, 0.04);
+      margin-bottom: 1.5rem;
+    }
+    .cust-avatar-preview {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 3px solid #F4E7D3;
+    }
+  </style>
 </head>
 <body>
 
-  <!-- Navigation Header -->
-  <header class="navbar">
+  <!-- Navigation Bar -->
+  <header class="navbar" style="position: sticky; top: 0; z-index: 1000; background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(10px); box-shadow: 0 4px 20px rgba(90, 70, 52, 0.06);">
     <a href="index.html" class="nav-brand">
-      <img src="assets/localhandsicon.jpg" alt="Logo" style="border-radius: 8px;" />
-      <span>Local <em style="color: var(--primary); font-style: normal;">Hands</em></span>
+      <span style="display: inline-flex; align-items: center; justify-content: center; width: 36px; height: 36px; border-radius: 10px; background: #FF7A00; color: #fff;">
+        <i class="fas fa-map-marker-alt"></i>
+      </span>
+      <span>Local<em style="color: #FF7A00; font-style: normal;">Hands</em><small style="font-size: 0.75rem; color: #64748b; font-weight: 500;">.in</small></span>
     </a>
-    <ul class="nav-links">
-      <li><a href="index.html">Home</a></li>
-      <li><a href="Allservices.html">All Services</a></li>
-      <li><a href="customer-dashboard.html" class="active">Booking Status</a></li>
-    </ul>
-    <div class="nav-actions" id="nav-actions-container"></div>
+
+    <nav class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="Allservices.html">Categories</a>
+      <a href="maps.html">Find Providers</a>
+      <a href="customer-dashboard.html" class="active">Booking Status</a>
+    </nav>
+
+    <div class="nav-actions">
+      <!-- Container for Auth state (Login / Register / Profile) -->
+      <div id="nav-actions-container"></div>
+    </div>
   </header>
 
-  <main class="container section-padding">
-    <div style="margin-bottom: 2rem;">
-      <h1 class="section-title" style="text-align: left;">CUSTOMER <span class="text-gradient">DASHBOARD</span></h1>
-      <p style="color: var(--text-muted);">Manage your active service bookings, history, reviews, and saved addresses.</p>
-    </div>
-
-    <!-- Dashboard Tabs -->
-    <div style="display: flex; gap: 1rem; border-bottom: 1px solid var(--border-color); margin-bottom: 2rem;">
-      <button class="btn btn-primary btn-sm" id="tab-btn-bookings" onclick="CustomerDash.switchTab('bookings')">My Bookings</button>
-      <button class="btn btn-secondary btn-sm" id="tab-btn-addresses" onclick="CustomerDash.switchTab('addresses')">Saved Addresses</button>
-      <button class="btn btn-secondary btn-sm" id="tab-btn-profile" onclick="CustomerDash.switchTab('profile')">Profile Settings</button>
-    </div>
-
-    <!-- Bookings Tab Content -->
-    <div id="tab-content-bookings">
-      <div id="customer-bookings-list" style="display: flex; flex-direction: column; gap: 1.5rem;">
-        <div class="skeleton" style="height: 120px;"></div>
-        <div class="skeleton" style="height: 120px;"></div>
+  <main class="container" style="padding-top: 3rem; padding-bottom: 5rem;">
+    <!-- Dashboard Top Welcome Header -->
+    <div style="display: flex; justify-content: space-between; align-items: flex-end; flex-wrap: wrap; gap: 1rem; margin-bottom: 2rem;">
+      <div>
+        <span style="font-size: 0.78rem; font-weight: 800; color: #FF7A00; letter-spacing: 1px; text-transform: uppercase;">MY ACCOUNT</span>
+        <h1 style="font-family: 'Plus Jakarta Sans', sans-serif; font-size: 2.4rem; font-weight: 800; color: #5A4634; margin: 0.25rem 0;" id="cust-welcome-name">
+          Welcome, User
+        </h1>
+        <p style="color: #64748B; font-size: 1rem; margin: 0;">Manage your profile, saved providers, addresses, and past bookings.</p>
       </div>
+      <button class="btn-view-all-orange" style="margin-top: 0; padding: 0.7rem 1.6rem; font-size: 0.9rem; border-radius: 9999px; box-shadow: 0 6px 18px rgba(255, 122, 0, 0.25);" onclick="CustomerDash.scrollToBookings()">
+        <i class="fas fa-history"></i> My Bookings
+      </button>
     </div>
 
-    <!-- Addresses Tab Content -->
-    <div id="tab-content-addresses" style="display: none;">
-      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
-        <h3 style="font-size: 1.2rem; color: var(--secondary);">Your Saved Delivery Addresses</h3>
-        <button class="btn btn-primary btn-sm" onclick="Modal.open('addAddressModal')">+ Add New Address</button>
-      </div>
-      <div id="customer-address-grid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1.5rem;">
-        <!-- Injected dynamically -->
-      </div>
-    </div>
+    <!-- 2-Column Split Layout -->
+    <div class="cust-dash-layout">
 
-    <!-- Profile Tab Content -->
-    <div id="tab-content-profile" style="display: none; max-width: 600px;">
-      <div class="card">
-        <h3 style="font-size: 1.2rem; margin-bottom: 1.5rem; color: var(--secondary);">Edit Profile Context</h3>
-        <form onsubmit="CustomerDash.saveProfile(event)">
-          <div class="form-group">
-            <label>Full Name</label>
-            <input type="text" id="cust-profile-name" class="form-control" required />
+      <!-- LEFT SIDE: Profile & Account Settings Details -->
+      <div>
+        <!-- Profile Settings Card -->
+        <div class="cust-card">
+          <div style="display: flex; align-items: center; gap: 0.85rem; margin-bottom: 1.5rem;">
+            <div style="width: 42px; height: 42px; border-radius: 12px; background: #FFF7ED; color: #FF7A00; display: flex; align-items: center; justify-content: center; font-size: 1.1rem;">
+              <i class="fas fa-user"></i>
+            </div>
+            <div>
+              <h3 style="font-family: 'Plus Jakarta Sans', sans-serif; font-size: 1.15rem; font-weight: 800; color: #5A4634; margin: 0;">Profile</h3>
+              <p style="font-size: 0.82rem; color: #64748B; margin: 0;" id="cust-card-email">user@gmail.com</p>
+            </div>
           </div>
-          <div class="form-group">
-            <label>Email Address</label>
-            <input type="email" id="cust-profile-email" class="form-control" disabled />
+
+          <!-- Profile Photo Upload -->
+          <div style="display: flex; align-items: center; gap: 1.25rem; margin-bottom: 1.5rem;">
+            <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=200" id="cust-avatar-img" class="cust-avatar-preview" alt="Profile" />
+            <div>
+              <div style="font-size: 0.82rem; font-weight: 700; color: #5A4634;">Profile picture</div>
+              <div style="font-size: 0.75rem; color: #94A3B8; margin-bottom: 0.5rem;">PNG or JPG, up to 5 MB</div>
+              <button class="btn btn-outline btn-sm" style="padding: 0.35rem 0.85rem; font-size: 0.78rem; border-radius: 8px; border-color: #E2E8F0; color: #5A4634;" onclick="CustomerDash.triggerPhotoUpload()">
+                <i class="fas fa-camera" style="color: #FF7A00;"></i> Change photo
+              </button>
+            </div>
           </div>
-          <div class="form-group">
-            <label>Phone Number</label>
-            <input type="text" id="cust-profile-phone" class="form-control" />
+
+          <!-- Profile Form -->
+          <form onsubmit="CustomerDash.saveProfile(event)">
+            <div class="form-group" style="margin-bottom: 1.25rem;">
+              <label style="font-size: 0.84rem; font-weight: 700; color: #5A4634; margin-bottom: 0.4rem; display: block;">Full name</label>
+              <input type="text" id="cust-profile-name" class="form-control" style="border-radius: 12px; padding: 0.75rem 1rem;" placeholder="e.g. Shaik Thaheer" required />
+            </div>
+
+            <div class="form-group" style="margin-bottom: 1.5rem;">
+              <label style="font-size: 0.84rem; font-weight: 700; color: #5A4634; margin-bottom: 0.4rem; display: block;">Phone Number</label>
+              <input type="tel" id="cust-profile-phone" class="form-control" style="border-radius: 12px; padding: 0.75rem 1rem;" placeholder="e.g. +91 98765 43210" />
+            </div>
+
+            <button type="submit" class="btn-view-all-orange" style="width: 100%; margin-top: 0; padding: 0.8rem; border-radius: 12px; font-size: 0.95rem;">
+              Save profile
+            </button>
+          </form>
+
+          <!-- Roles Badge -->
+          <div style="margin-top: 1.5rem; padding-top: 1.25rem; border-top: 1px solid #F1F5F9;">
+            <span style="font-size: 0.8rem; font-weight: 700; color: #5A4634; display: block; margin-bottom: 0.5rem;">Your roles</span>
+            <span style="background: #FFF7ED; color: #FF7A00; border: 1px solid #F4E7D3; font-weight: 700; font-size: 0.78rem; padding: 0.35rem 0.85rem; border-radius: 9999px; display: inline-block;">
+              customer
+            </span>
           </div>
-          <button type="submit" class="btn btn-primary">Save Profile</button>
-        </form>
+        </div>
+      </div>
+
+      <!-- RIGHT SIDE: Provider Banner, Past Bookings & Saved Addresses -->
+      <div>
+
+        <!-- DIV 1: Provider Listing Promo Banner -->
+        <div style="background: #FFF7ED; border: 1px solid #F4E7D3; border-radius: 20px; padding: 1.75rem; margin-bottom: 1.75rem; display: flex; gap: 1.25rem; align-items: start;">
+          <div style="width: 48px; height: 48px; border-radius: 14px; background: #FF7A00; color: #ffffff; display: flex; align-items: center; justify-content: center; font-size: 1.25rem; flex-shrink: 0;">
+            <i class="fas fa-briefcase"></i>
+          </div>
+          <div>
+            <h3 style="font-family: 'Plus Jakarta Sans', sans-serif; font-size: 1.15rem; font-weight: 800; color: #5A4634; margin-bottom: 0.35rem;">
+              Offer your services on LocalHands.in
+            </h3>
+            <p style="font-size: 0.88rem; color: #64748B; line-height: 1.55; margin-bottom: 1.25rem;">
+              Are you an electrician, lawyer, tutor, or renting out property? List your business free and start getting customer enquiries. Zero commission.
+            </p>
+            <a href="login.html?role=provider" class="btn-view-all-orange" style="margin-top: 0; padding: 0.65rem 1.4rem; font-size: 0.88rem; text-decoration: none; display: inline-block;">
+              Become a service provider
+            </a>
+          </div>
+        </div>
+
+        <!-- DIV 2: Past & Active Bookings -->
+        <div class="cust-card" id="section-my-bookings">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
+            <h3 style="font-family: 'Plus Jakarta Sans', sans-serif; font-size: 1.2rem; font-weight: 800; color: #5A4634;">
+              <i class="fas fa-history" style="color: #FF7A00;"></i> Past & Active Bookings
+            </h3>
+            <a href="Allservices.html" class="btn-view-all-orange" style="margin-top: 0; padding: 0.45rem 1rem; font-size: 0.82rem;">
+              + Book New Service
+            </a>
+          </div>
+
+          <div id="customer-bookings-list" style="display: flex; flex-direction: column; gap: 1.25rem;">
+            <div class="skeleton" style="height: 110px; border-radius: 16px;"></div>
+            <div class="skeleton" style="height: 110px; border-radius: 16px;"></div>
+          </div>
+        </div>
+
+        <!-- DIV 3: Saved Delivery Addresses -->
+        <div class="cust-card">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
+            <h3 style="font-family: 'Plus Jakarta Sans', sans-serif; font-size: 1.2rem; font-weight: 800; color: #5A4634;">
+              Saved Delivery Addresses
+            </h3>
+            <button class="btn btn-outline btn-sm" style="border-radius: 10px; font-weight: 700; color: #FF7A00; border-color: #F4E7D3;" onclick="Modal.open('addAddressModal')">
+              + Add Address
+            </button>
+          </div>
+
+          <div id="customer-address-grid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 1.25rem;">
+            <!-- Injected dynamically by js/customer.js -->
+          </div>
+        </div>
+
       </div>
     </div>
   </main>
 
   <!-- Add Address Modal -->
   <div class="modal-overlay" id="addAddressModal">
-    <div class="modal-content">
+    <div class="modal-content" style="border-radius: 20px;">
       <div class="modal-header">
-        <h3 style="color: var(--secondary);">Add Address</h3>
+        <h3 style="font-family: 'Plus Jakarta Sans'; color: #5A4634;">Add Saved Address</h3>
         <button class="modal-close" onclick="Modal.close('addAddressModal')">&times;</button>
       </div>
       <form onsubmit="CustomerDash.handleAddAddress(event)">
         <div class="form-group">
-          <label>Title</label>
-          <input type="text" id="cust-addr-title" class="form-control" placeholder="Home / Office" required />
+          <label>Address Label (e.g. Home, Office)</label>
+          <input type="text" id="cust-addr-title" class="form-control" style="border-radius: 10px;" placeholder="Home / Office" required />
         </div>
         <div class="form-group">
-          <label>Street</label>
-          <input type="text" id="cust-addr-street" class="form-control" required />
+          <label>Street Address & House No.</label>
+          <input type="text" id="cust-addr-street" class="form-control" style="border-radius: 10px;" placeholder="e.g. Flat 302, Main Road" required />
         </div>
         <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
           <div class="form-group">
             <label>City</label>
-            <input type="text" id="cust-addr-city" class="form-control" required />
+            <input type="text" id="cust-addr-city" class="form-control" style="border-radius: 10px;" value="Piduguralla" required />
           </div>
           <div class="form-group">
             <label>State</label>
-            <input type="text" id="cust-addr-state" class="form-control" required />
+            <input type="text" id="cust-addr-state" class="form-control" style="border-radius: 10px;" value="AP" required />
           </div>
         </div>
         <div class="form-group">
-          <label>Zip</label>
-          <input type="text" id="cust-addr-zip" class="form-control" required />
+          <label>Zip Code</label>
+          <input type="text" id="cust-addr-zip" class="form-control" style="border-radius: 10px;" value="522413" required />
         </div>
-        <button type="submit" class="btn btn-primary" style="width: 100%;">Save Address</button>
+        <button type="submit" class="btn-view-all-orange" style="width: 100%; margin-top: 1rem; border-radius: 12px;">Save Address <i class="fas fa-check"></i></button>
       </form>
     </div>
   </div>
+
+  <!-- Hidden Photo Input -->
+  <input type="file" id="cust-photo-file" style="display: none;" accept="image/*" onchange="CustomerDash.handlePhotoSelected(event)" />
 
   <!-- Scripts -->
   <script src="js/toast.js"></script>
@@ -119,5 +240,6 @@
   <script src="js/api.js"></script>
   <script src="js/auth.js"></script>
   <script src="js/customer.js"></script>
+  <script src="js/animations.js"></script>
 </body>
 </html>

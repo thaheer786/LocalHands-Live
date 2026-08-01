@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Service Details | Local Hands</title>
+  <link rel="stylesheet" href="myStyle.css" />
+  <link rel="stylesheet" href="css/animations.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet" />
+</head>
+<body>
+
+  <!-- Navigation Bar -->
+  <header class="navbar" style="position: sticky; top: 0; z-index: 1000; background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(10px); box-shadow: 0 4px 20px rgba(90, 70, 52, 0.06);">
+    <a href="index.html" class="nav-brand">
+      <span style="display: inline-flex; align-items: center; justify-content: center; width: 36px; height: 36px; border-radius: 10px; background: #FF7A00; color: #fff;">
+        <i class="fas fa-map-marker-alt"></i>
+      </span>
+      <span>Local<em style="color: #FF7A00; font-style: normal;">Hands</em><small style="font-size: 0.75rem; color: #64748b; font-weight: 500;">.in</small></span>
+    </a>
+
+    <nav class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="Allservices.html">Categories</a>
+      <a href="maps.html">Find Providers</a>
+      <a href="customer-dashboard.html">Booking Status</a>
+    </nav>
+
+    <div class="nav-actions">
+      <!-- Container for Auth state (Login / Register / Profile) -->
+      <div id="nav-actions-container"></div>
+    </div>
+  </header>
+
+  <!-- 1. HERO BANNER SECTION -->
+  <section class="sd-hero-section" id="sd-hero-bg">
+    <div class="sd-hero-overlay"></div>
+    <div class="container sd-hero-content">
+      <!-- Breadcrumb Navigation -->
+      <div class="sd-breadcrumb">
+        <a href="index.html"><i class="fas fa-home"></i> Home</a>
+        <i class="fas fa-chevron-right" style="font-size: 0.75rem;"></i>
+        <a href="Allservices.html">Categories</a>
+        <i class="fas fa-chevron-right" style="font-size: 0.75rem;"></i>
+        <span id="sd-bc-category" style="color: #FF7A00; font-weight: 600;">Home Services</span>
+        <i class="fas fa-chevron-right" style="font-size: 0.75rem;"></i>
+        <span id="sd-bc-service" style="color: #ffffff; font-weight: 700;">Electricians</span>
+      </div>
+
+      <!-- Service Title & Subtitle -->
+      <h1 class="sd-hero-title" id="sd-title">Electricians & Home Electrical Repairs</h1>
+      <p class="sd-hero-subtitle" id="sd-subtitle">Certified local electricians for house wiring, switchboards, fan installation, lighting, and 24/7 short-circuit emergency fixes.</p>
+
+      <!-- Meta Pill Row -->
+      <div class="sd-hero-meta-row">
+        <span class="sd-meta-badge"><i class="fas fa-user-check"></i> <span id="sd-pros-badge">95+ Verified Professionals</span></span>
+        <span class="sd-meta-badge" style="background: rgba(34, 197, 94, 0.2); border-color: #22C55E;"><i class="fas fa-shield-alt"></i> 100% Satisfaction Guaranteed</span>
+        <span class="sd-meta-badge" style="background: rgba(244, 231, 211, 0.2); border-color: #F4E7D3;"><i class="fas fa-tag"></i> Starting from ₹399</span>
+      </div>
+
+      <!-- Hero CTAs -->
+      <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
+        <button class="btn-view-all-orange" style="margin-top: 0; padding: 0.85rem 2.2rem;" onclick="Modal.open('requirementModal')">
+          <i class="fas fa-bolt"></i> Book Now
+        </button>
+        <button class="btn" style="background: rgba(255, 255, 255, 0.15); backdrop-filter: blur(8px); color: #ffffff; border: 1.5px solid #ffffff; padding: 0.85rem 2rem; border-radius: 9999px; font-weight: 700;" onclick="Modal.open('requirementModal')">
+          <i class="fas fa-edit"></i> Post Your Requirement
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2. ABOUT THE SERVICE SECTION -->
+  <section class="sd-about-section">
+    <div class="container">
+      <div class="sd-about-grid">
+        <div>
+          <span class="pill-badge-orange" style="background: #FFF7ED; color: #FF7A00; border: 1px solid #F4E7D3; margin-bottom: 1rem; display: inline-block;">
+            Premium Service Experience
+          </span>
+          <h2 class="premium-categories-title" style="text-align: left; margin-bottom: 1rem;">
+            About <span id="sd-about-title-highlight">Electrician Services</span>
+          </h2>
+          <p style="color: #64748B; line-height: 1.7; font-size: 0.98rem; margin-bottom: 2rem;" id="sd-about-desc">
+            Local Hands connects you with background-verified, licensed experts who diagnose electrical problems swiftly. Whether you need complete house rewiring, smart home fitting installation, appliance connection, or urgent fuse box repairs, our pros ensure 100% safety standards and upfront fixed quotes.
+          </p>
+
+          <!-- Key Benefit Feature Boxes -->
+          <div class="sd-feature-box">
+            <div class="sd-feature-icon"><i class="fas fa-user-shield"></i></div>
+            <div>
+              <h4 class="sd-feature-title">Government ID & Background Verified</h4>
+              <p class="sd-feature-desc">Every provider undergoes mandatory identity verification and skill checks before listing.</p>
+            </div>
+          </div>
+
+          <div class="sd-feature-box">
+            <div class="sd-feature-icon"><i class="fas fa-receipt"></i></div>
+            <div>
+              <h4 class="sd-feature-title">Transparent Pricing with No Middleman</h4>
+              <p class="sd-feature-desc">Direct communication and quotes upfront. Pay the provider directly with zero broker commissions.</p>
+            </div>
+          </div>
+
+          <div class="sd-feature-box">
+            <div class="sd-feature-icon"><i class="fas fa-clock-rotate-left"></i></div>
+            <div>
+              <h4 class="sd-feature-title">Fast 30-Minute Dispatch</h4>
+              <p class="sd-feature-desc">Get matched with top rated local experts near your location for rapid response.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- About Right Image Showcase -->
+        <div style="position: relative;">
+          <img id="sd-about-img" src="https://images.unsplash.com/photo-1621905252507-b35492cc74b4?auto=format&fit=crop&q=80&w=600" alt="Service Professional" style="width: 100%; height: 420px; object-fit: cover; border-radius: 24px; box-shadow: 0 20px 40px rgba(90, 70, 52, 0.12);" />
+          <div style="position: absolute; bottom: -20px; left: -20px; background: #5A4634; color: #ffffff; padding: 1.25rem 1.75rem; border-radius: 20px; box-shadow: 0 12px 28px rgba(0,0,0,0.15); display: flex; align-items: center; gap: 1rem;">
+            <i class="fas fa-star" style="color: #FF7A00; font-size: 2rem;"></i>
+            <div>
+              <div style="font-weight: 800; font-size: 1.3rem; color: #ffffff;">4.9 / 5.0</div>
+              <div style="font-size: 0.82rem; color: #F4E7D3;">Over 1,200+ Verified Reviews</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3. AVAILABLE SERVICE PROVIDERS & FILTERS -->
+  <section class="sd-providers-section">
+    <div class="container">
+      <div class="premium-categories-header">
+        <h2 class="premium-categories-title">Available Verified <span>Providers</span></h2>
+        <p class="premium-categories-subtitle">Browse profiles, ratings, completed jobs, and book directly with top local pros.</p>
+      </div>
+
+      <!-- 4. SEARCH & FILTER BAR -->
+      <div class="sd-filter-bar">
+        <!-- Search Input -->
+        <div class="sd-search-box">
+          <i class="fas fa-search" style="color: #FF7A00;"></i>
+          <input type="text" id="sd-pro-search" placeholder="Search provider name or skill..." oninput="ServiceDetail.filterProviders()" />
+        </div>
+
+        <!-- Filter Select Dropdowns -->
+        <div class="sd-filter-selects">
+          <select id="sd-filter-rating" class="sd-select-control" onchange="ServiceDetail.filterProviders()">
+            <option value="all">Rating: All Stars</option>
+            <option value="4.8">4.8+ Top Rated</option>
+            <option value="4.5">4.5+ Highly Rated</option>
+          </select>
+
+          <select id="sd-filter-exp" class="sd-select-control" onchange="ServiceDetail.filterProviders()">
+            <option value="all">Experience: Any</option>
+            <option value="5">5+ Years Exp</option>
+            <option value="8">8+ Years Exp</option>
+          </select>
+
+          <select id="sd-filter-avail" class="sd-select-control" onchange="ServiceDetail.filterProviders()">
+            <option value="all">Availability: All</option>
+            <option value="available">Available Now</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Provider Profile Grid Container -->
+      <div class="sd-providers-grid" id="sd-providers-grid-container">
+        <!-- Injected dynamically by service-detail.js -->
+        <div class="skeleton" style="height: 320px; border-radius: 20px;"></div>
+        <div class="skeleton" style="height: 320px; border-radius: 20px;"></div>
+        <div class="skeleton" style="height: 320px; border-radius: 20px;"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5. CUSTOMER REVIEWS SECTION -->
+  <section class="sd-reviews-section">
+    <div class="container">
+      <div class="premium-categories-header">
+        <h2 class="premium-categories-title">Customer <span>Reviews</span></h2>
+        <p class="premium-categories-subtitle">Real experiences from homeowners who booked this service on Local Hands.</p>
+      </div>
+
+      <div class="testimonials-grid" id="sd-reviews-grid">
+        <!-- Review cards injected dynamically -->
+      </div>
+    </div>
+  </section>
+
+  <!-- 6. WHY CHOOSE LOCAL HANDS SECTION -->
+  <section class="why-section">
+    <div class="container">
+      <div class="premium-categories-header">
+        <h2 class="premium-categories-title">Why Choose <span>Local Hands</span></h2>
+        <p class="premium-categories-subtitle">Built for reliability, speed, and 100% transparent direct bookings.</p>
+      </div>
+
+      <div class="why-grid">
+        <div class="why-card">
+          <div class="why-icon-wrap"><i class="fas fa-handshake"></i></div>
+          <h3 class="why-title">Zero Commission</h3>
+          <p class="why-desc">Direct deals between customers and local service pros. No middleman markup or hidden broker fees.</p>
+        </div>
+
+        <div class="why-card">
+          <div class="why-icon-wrap"><i class="fas fa-shield-alt"></i></div>
+          <h3 class="why-title">Verified Experts</h3>
+          <p class="why-desc">Every provider undergoes government ID & skill verification for complete safety and peace of mind.</p>
+        </div>
+
+        <div class="why-card">
+          <div class="why-icon-wrap"><i class="fas fa-bolt"></i></div>
+          <h3 class="why-title">Fast Booking</h3>
+          <p class="why-desc">Instant phone or WhatsApp direct contact with service pros ready to arrive in under 30 minutes.</p>
+        </div>
+
+        <div class="why-card">
+          <div class="why-icon-wrap"><i class="fas fa-tags"></i></div>
+          <h3 class="why-title">Transparent Rates</h3>
+          <p class="why-desc">Upfront, fixed quotes before work starts. Total price clarity with zero hidden surprises.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 7. RELATED SERVICES SECTION -->
+  <section class="sd-related-section">
+    <div class="container">
+      <div class="premium-categories-header">
+        <h2 class="premium-categories-title">Related <span>Services</span></h2>
+        <p class="premium-categories-subtitle">Explore complementary categories and home services in your area.</p>
+      </div>
+
+      <div class="premium-categories-grid" id="sd-related-grid">
+        <!-- Related category cards injected dynamically -->
+      </div>
+    </div>
+  </section>
+
+  <!-- 8. FREQUENTLY ASKED QUESTIONS (FAQ) -->
+  <section class="faq-section">
+    <div class="container">
+      <div class="premium-categories-header">
+        <h2 class="premium-categories-title">Frequently Asked <span>Questions</span></h2>
+        <p class="premium-categories-subtitle">Have questions? We have answers tailored for this service.</p>
+      </div>
+
+      <div class="faq-container" id="sd-faq-container">
+        <!-- FAQs injected dynamically -->
+      </div>
+    </div>
+  </section>
+
+  <!-- 9. FOOTER CTA BANNER -->
+  <section style="background: #5A4634; padding: 4rem 0; color: #ffffff; text-align: center;">
+    <div class="container">
+      <h2 style="font-family: 'Plus Jakarta Sans', sans-serif; font-size: 2.2rem; font-weight: 800; color: #ffffff; margin-bottom: 0.8rem;">
+        Can't find the right provider?
+      </h2>
+      <p style="color: #F4E7D3; font-size: 1.05rem; max-width: 600px; margin: 0 auto 2rem auto;">
+        Tell us what service you need and your preferred budget. We will notify top matched verified local pros in your area!
+      </p>
+      <button class="btn-view-all-orange" style="margin-top: 0; padding: 0.9rem 2.5rem; font-size: 1rem;" onclick="Modal.open('requirementModal')">
+        Post Your Requirement <i class="fas fa-arrow-right"></i>
+      </button>
+    </div>
+  </section>
+
+  <!-- Requirement Modal -->
+  <div class="modal-overlay" id="requirementModal">
+    <div class="modal-content" style="border-radius: 20px;">
+      <div class="modal-header">
+        <h3><i class="fas fa-sparkles" style="color: #FF7A00;"></i> Post your Requirement</h3>
+        <button class="modal-close" onclick="Modal.close('requirementModal')">&times;</button>
+      </div>
+      <p style="color: #64748B; font-size: 0.9rem; margin-bottom: 1.5rem;">Fill out what service you need. Local providers will receive your request directly!</p>
+
+      <form onsubmit="Landing.submitRequirement(event)">
+        <div class="form-group">
+          <label>Your Full Name</label>
+          <input type="text" id="req-name" class="form-control" placeholder="e.g. Ramesh Kumar" required />
+        </div>
+
+        <div class="form-group">
+          <label>Phone / WhatsApp Number</label>
+          <input type="tel" id="req-phone" class="form-control" placeholder="e.g. 9876543210" required />
+        </div>
+
+        <div class="form-group">
+          <label>City / Location</label>
+          <input type="text" id="req-city" class="form-control" placeholder="e.g. Piduguralla" value="Piduguralla" required />
+        </div>
+
+        <div class="form-group">
+          <label>Describe your Requirement</label>
+          <textarea id="req-details" class="form-control" rows="3" placeholder="Explain your issue or service needed..." required></textarea>
+        </div>
+
+        <button type="submit" class="btn-view-all-orange" style="width: 100%; margin-top: 1rem; border-radius: 12px;">Submit Requirement <i class="fas fa-paper-plane"></i></button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Direct Call Contact Modal -->
+  <div class="modal-overlay" id="contactModal">
+    <div class="modal-content" style="max-width: 400px; text-align: center; border-radius: 20px;">
+      <div class="modal-header">
+        <h3 id="contact-provider-name">Provider Contact</h3>
+        <button class="modal-close" onclick="Modal.close('contactModal')">&times;</button>
+      </div>
+      <div style="padding: 1rem 0;">
+        <i class="fas fa-phone-volume" style="font-size: 3rem; color: #FF7A00; margin-bottom: 1rem;"></i>
+        <p style="font-weight: 700; font-size: 1.2rem; color: #5A4634;" id="contact-phone-num">+91 98765 43210</p>
+        <p style="color: #64748B; font-size: 0.85rem; margin-top: 0.5rem;">No broker, no commission. Connect directly!</p>
+        <div style="display: flex; gap: 0.75rem; margin-top: 1.5rem;">
+          <a id="contact-call-btn" href="tel:+919876543210" class="btn btn-green" style="flex: 1; border-radius: 9999px;"><i class="fas fa-phone"></i> Call Now</a>
+          <a id="contact-wa-btn" href="https://wa.me/919876543210" target="_blank" class="btn-view-all-orange" style="flex: 1; margin-top: 0; padding: 0.7rem 1rem; font-size: 0.9rem;"><i class="fab fa-whatsapp"></i> WhatsApp</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Startup Footer -->
+  <footer style="background: #5A4634; color: #ffffff; padding: 4.5rem 0 2rem 0; margin-top: 0;">
+    <div class="container footer-grid">
+      <div class="footer-brand">
+        <div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1rem;">
+          <span style="display: inline-flex; align-items: center; justify-content: center; width: 36px; height: 36px; border-radius: 10px; background: #FF7A00; color: #fff;">
+            <i class="fas fa-map-marker-alt"></i>
+          </span>
+          <span style="font-family: 'Plus Jakarta Sans'; font-weight: 800; font-size: 1.4rem; color: #ffffff;">Local <span style="color: #FF7A00;">Hands</span></span>
+        </div>
+        <p style="color: #F4E7D3; line-height: 1.6;">India's trusted marketplace for finding verified local service providers. Direct deals with zero commission.</p>
+      </div>
+
+      <div class="footer-col">
+        <h4 style="color: #FF7A00; margin-bottom: 1rem;">Popular Categories</h4>
+        <ul style="list-style: none; display: flex; flex-direction: column; gap: 0.6rem;">
+          <li><a href="Allservices.html?category=property" style="color: #F4E7D3; text-decoration: none;">Property Sell / Rent</a></li>
+          <li><a href="Allservices.html?category=home-services" style="color: #F4E7D3; text-decoration: none;">Home Services</a></li>
+          <li><a href="Allservices.html?category=events" style="color: #F4E7D3; text-decoration: none;">Events & Celebrations</a></li>
+          <li><a href="Allservices.html?category=education" style="color: #F4E7D3; text-decoration: none;">Education & Tutors</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4 style="color: #FF7A00; margin-bottom: 1rem;">Top Cities</h4>
+        <ul style="list-style: none; display: flex; flex-direction: column; gap: 0.6rem;">
+          <li><a href="#" style="color: #F4E7D3; text-decoration: none;">Piduguralla</a></li>
+          <li><a href="#" style="color: #F4E7D3; text-decoration: none;">Springfield</a></li>
+          <li><a href="#" style="color: #F4E7D3; text-decoration: none;">Visakhapatnam</a></li>
+          <li><a href="#" style="color: #F4E7D3; text-decoration: none;">Hyderabad</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4 style="color: #FF7A00; margin-bottom: 1rem;">Quick Links</h4>
+        <ul style="list-style: none; display: flex; flex-direction: column; gap: 0.6rem;">
+          <li><a href="index.html" style="color: #F4E7D3; text-decoration: none;">Home</a></li>
+          <li><a href="login.html?role=provider" style="color: #F4E7D3; text-decoration: none;">Become a Provider</a></li>
+          <li><a href="maps.html" style="color: #F4E7D3; text-decoration: none;">Provider Map</a></li>
+          <li><a href="customer-dashboard.html" style="color: #F4E7D3; text-decoration: none;">Booking Status</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer-bottom container" style="border-top: 1px solid rgba(244, 231, 211, 0.2); margin-top: 3rem; padding-top: 2rem; color: #F4E7D3;">
+      &copy; 2026 Local Hands. All rights reserved. No Broker • No Commission • Direct Deal.
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="js/toast.js"></script>
+  <script src="js/modal.js"></script>
+  <script src="js/api.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/landing.js"></script>
+  <script src="js/service-detail.js"></script>
+  <script src="js/animations.js"></script>
+</body>
+</html>

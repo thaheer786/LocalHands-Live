@@ -4,7 +4,7 @@ const { queryAll, queryGet, executeRun } = require('../db/database');
 const { authenticateToken, requireRole } = require('../middleware/auth');
 
 router.get('/', (req, res) => {
-  const { availability, verified } = req.query;
+  const { availability, verified, city, category } = req.query;
   let sql = `
     SELECT p.*, u.name as name, u.email as email, u.avatar as avatar, u.phone as phone
     FROM providers p
@@ -16,6 +16,16 @@ router.get('/', (req, res) => {
   if (availability) {
     sql += ` AND p.availability = ?`;
     params.push(availability);
+  }
+
+  if (city && city !== 'all') {
+    sql += ` AND LOWER(p.city) LIKE ?`;
+    params.push(`%${city.toLowerCase()}%`);
+  }
+
+  if (category && category !== 'all') {
+    sql += ` AND p.category_slug = ?`;
+    params.push(category);
   }
 
   if (verified !== undefined) {

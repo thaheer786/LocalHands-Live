@@ -28,7 +28,21 @@ CREATE TABLE IF NOT EXISTS providers (
   is_verified INTEGER DEFAULT 0,
   availability TEXT CHECK(availability IN ('available', 'busy', 'offline')) DEFAULT 'available',
   completed_jobs INTEGER DEFAULT 0,
+  city TEXT DEFAULT 'Piduguralla',
+  category_slug TEXT DEFAULT 'home-services',
   FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+);
+
+CREATE TABLE IF NOT EXISTS requirements (
+  id TEXT PRIMARY KEY,
+  user_name TEXT NOT NULL,
+  phone TEXT NOT NULL,
+  city TEXT NOT NULL,
+  category TEXT NOT NULL,
+  details TEXT NOT NULL,
+  budget TEXT,
+  status TEXT DEFAULT 'open',
+  created_at DATETIME DEFAULT CURRENT_TIMESTAMP
 );
 
 CREATE TABLE IF NOT EXISTS categories (

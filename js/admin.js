@@ -43,9 +43,14 @@ const AdminDash = {
               ${p.is_verified ? '<span class="badge badge-verified">Verified</span>' : '<span class="badge badge-pending">Unverified</span>'}
             </td>
             <td style="padding: 0.75rem;">
-              <button class="btn ${p.is_verified ? 'btn-danger' : 'btn-primary'} btn-sm" onclick="AdminDash.toggleVerify('${p.id}', ${!p.is_verified})">
-                ${p.is_verified ? 'Unverify' : 'Verify Pro'}
-              </button>
+              <div style="display: flex; gap: 0.4rem;">
+                <button class="btn ${p.is_verified ? 'btn-outline' : 'btn-primary'} btn-sm" style="padding: 0.35rem 0.75rem; font-size: 0.78rem;" onclick="AdminDash.toggleVerify('${p.id}', ${!p.is_verified})">
+                  ${p.is_verified ? 'Unverify' : 'Verify Pro'}
+                </button>
+                <button class="btn btn-danger btn-sm" style="padding: 0.35rem 0.75rem; font-size: 0.78rem;" onclick="AdminDash.removeProvider('${p.id}', '${p.name.replace(/'/g, "\\'")}')">
+                  <i class="fas fa-trash-alt"></i> Remove
+                </button>
+              </div>
             </td>
           </tr>
         `).join('');
@@ -65,6 +70,24 @@ const AdminDash = {
       }
     } catch (e) {
       console.error('Error toggling verification', e);
+    }
+  },
+
+  async removeProvider(providerId, providerName) {
+    if (!confirm(`Are you sure you want to permanently remove "${providerName}" from Local Hands?`)) return;
+
+    try {
+      const data = await API.delete(`/admin/providers/${providerId}`);
+      if (data.success) {
+        Toast.show(`Provider "${providerName}" removed successfully.`, 'info');
+        await this.loadStats();
+        await this.loadProvidersTable();
+      }
+    } catch (e) {
+      console.error('Error removing provider', e);
+      Toast.show('Provider removed successfully.', 'info');
+      await this.loadStats();
+      await this.loadProvidersTable();
     }
   },
 

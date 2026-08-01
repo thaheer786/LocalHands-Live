@@ -8,7 +8,7 @@ router.use(authenticateToken);
 router.use(requireRole(['admin']));
 
 router.get('/stats', (req, res) => {
-  const totalUsers = queryGet('SELECT COUNT(*) as count FROM users WHERE role = "customer"').count;
+  const totalUsers = queryGet("SELECT COUNT(*) as count FROM users WHERE role = 'customer'").count;
   const totalProviders = queryGet('SELECT COUNT(*) as count FROM providers').count;
   const verifiedProviders = queryGet('SELECT COUNT(*) as count FROM providers WHERE is_verified = 1').count;
   const totalBookings = queryGet('SELECT COUNT(*) as count FROM bookings').count;
@@ -44,6 +44,12 @@ router.patch('/providers/:id/verify', (req, res) => {
 
   executeRun('UPDATE providers SET is_verified = ? WHERE id = ?', [is_verified ? 1 : 0, id]);
   res.json({ success: true, message: `Provider verification status set to ${is_verified ? 'Verified' : 'Unverified'}.` });
+});
+
+router.delete('/providers/:id', (req, res) => {
+  const { id } = req.params;
+  executeRun('DELETE FROM providers WHERE id = ?', [id]);
+  res.json({ success: true, message: 'Provider removed successfully from platform.' });
 });
 
 router.post('/categories', (req, res) => {

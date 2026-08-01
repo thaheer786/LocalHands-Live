@@ -3,197 +3,626 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Local Hands - On-Demand Local Home Services</title>
+  <title>Find Trusted Local Service Providers Near You | Local Hands</title>
   <link rel="stylesheet" href="myStyle.css" />
+  <link rel="stylesheet" href="css/animations.css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet" />
 </head>
 <body>
 
   <!-- Navigation Bar -->
-  <header class="navbar">
+  <header class="navbar" style="position: sticky; top: 0; z-index: 1000; background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(10px); box-shadow: 0 4px 20px rgba(90, 70, 52, 0.06);">
     <a href="index.html" class="nav-brand">
-      <img src="assets/logo2.jpg" alt="Local Hands Logo" />
-      <span>Local Hands</span>
+      <span style="display: inline-flex; align-items: center; justify-content: center; width: 36px; height: 36px; border-radius: 10px; background: #FF7A00; color: #fff;">
+        <i class="fas fa-map-marker-alt"></i>
+      </span>
+      <span>Local<em style="color: #FF7A00; font-style: normal;">Hands</em><small style="font-size: 0.75rem; color: #64748b; font-weight: 500;">.in</small></span>
     </a>
-    <ul class="nav-links">
-      <li><a href="index.html" class="active">Home</a></li>
-      <li><a href="Allservices.html">All Services</a></li>
-      <li><a href="maps.html">Find Providers</a></li>
-      <li><a href="customer-dashboard.html">My Bookings</a></li>
-    </ul>
-    <div class="nav-actions" id="nav-actions-container">
-      <!-- Injected dynamically by Auth.js -->
+
+    <nav class="nav-links">
+      <a href="index.html" class="active">Home</a>
+      <a href="Allservices.html">Categories</a>
+      <a href="maps.html">Find Providers</a>
+      <a href="customer-dashboard.html">Booking Status</a>
+    </nav>
+
+    <div class="nav-actions">
+      <!-- Container for Auth state (Login / Register / Profile) -->
+      <div id="nav-actions-container"></div>
     </div>
   </header>
 
-  <!-- Hero Section -->
-  <section class="hero-section">
-    <div class="container" style="display: flex; flex-direction: column; align-items: center;">
-      <span class="badge badge-verified" style="margin-bottom: 1.5rem; padding: 0.4rem 1rem;">
-        <i class="fas fa-shield-alt"></i> Verified Local Service Experts
-      </span>
-      <h1 class="hero-title">Your Trusted Link to <span class="text-gradient">Local Experts</span></h1>
-      <p class="hero-description">
-        Instantly book top-rated plumbers, electricians, maids, carpenters, and AC technicians in your area with upfront pricing and guaranteed quality.
-      </p>
-
-      <!-- Interactive Search -->
-      <div class="search-box">
-        <i class="fas fa-search" style="color: var(--text-muted); font-size: 1.2rem; margin-right: 0.75rem;"></i>
-        <input type="text" id="hero-search-input" placeholder="Search 'AC Repair', 'Plumber', 'Wiring'..." />
-        <button class="btn btn-primary" onclick="Landing.handleSearch()">Explore Services</button>
-      </div>
+  <!-- SECTION 1: Hero Section -->
+  <section class="hero-section-ref" style="background: linear-gradient(180deg, #F9F6F2 0%, #FFF7ED 50%, #FFFFFF 100%); padding-top: 3.5rem;">
+    <!-- Cityscape Skyline Background Graphic -->
+    <div aria-hidden="true" class="hero-cityscape-bg">
+      <svg viewBox="0 0 1440 560" preserveAspectRatio="none" style="width: 100%; height: 100%; fill: #FF7A00;">
+        <path d="M0 560V472h72v-28h34v28h66V405h18v-22h16v-18h18v18h16v22h18v67h48V352h28v-34h22v34h30v120h52V414h18v-40h52v40h18v58h50V302h20v-31h20v-42h20v42h20v31h20v170h48V382h20v-26h70v26h20v90h48V328h22v-38h18v-28h16v-34h14v34h16v28h18v38h22v144h48V398h22v-46h64v46h22v74h42V338h28v-36h52v36h28v134h44v-90h24v-28h44v28h24v90h62v88H0Z"></path>
+        <g opacity="0.52"><path d="M118 472v-92h46v92M270 472V338h82v134M448 472v-74h72v74M620 472V286h80v186M792 472V370h86v102M1014 472V316h86v156M1192 472V368h78v104" fill="none" stroke="currentColor" stroke-width="6"></path></g>
+      </svg>
     </div>
-  </section>
 
-  <!-- Categories Section -->
-  <section class="section-padding container">
-    <h2 class="section-title">Popular <span class="text-gradient">Service Categories</span></h2>
-    <p class="section-subtitle">Choose from our wide range of professional, verified home maintenance and repair services.</p>
-    
-    <div class="categories-grid" id="landing-categories">
-      <!-- Populated dynamically -->
-      <div class="skeleton" style="height: 140px;"></div>
-      <div class="skeleton" style="height: 140px;"></div>
-      <div class="skeleton" style="height: 140px;"></div>
-      <div class="skeleton" style="height: 140px;"></div>
-    </div>
-  </section>
-
-  <!-- Featured Services Section -->
-  <section class="section-padding container">
-    <div style="display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 2rem;">
+    <div class="container hero-ref-grid">
       <div>
-        <h2 class="section-title" style="text-align: left;">Top Recommended <span class="text-gradient">Services</span></h2>
-        <p class="section-subtitle" style="text-align: left; margin: 0;">Upfront pricing with zero hidden fees. Satisfaction guaranteed.</p>
+        <h1 class="hero-ref-title" style="color: #5A4634;">
+          Find Trusted<br />
+          <span style="color: #FF7A00; display: block;">Local Service Providers</span>
+          Near You
+        </h1>
+
+        <div style="margin: 1rem 0 1.25rem 0;">
+          <span class="pill-badge-orange" style="background: #FF7A00;">No Broker. No Commission. Direct Deal.</span>
+        </div>
+
+        <p class="hero-ref-desc">
+          Property dealers, home services, trainers, doctors, mechanics, lawyers, labour workers, food services and more — all in one place.
+        </p>
+
+        <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
+          <button class="btn-view-all-orange" style="margin-top: 0;" onclick="Modal.open('requirementModal')">
+            <i class="fas fa-sparkles"></i> Book a Service
+          </button>
+          <a href="login.html?role=provider" class="btn" style="background: #5A4634; color: #ffffff; padding: 0.85rem 2rem; border-radius: 9999px; font-weight: 700; text-decoration: none; display: inline-flex; align-items: center; gap: 0.5rem; box-shadow: 0 4px 14px rgba(90, 70, 52, 0.2);">
+            <i class="fas fa-user-plus"></i> Become a Provider
+          </a>
+        </div>
       </div>
-      <a href="Allservices.html" class="btn btn-outline">View All Services <i class="fas fa-arrow-right"></i></a>
+
+      <!-- Right Banner Image with Floating Tags -->
+      <div class="hero-ref-banner-img">
+        <span class="floating-tag floating-tag-blue" style="top: 8%; left: 10%; z-index: 10; background: #FF7A00;">Trusted</span>
+        <span class="floating-tag floating-tag-green" style="top: 2%; right: 18%; z-index: 10; background: #10B981;">Verified</span>
+        <span class="floating-tag floating-tag-orange" style="top: 18%; right: -2%; z-index: 10; background: #5A4634;">Local</span>
+
+        <img src="assets/hero-professionals-transparent.png" 
+             alt="Diverse local service professionals including chef, doctor, mechanic, construction worker" 
+             onerror="this.onerror=null; this.src='assets/frontpageimgDark.png';" />
+      </div>
     </div>
 
-    <div class="services-grid" id="landing-services">
-      <!-- Populated dynamically -->
-      <div class="skeleton" style="height: 320px;"></div>
-      <div class="skeleton" style="height: 320px;"></div>
-      <div class="skeleton" style="height: 320px;"></div>
-    </div>
-  </section>
-
-  <!-- Top Verified Providers -->
-  <section class="section-padding container">
-    <h2 class="section-title">Featured <span class="text-gradient">Service Professionals</span></h2>
-    <p class="section-subtitle">Handpicked, background-checked, and top-rated experts ready to assist you.</p>
-    
-    <div class="providers-grid" id="landing-providers">
-      <!-- Populated dynamically -->
-      <div class="skeleton" style="height: 220px;"></div>
-      <div class="skeleton" style="height: 220px;"></div>
-    </div>
-  </section>
-
-  <!-- Platform Statistics -->
-  <section class="section-padding" style="background: var(--bg-surface-elevated); border-y: 1px solid var(--border-color);">
+    <!-- Floating Hero Search Card Container -->
     <div class="container">
-      <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 2rem; text-align: center;" class="stats-grid">
-        <div>
-          <h3 style="font-size: 2.8rem; color: var(--primary);" class="text-gradient">5,000+</h3>
-          <p style="color: var(--text-muted); font-weight: 600;">Completed Jobs</p>
+      <div class="hero-search-card" style="border-radius: 20px; box-shadow: 0 12px 32px rgba(90, 70, 52, 0.1);">
+        <div class="hero-search-row">
+          <!-- Search Input Pill -->
+          <div class="hero-search-input-wrap">
+            <i class="fas fa-search" style="color: #FF7A00; font-size: 1.2rem; margin-top: 2px;"></i>
+            <div style="flex: 1;">
+              <input type="text" id="hero-search-input" placeholder="What service are you looking for?" />
+              <p style="font-size: 11px; color: #94a3b8; margin-top: 2px;">e.g. Plumber, Tuition, Car Service, House for Rent</p>
+            </div>
+          </div>
+
+          <!-- Location Selector Pill -->
+          <div class="hero-search-location-wrap">
+            <i class="fas fa-map-marker-alt" style="color: #FF7A00; font-size: 1.1rem;"></i>
+            <select id="hero-location-select">
+              <option value="piduguralla" selected>Piduguralla</option>
+              <option value="springfield">Springfield</option>
+              <option value="visakhapatnam">Visakhapatnam</option>
+              <option value="hyderabad">Hyderabad</option>
+              <option value="bangalore">Bangalore</option>
+              <option value="delhi">Delhi</option>
+              <option value="mumbai">Mumbai</option>
+            </select>
+          </div>
+
+          <!-- Search Button -->
+          <button class="btn-search-blue" style="background: #FF7A00;" onclick="Landing.handleSearch()">Search</button>
         </div>
-        <div>
-          <h3 style="font-size: 2.8rem; color: var(--secondary);" class="text-gradient">98.4%</h3>
-          <p style="color: var(--text-muted); font-weight: 600;">Satisfaction Rate</p>
-        </div>
-        <div>
-          <h3 style="font-size: 2.8rem; color: var(--accent);" class="text-gradient">250+</h3>
-          <p style="color: var(--text-muted); font-weight: 600;">Verified Providers</p>
-        </div>
-        <div>
-          <h3 style="font-size: 2.8rem; color: var(--success);" class="text-gradient">15 Mins</h3>
-          <p style="color: var(--text-muted); font-weight: 600;">Avg. Match Time</p>
+
+        <!-- Popular Searches Row -->
+        <div class="popular-search-pills">
+          <span style="font-weight: 700; color: #5A4634; margin-right: 0.25rem;">Popular Searches:</span>
+          <a href="Allservices.html?search=Plumber" class="popular-search-pill">Plumber</a>
+          <a href="Allservices.html?search=Electrician" class="popular-search-pill">Electrician</a>
+          <a href="Allservices.html?search=House+for+Rent" class="popular-search-pill">House for Rent</a>
+          <a href="Allservices.html?search=Tuition+Teacher" class="popular-search-pill">Tuition Teacher</a>
+          <a href="Allservices.html?search=Car+Mechanic" class="popular-search-pill">Car Mechanic</a>
+          <a href="Allservices.html?search=Physiotherapist" class="popular-search-pill">Physiotherapist</a>
+          <a href="Allservices.html?search=Caterer" class="popular-search-pill">Caterer</a>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Customer Testimonials -->
+  <!-- SECTION 2: Redesigned Premium Categories Section -->
+  <section class="premium-categories-section">
+    <div class="container">
+      <div class="premium-categories-header">
+        <h2 class="premium-categories-title">Explore Our <span>Services</span></h2>
+        <p class="premium-categories-subtitle">Choose from trusted professionals for every home service in your city.</p>
+      </div>
+
+      <div class="premium-categories-grid">
+
+        <!-- Category 1: Property Sell / Rent -->
+        <a href="Allservices.html?category=property" class="premium-cat-card">
+          <div class="premium-cat-icon-wrap">
+            <i class="fas fa-building"></i>
+          </div>
+          <h3 class="premium-cat-title">Property Sell / Rent</h3>
+          <p class="premium-cat-desc">House sales, rentals, apartments, commercial spaces & land plots.</p>
+          <div class="premium-cat-footer">
+            <span class="premium-cat-badge"><i class="fas fa-user-check"></i> 150+ Pros</span>
+            <span class="premium-cat-arrow"><i class="fas fa-arrow-right"></i></span>
+          </div>
+        </a>
+
+        <!-- Category 2: Home Services -->
+        <a href="Allservices.html?category=home-services" class="premium-cat-card">
+          <div class="premium-cat-icon-wrap">
+            <i class="fas fa-tools"></i>
+          </div>
+          <h3 class="premium-cat-title">Home Services</h3>
+          <p class="premium-cat-desc">Electricians, plumbers, AC repair, carpenters, painters & pest control.</p>
+          <div class="premium-cat-footer">
+            <span class="premium-cat-badge"><i class="fas fa-user-check"></i> 320+ Pros</span>
+            <span class="premium-cat-arrow"><i class="fas fa-arrow-right"></i></span>
+          </div>
+        </a>
+
+        <!-- Category 3: Education & Training -->
+        <a href="Allservices.html?category=education" class="premium-cat-card">
+          <div class="premium-cat-icon-wrap">
+            <i class="fas fa-graduation-cap"></i>
+          </div>
+          <h3 class="premium-cat-title">Education & Training</h3>
+          <p class="premium-cat-desc">Home tutors, software training, spoken English & skill development.</p>
+          <div class="premium-cat-footer">
+            <span class="premium-cat-badge"><i class="fas fa-user-check"></i> 110+ Pros</span>
+            <span class="premium-cat-arrow"><i class="fas fa-arrow-right"></i></span>
+          </div>
+        </a>
+
+        <!-- Category 4: Health & Wellness -->
+        <a href="Allservices.html?category=health" class="premium-cat-card">
+          <div class="premium-cat-icon-wrap">
+            <i class="fas fa-heartbeat"></i>
+          </div>
+          <h3 class="premium-cat-title">Health & Wellness</h3>
+          <p class="premium-cat-desc">Doctors, physiotherapists, yoga trainers, nutritionists & home nursing.</p>
+          <div class="premium-cat-footer">
+            <span class="premium-cat-badge"><i class="fas fa-user-check"></i> 90+ Pros</span>
+            <span class="premium-cat-arrow"><i class="fas fa-arrow-right"></i></span>
+          </div>
+        </a>
+
+        <!-- Category 5: Events & Celebrations -->
+        <a href="Allservices.html?category=events" class="premium-cat-card">
+          <div class="premium-cat-icon-wrap">
+            <i class="fas fa-camera"></i>
+          </div>
+          <h3 class="premium-cat-title">Events & Celebrations</h3>
+          <p class="premium-cat-desc">Photographers, videographers, caterers, decorators & wedding halls.</p>
+          <div class="premium-cat-footer">
+            <span class="premium-cat-badge"><i class="fas fa-user-check"></i> 210+ Pros</span>
+            <span class="premium-cat-arrow"><i class="fas fa-arrow-right"></i></span>
+          </div>
+        </a>
+
+        <!-- Category 6: Automobile -->
+        <a href="Allservices.html?category=automobile" class="premium-cat-card">
+          <div class="premium-cat-icon-wrap">
+            <i class="fas fa-car"></i>
+          </div>
+          <h3 class="premium-cat-title">Automobile Repair</h3>
+          <p class="premium-cat-desc">Mechanics, car wash, bike service, towing assistance & rentals.</p>
+          <div class="premium-cat-footer">
+            <span class="premium-cat-badge"><i class="fas fa-user-check"></i> 140+ Pros</span>
+            <span class="premium-cat-arrow"><i class="fas fa-arrow-right"></i></span>
+          </div>
+        </a>
+
+        <!-- Category 7: Professional Services -->
+        <a href="Allservices.html?category=professional" class="premium-cat-card">
+          <div class="premium-cat-icon-wrap">
+            <i class="fas fa-briefcase"></i>
+          </div>
+          <h3 class="premium-cat-title">Professional Services</h3>
+          <p class="premium-cat-desc">CA & tax advisors, lawyers, insurance agents, architects & marketing.</p>
+          <div class="premium-cat-footer">
+            <span class="premium-cat-badge"><i class="fas fa-user-check"></i> 85+ Pros</span>
+            <span class="premium-cat-arrow"><i class="fas fa-arrow-right"></i></span>
+          </div>
+        </a>
+
+        <!-- Category 8: Daily Help & Labour -->
+        <a href="Allservices.html?category=daily-help" class="premium-cat-card">
+          <div class="premium-cat-icon-wrap">
+            <i class="fas fa-user-friends"></i>
+          </div>
+          <h3 class="premium-cat-title">Daily Help & Labour</h3>
+          <p class="premium-cat-desc">Housemaids, security guards, drivers, construction workers & movers.</p>
+          <div class="premium-cat-footer">
+            <span class="premium-cat-badge"><i class="fas fa-user-check"></i> 270+ Pros</span>
+            <span class="premium-cat-arrow"><i class="fas fa-arrow-right"></i></span>
+          </div>
+        </a>
+
+        <!-- Category 9: Food & Catering -->
+        <a href="Allservices.html?category=food" class="premium-cat-card">
+          <div class="premium-cat-icon-wrap">
+            <i class="fas fa-utensils"></i>
+          </div>
+          <h3 class="premium-cat-title">Food & Catering</h3>
+          <p class="premium-cat-desc">Home chefs, daily tiffin services, bakers & event food catering.</p>
+          <div class="premium-cat-footer">
+            <span class="premium-cat-badge"><i class="fas fa-user-check"></i> 130+ Pros</span>
+            <span class="premium-cat-arrow"><i class="fas fa-arrow-right"></i></span>
+          </div>
+        </a>
+
+      </div>
+
+      <!-- View All Categories CTA Button -->
+      <div style="text-align: center;">
+        <a href="Allservices.html" class="btn-view-all-orange">
+          View All Categories <i class="fas fa-arrow-right"></i>
+        </a>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- SECTION 4: Impact Statistics Bar -->
+  <section class="stats-section">
+    <div class="container">
+      <div class="stats-grid">
+        <div class="stat-item">
+          <div class="stat-number">15,000+</div>
+          <div class="stat-label">Bookings Completed</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-number">500+</div>
+          <div class="stat-label">Verified Service Pros</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-number">4.9 ★</div>
+          <div class="stat-label">Customer Rating</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-number">15+</div>
+          <div class="stat-label">Cities Covered</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 5: Featured Service Providers -->
   <section class="section-padding container">
-    <h2 class="section-title">What Our <span class="text-gradient">Customers Say</span></h2>
-    <p class="section-subtitle">Real experiences from homeowners and customers who rely on Local Hands daily.</p>
+    <div style="display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 2.5rem;">
+      <div>
+        <h2 class="premium-categories-title" style="text-align: left; margin: 0;">Featured <span>Providers</span></h2>
+        <p class="section-subtitle" style="text-align: left; margin: 0.5rem 0 0 0;">Verified service experts with top ratings and quick response times.</p>
+      </div>
+      <a href="maps.html" class="btn-view-all-orange" style="margin-top: 0; padding: 0.7rem 1.6rem; font-size: 0.9rem;">View Map Providers <i class="fas fa-arrow-right"></i></a>
+    </div>
 
-    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem;">
-      <div class="card card-hover">
-        <div style="color: var(--accent); margin-bottom: 1rem;">
-          <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
-        </div>
-        <p style="color: var(--text-muted); margin-bottom: 1.5rem;">"Booked a plumber for a midnight sink leak. Revanth arrived in 20 minutes, fixed the pipe cleanly, and charged exactly what was quoted!"</p>
-        <div style="display: flex; align-items: center; gap: 1rem;">
-          <img src="https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?auto=format&fit=crop&q=80&w=150" style="width: 48px; height: 48px; border-radius: 50%; object-fit: cover;" alt="Alex" />
-          <div>
-            <h4 style="font-size: 1rem;">Alex Johnson</h4>
-            <span style="font-size: 0.85rem; color: var(--text-subtle);">Verified Homeowner</span>
+    <div class="provider-card-grid" id="landing-providers">
+      <!-- Injected dynamically by landing.js -->
+      <div class="skeleton" style="height: 280px; border-radius: 20px;"></div>
+      <div class="skeleton" style="height: 280px; border-radius: 20px;"></div>
+      <div class="skeleton" style="height: 280px; border-radius: 20px;"></div>
+      <div class="skeleton" style="height: 280px; border-radius: 20px;"></div>
+    </div>
+  </section>
+
+  <!-- SECTION 6: How It Works Section -->
+  <section class="how-it-works-section" style="background: #5A4634;">
+    <div class="container">
+      <h2 class="how-it-works-title" style="color: #ffffff;">How It Works</h2>
+      <p class="section-subtitle" style="color: #F4E7D3; margin-bottom: 3.5rem;">Simple 4-step process to get any local job done hassle-free.</p>
+
+      <div class="how-it-works-grid">
+        <!-- Step 1 -->
+        <div class="how-step-card">
+          <div class="how-step-icon" style="background: #FF7A00; color: #ffffff;">
+            <i class="fas fa-search"></i>
           </div>
+          <h3 class="how-step-title">1. Search Service</h3>
+          <p class="how-step-desc">Enter your required service and city location in the search bar.</p>
+        </div>
+
+        <!-- Step 2 -->
+        <div class="how-step-card">
+          <div class="how-step-icon" style="background: #FF7A00; color: #ffffff;">
+            <i class="fas fa-user-check"></i>
+          </div>
+          <h3 class="how-step-title">2. Choose Provider</h3>
+          <p class="how-step-desc">Browse background-verified local pros, inspect reviews & pricing.</p>
+        </div>
+
+        <!-- Step 3 -->
+        <div class="how-step-card">
+          <div class="how-step-icon" style="background: #FF7A00; color: #ffffff;">
+            <i class="fas fa-phone-alt"></i>
+          </div>
+          <h3 class="how-step-title">3. Direct Deal</h3>
+          <p class="how-step-desc">Call or message directly without middleman broker fees.</p>
+        </div>
+
+        <!-- Step 4 -->
+        <div class="how-step-card">
+          <div class="how-step-icon" style="background: #FF7A00; color: #ffffff;">
+            <i class="fas fa-check-circle"></i>
+          </div>
+          <h3 class="how-step-title">4. Work Done</h3>
+          <p class="how-step-desc">Get your work completed with 100% satisfaction & guaranteed quality.</p>
         </div>
       </div>
+    </div>
+  </section>
 
-      <div class="card card-hover">
-        <div style="color: var(--accent); margin-bottom: 1rem;">
-          <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+  <!-- SECTION 7: Customer Testimonials -->
+  <section class="testimonials-section">
+    <div class="container">
+      <div class="premium-categories-header">
+        <h2 class="premium-categories-title">Trusted by <span>Thousands</span></h2>
+        <p class="premium-categories-subtitle">Real experiences from homeowners and customers across India.</p>
+      </div>
+
+      <div class="testimonials-grid">
+        <div class="testimonial-card">
+          <div style="color: #FF7A00; font-size: 1.1rem; margin-bottom: 0.8rem;">★★★★★</div>
+          <p class="testimonial-quote">"Booked an AC repair technician in Piduguralla. He arrived within 25 minutes, fixed the cooling issue immediately, and charged very reasonable rates!"</p>
+          <div class="testimonial-author">
+            <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=120" class="testimonial-avatar" alt="Ananya Reddy" />
+            <div>
+              <div class="testimonial-name">Ananya Reddy</div>
+              <div class="testimonial-location">Piduguralla • Homeowner</div>
+            </div>
+          </div>
         </div>
-        <p style="color: var(--text-muted); margin-bottom: 1.5rem;">"The AC gas refill and deep cleaning service was super professional. Smooth booking experience and transparent billing!"</p>
-        <div style="display: flex; align-items: center; gap: 1rem;">
-          <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&q=80&w=150" style="width: 48px; height: 48px; border-radius: 50%; object-fit: cover;" alt="Sophia" />
-          <div>
-            <h4 style="font-size: 1rem;">Sophia Chen</h4>
-            <span style="font-size: 0.85rem; color: var(--text-subtle);">Verified Customer</span>
+
+        <div class="testimonial-card">
+          <div style="color: #FF7A00; font-size: 1.1rem; margin-bottom: 0.8rem;">★★★★★</div>
+          <p class="testimonial-quote">"Local Hands saved me broker fees when finding a rental house. Direct contact with the property owner made everything smooth and transparent!"</p>
+          <div class="testimonial-author">
+            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=120" class="testimonial-avatar" alt="Vikram Sharma" />
+            <div>
+              <div class="testimonial-name">Vikram Sharma</div>
+              <div class="testimonial-location">Visakhapatnam • Tenant</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="testimonial-card">
+          <div style="color: #FF7A00; font-size: 1.1rem; margin-bottom: 0.8rem;">★★★★★</div>
+          <p class="testimonial-quote">"As an electrician, joining Local Hands boosted my daily bookings by 300%. The zero commission model means I keep all my hard-earned income."</p>
+          <div class="testimonial-author">
+            <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&q=80&w=120" class="testimonial-avatar" alt="Srinivas Rao" />
+            <div>
+              <div class="testimonial-name">Srinivas Rao</div>
+              <div class="testimonial-location">Hyderabad • Service Provider</div>
+            </div>
           </div>
         </div>
       </div>
     </div>
   </section>
+
+  <!-- SECTION 8: FAQ Accordion -->
+  <section class="faq-section">
+    <div class="container">
+      <div class="premium-categories-header">
+        <h2 class="premium-categories-title">Frequently Asked <span>Questions</span></h2>
+        <p class="premium-categories-subtitle">Everything you need to know about booking services on Local Hands.</p>
+      </div>
+
+      <div class="faq-container">
+        <div class="faq-item active">
+          <button class="faq-question" onclick="this.parentElement.classList.toggle('active')">
+            How does direct booking work on Local Hands?
+            <i class="fas fa-chevron-down"></i>
+          </button>
+          <div class="faq-answer">
+            You simply search for a service or category, choose a verified local provider, and call or message them directly. There are no middleman brokers or platform commission fees attached!
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question" onclick="this.parentElement.classList.toggle('active')">
+            Are service providers background verified?
+            <i class="fas fa-chevron-down"></i>
+          </button>
+          <div class="faq-answer">
+            Yes! All listed service professionals undergo identity verification, government ID checks, and background screening before being featured on our marketplace.
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question" onclick="this.parentElement.classList.toggle('active')">
+            Is there any booking fee or hidden charge?
+            <i class="fas fa-chevron-down"></i>
+          </button>
+          <div class="faq-answer">
+            No. Local Hands is 100% free for customers to search and contact service providers. You pay the provider directly based on transparent, agreed quotes.
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question" onclick="this.parentElement.classList.toggle('active')">
+            How can I join as a service provider?
+            <i class="fas fa-chevron-down"></i>
+          </button>
+          <div class="faq-answer">
+            Click on "Become a Provider" in the top menu, register your business details, upload your service category & pricing, and start receiving direct customer leads instantly!
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 9: Bottom Twin Cards -->
+  <section class="container" style="padding: 2rem 0 5.5rem 0;">
+    <div class="bottom-cards-grid">
+      <!-- Card 1: Install App Card -->
+      <div class="bottom-card" style="background: #FFF7ED; border-radius: 20px; border: 1.5px solid #F4E7D3;">
+        <div class="bottom-card-content">
+          <h2 class="bottom-card-title" style="color: #5A4634;">Install <span style="color: #FF7A00;">LocalHands</span><br />On Your Device</h2>
+          <p class="bottom-card-desc">
+            Add LocalHands to your home screen for instant, one-tap access to local service experts anytime.
+          </p>
+          <button class="btn-view-all-orange" style="margin-top: 0; padding: 0.75rem 1.8rem; font-size: 0.9rem;" onclick="Toast.show('LocalHands web app is ready for instant home screen access!', 'info')">
+            <i class="fas fa-download"></i> Install Web App
+          </button>
+        </div>
+        <div>
+          <img src="https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?auto=format&fit=crop&q=80&w=250" alt="Mobile App Access" style="width: 130px; border-radius: 16px; box-shadow: var(--shadow-md);" />
+        </div>
+      </div>
+
+      <!-- Card 2: Grow Your Business Provider Card -->
+      <div class="bottom-card" style="background: #5A4634; color: #ffffff; border-radius: 20px;">
+        <div class="bottom-card-content" style="max-width: 360px;">
+          <h2 class="bottom-card-title" style="color: #ffffff;">Are You a Service Pro?<br /><span style="color: #FF7A00;">Grow Your Business With Us</span></h2>
+          
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.6rem; margin-bottom: 1.5rem; font-size: 0.85rem; font-weight: 600; color: #F4E7D3;">
+            <div style="display: flex; align-items: center; gap: 0.4rem;">
+              <i class="fas fa-check-circle" style="color: #FF7A00;"></i> Verified Profile
+            </div>
+            <div style="display: flex; align-items: center; gap: 0.4rem;">
+              <i class="fas fa-check-circle" style="color: #FF7A00;"></i> High Visibility
+            </div>
+            <div style="display: flex; align-items: center; gap: 0.4rem;">
+              <i class="fas fa-check-circle" style="color: #FF7A00;"></i> Quality Leads
+            </div>
+            <div style="display: flex; align-items: center; gap: 0.4rem;">
+              <i class="fas fa-check-circle" style="color: #FF7A00;"></i> Zero Commission
+            </div>
+          </div>
+
+          <a href="login.html?role=provider" class="btn-view-all-orange" style="margin-top: 0; padding: 0.75rem 1.8rem; font-size: 0.9rem;">
+            Register Your Business <i class="fas fa-arrow-right"></i>
+          </a>
+        </div>
+
+        <div>
+          <img src="assets/bhuvan.jpg" alt="Service Provider Professional" style="width: 130px; height: 160px; border-radius: 20px; object-fit: cover; box-shadow: var(--shadow-md);" />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Post Requirement Modal -->
+  <div class="modal-overlay" id="requirementModal">
+    <div class="modal-content" style="border-radius: 20px;">
+      <div class="modal-header">
+        <h3><i class="fas fa-sparkles" style="color: #FF7A00;"></i> Post your Requirement</h3>
+        <button class="modal-close" onclick="Modal.close('requirementModal')">&times;</button>
+      </div>
+      <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 1.5rem;">Fill out what service you need. Local providers will receive your request directly!</p>
+      
+      <form onsubmit="Landing.submitRequirement(event)">
+        <div class="form-group">
+          <label>Your Full Name</label>
+          <input type="text" id="req-name" class="form-control" placeholder="e.g. Ramesh Kumar" required />
+        </div>
+
+        <div class="form-group">
+          <label>Phone / WhatsApp Number</label>
+          <input type="tel" id="req-phone" class="form-control" placeholder="e.g. 9876543210" required />
+        </div>
+
+        <div class="form-group">
+          <label>Select Category</label>
+          <select id="req-category" class="form-control">
+            <option value="Home Services">Home Services (Plumber, Electrician, AC)</option>
+            <option value="Property">Property Sell / Rent</option>
+            <option value="Events & Celebrations">Events & Celebrations</option>
+            <option value="Education">Education & Training</option>
+            <option value="Health">Health & Wellness</option>
+            <option value="Automobile">Automobile Repair</option>
+            <option value="Professional Services">Professional Services</option>
+            <option value="Daily Help & Labour">Daily Help & Labour</option>
+            <option value="Food & Catering">Food & Catering</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label>City / Location</label>
+          <input type="text" id="req-city" class="form-control" placeholder="e.g. Piduguralla" value="Piduguralla" required />
+        </div>
+
+        <div class="form-group">
+          <label>Describe your Requirement</label>
+          <textarea id="req-details" class="form-control" rows="3" placeholder="Explain your issue or service needed..." required></textarea>
+        </div>
+
+        <button type="submit" class="btn-view-all-orange" style="width: 100%; margin-top: 1rem; border-radius: 12px;">Submit Requirement <i class="fas fa-paper-plane"></i></button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Direct Call Contact Modal -->
+  <div class="modal-overlay" id="contactModal">
+    <div class="modal-content" style="max-width: 400px; text-align: center; border-radius: 20px;">
+      <div class="modal-header">
+        <h3 id="contact-provider-name">Provider Contact</h3>
+        <button class="modal-close" onclick="Modal.close('contactModal')">&times;</button>
+      </div>
+      <div style="padding: 1rem 0;">
+        <i class="fas fa-phone-volume" style="font-size: 3rem; color: #FF7A00; margin-bottom: 1rem;"></i>
+        <p style="font-weight: 700; font-size: 1.2rem; color: #5A4634;" id="contact-phone-num">+91 98765 43210</p>
+        <p style="color: #64748B; font-size: 0.85rem; margin-top: 0.5rem;">No broker, no commission. Connect directly!</p>
+        <div style="display: flex; gap: 0.75rem; margin-top: 1.5rem;">
+          <a id="contact-call-btn" href="tel:+919876543210" class="btn btn-green" style="flex: 1; border-radius: 9999px;"><i class="fas fa-phone"></i> Call Now</a>
+          <a id="contact-wa-btn" href="https://wa.me/919876543210" target="_blank" class="btn-view-all-orange" style="flex: 1; margin-top: 0; padding: 0.7rem 1rem; font-size: 0.9rem;"><i class="fab fa-whatsapp"></i> WhatsApp</a>
+        </div>
+      </div>
+    </div>
+  </div>
 
   <!-- Footer -->
-  <footer>
+  <footer style="background: #5A4634; color: #ffffff; padding: 4.5rem 0 2rem 0; margin-top: 0;">
     <div class="container footer-grid">
       <div class="footer-brand">
-        <div style="display: flex; align-items: center; gap: 0.75rem;">
-          <img src="assets/logo2.jpg" alt="Logo" style="height: 38px; border-radius: var(--radius-sm);" />
-          <span style="font-family: 'Outfit'; font-weight: 800; font-size: 1.4rem;" class="text-gradient">Local Hands</span>
+        <div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1rem;">
+          <span style="display: inline-flex; align-items: center; justify-content: center; width: 36px; height: 36px; border-radius: 10px; background: #FF7A00; color: #fff;">
+            <i class="fas fa-map-marker-alt"></i>
+          </span>
+          <span style="font-family: 'Plus Jakarta Sans'; font-weight: 800; font-size: 1.4rem; color: #ffffff;">Local <span style="color: #FF7A00;">Hands</span></span>
         </div>
-        <p>Connecting homeowners and businesses with verified, high-quality local service professionals instantly.</p>
+        <p style="color: #F4E7D3; line-height: 1.6;">India's trusted marketplace for finding verified local service providers. Direct deals with zero commission.</p>
       </div>
 
       <div class="footer-col">
-        <h4>Services</h4>
-        <ul>
-          <li><a href="Allservices.html?category=plumbing">Plumbing</a></li>
-          <li><a href="Allservices.html?category=ac-appliances">AC Repair</a></li>
-          <li><a href="Allservices.html?category=electrical">Electrical</a></li>
-          <li><a href="Allservices.html?category=cleaning">Deep Cleaning</a></li>
+        <h4 style="color: #FF7A00; margin-bottom: 1rem;">Popular Categories</h4>
+        <ul style="list-style: none; display: flex; flex-direction: column; gap: 0.6rem;">
+          <li><a href="Allservices.html?category=property" style="color: #F4E7D3; text-decoration: none;">Property Sell / Rent</a></li>
+          <li><a href="Allservices.html?category=home-services" style="color: #F4E7D3; text-decoration: none;">Home Services</a></li>
+          <li><a href="Allservices.html?category=events" style="color: #F4E7D3; text-decoration: none;">Events & Celebrations</a></li>
+          <li><a href="Allservices.html?category=education" style="color: #F4E7D3; text-decoration: none;">Education & Tutors</a></li>
         </ul>
       </div>
 
       <div class="footer-col">
-        <h4>Platform</h4>
-        <ul>
-          <li><a href="Allservices.html">All Services</a></li>
-          <li><a href="maps.html">Find Providers</a></li>
-          <li><a href="login.html?role=provider">Become a Provider</a></li>
-          <li><a href="login.html?role=admin">Admin Access</a></li>
+        <h4 style="color: #FF7A00; margin-bottom: 1rem;">Top Cities</h4>
+        <ul style="list-style: none; display: flex; flex-direction: column; gap: 0.6rem;">
+          <li><a href="#" style="color: #F4E7D3; text-decoration: none;">Piduguralla</a></li>
+          <li><a href="#" style="color: #F4E7D3; text-decoration: none;">Springfield</a></li>
+          <li><a href="#" style="color: #F4E7D3; text-decoration: none;">Visakhapatnam</a></li>
+          <li><a href="#" style="color: #F4E7D3; text-decoration: none;">Hyderabad</a></li>
         </ul>
       </div>
 
       <div class="footer-col">
-        <h4>Support</h4>
-        <ul>
-          <li><a href="#">Help Center</a></li>
-          <li><a href="#">Safety & Security</a></li>
-          <li><a href="#">Terms of Service</a></li>
-          <li><a href="#">Privacy Policy</a></li>
+        <h4 style="color: #FF7A00; margin-bottom: 1rem;">Quick Links</h4>
+        <ul style="list-style: none; display: flex; flex-direction: column; gap: 0.6rem;">
+          <li><a href="index.html" style="color: #F4E7D3; text-decoration: none;">Home</a></li>
+          <li><a href="login.html?role=provider" style="color: #F4E7D3; text-decoration: none;">Become a Provider</a></li>
+          <li><a href="maps.html" style="color: #F4E7D3; text-decoration: none;">Provider Map</a></li>
+          <li><a href="customer-dashboard.html" style="color: #F4E7D3; text-decoration: none;">Booking Status</a></li>
         </ul>
       </div>
     </div>
 
-    <div class="footer-bottom container">
-      &copy; 2026 Local Hands Inc. All rights reserved. Made for quality home services.
+    <div class="footer-bottom container" style="border-top: 1px solid rgba(244, 231, 211, 0.2); margin-top: 3rem; padding-top: 2rem; color: #F4E7D3;">
+      &copy; 2026 Local Hands. All rights reserved. No Broker • No Commission • Direct Deal.
     </div>
   </footer>
 
@@ -203,6 +632,6 @@
   <script src="js/api.js"></script>
   <script src="js/auth.js"></script>
   <script src="js/landing.js"></script>
-
+  <script src="js/animations.js"></script>
 </body>
 </html>

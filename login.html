@@ -3,72 +3,417 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Sign In / Register - Local Hands</title>
+  <title>Sign In / Register | Local Hands</title>
   <link rel="stylesheet" href="myStyle.css" />
+  <link rel="stylesheet" href="css/animations.css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
-</head>
-<body style="display: flex; flex-direction: column; min-height: 100vh;">
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet" />
 
-  <!-- Header -->
-  <header class="navbar">
+  <style>
+    body {
+      background-color: #F9F6F2;
+      font-family: 'Inter', sans-serif;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    .auth-split-layout {
+      display: grid;
+      grid-template-columns: 380px 1fr;
+      min-height: calc(100vh - 72px);
+      width: 100%;
+      max-width: 1280px;
+      margin: 0 auto;
+    }
+    @media (max-width: 960px) {
+      .auth-split-layout {
+        grid-template-columns: 1fr;
+      }
+      .auth-hero-panel {
+        display: none !important;
+      }
+    }
+    /* Left Visual Hero Panel */
+    .auth-hero-panel {
+      position: relative;
+      background: url('https://images.unsplash.com/photo-1621905252507-b35492cc74b4?auto=format&fit=crop&q=80&w=800') center/cover no-repeat;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 2.5rem 2rem;
+      color: #ffffff;
+      overflow: hidden;
+      border-radius: 24px 0 0 24px;
+      margin: 1.5rem 0 1.5rem 1.5rem;
+    }
+    .auth-hero-overlay {
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: linear-gradient(135deg, rgba(90, 70, 52, 0.92) 0%, rgba(15, 23, 42, 0.88) 100%);
+      z-index: 1;
+    }
+    .auth-hero-content {
+      position: relative;
+      z-index: 2;
+    }
+    .auth-feature-pill {
+      background: rgba(255, 255, 255, 0.12);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 16px;
+      padding: 1rem 1.25rem;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 1rem;
+    }
+    /* Right Auth Form Section */
+    .auth-form-wrap {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 3rem 2rem;
+      background: #F9F6F2;
+    }
+    .auth-card {
+      background: rgba(255, 255, 255, 0.96);
+      backdrop-filter: blur(16px);
+      border-radius: 24px;
+      border: 1px solid #E2E8F0;
+      box-shadow: 0 16px 40px rgba(90, 70, 52, 0.08);
+      padding: 2.5rem;
+      width: 100%;
+      max-width: 480px;
+      transition: all 0.3s ease;
+    }
+    .auth-tab-btn {
+      flex: 1;
+      padding: 0.75rem 1rem;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-weight: 700;
+      font-size: 0.92rem;
+      border: none;
+      background: transparent;
+      color: #64748B;
+      cursor: pointer;
+      border-bottom: 2px solid transparent;
+      transition: all 0.25s ease;
+    }
+    .auth-tab-btn.active {
+      color: #FF7A00;
+      border-bottom-color: #FF7A00;
+    }
+    .auth-input-group {
+      position: relative;
+      margin-bottom: 1.25rem;
+    }
+    .auth-input-group i.auth-input-icon {
+      position: absolute;
+      left: 1.1rem;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #94A3B8;
+      font-size: 0.95rem;
+      transition: all 0.2s ease;
+    }
+    .auth-input-control {
+      width: 100%;
+      padding: 0.8rem 1rem 0.8rem 2.8rem;
+      border-radius: 14px;
+      border: 1.5px solid #E2E8F0;
+      background: #FFFFFF;
+      font-size: 0.92rem;
+      color: #5A4634;
+      outline: none;
+      transition: all 0.25s ease;
+    }
+    .auth-input-control:focus {
+      border-color: #FF7A00;
+      box-shadow: 0 0 0 4px rgba(255, 122, 0, 0.12);
+    }
+    .auth-input-control:focus + i.auth-input-icon {
+      color: #FF7A00;
+    }
+    .pw-toggle-btn {
+      position: absolute;
+      right: 1.1rem;
+      top: 50%;
+      transform: translateY(-50%);
+      background: none;
+      border: none;
+      color: #94A3B8;
+      cursor: pointer;
+      font-size: 0.95rem;
+    }
+    .role-option-tile {
+      flex: 1;
+      border: 1.5px solid #E2E8F0;
+      border-radius: 14px;
+      padding: 0.85rem;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.25s ease;
+      background: #FFFFFF;
+    }
+    .role-option-tile.selected {
+      border-color: #FF7A00;
+      background: #FFF7ED;
+      color: #FF7A00;
+    }
+    .pw-strength-bar {
+      height: 4px;
+      border-radius: 9999px;
+      background: #E2E8F0;
+      margin-top: 0.4rem;
+      overflow: hidden;
+    }
+    .pw-strength-fill {
+      height: 100%;
+      width: 0%;
+      transition: all 0.3s ease;
+    }
+    .social-btn {
+      width: 100%;
+      background: #FFFFFF;
+      border: 1.5px solid #E2E8F0;
+      border-radius: 14px;
+      padding: 0.75rem 1rem;
+      font-weight: 600;
+      font-size: 0.88rem;
+      color: #5A4634;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.6rem;
+      cursor: pointer;
+      transition: all 0.25s ease;
+    }
+    .social-btn:hover {
+      background: #F8FAFC;
+      border-color: #CBD5E1;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Sticky Glass Navbar -->
+  <header class="navbar" style="position: sticky; top: 0; z-index: 1000; background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(10px); box-shadow: 0 4px 20px rgba(90, 70, 52, 0.06);">
     <a href="index.html" class="nav-brand">
-      <img src="assets/localhandsicon.jpg" alt="Logo" style="border-radius: 8px;" />
-      <span>Local <em style="color: var(--primary); font-style: normal;">Hands</em></span>
+      <span style="display: inline-flex; align-items: center; justify-content: center; width: 36px; height: 36px; border-radius: 10px; background: #FF7A00; color: #fff;">
+        <i class="fas fa-map-marker-alt"></i>
+      </span>
+      <span>Local<em style="color: #FF7A00; font-style: normal;">Hands</em><small style="font-size: 0.75rem; color: #64748b; font-weight: 500;">.in</small></span>
     </a>
+
+    <nav class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="Allservices.html">Categories</a>
+      <a href="maps.html">Find Providers</a>
+    </nav>
   </header>
 
-  <!-- Login Form Main -->
-  <main style="flex: 1; display: flex; align-items: center; justify-content: center; padding: 3rem 1rem;">
-    <div class="card" style="width: 100%; max-width: 440px; box-shadow: var(--shadow-lg);">
+  <!-- Split Screen Authentication Layout -->
+  <div class="auth-split-layout">
+
+    <!-- LEFT SIDE: HERO VISUAL PANEL -->
+    <div class="auth-hero-panel">
+      <div class="auth-hero-overlay"></div>
       
-      <!-- Mode Tabs -->
-      <div style="display: flex; border-bottom: 1px solid var(--border-color); margin-bottom: 1.75rem;">
-        <button id="auth-tab-login" class="btn btn-primary" style="flex: 1; border-radius: var(--radius-sm) var(--radius-sm) 0 0;" onclick="AuthPage.switchMode('login')">Sign In</button>
-        <button id="auth-tab-register" class="btn btn-secondary" style="flex: 1; border-radius: var(--radius-sm) var(--radius-sm) 0 0;" onclick="AuthPage.switchMode('register')">Register</button>
+      <div class="auth-hero-content">
+        <div style="display: inline-flex; align-items: center; gap: 0.4rem; background: rgba(255, 122, 0, 0.2); border: 1px solid #FF7A00; padding: 0.35rem 0.85rem; border-radius: 9999px; font-size: 0.75rem; font-weight: 700; color: #ffffff; margin-bottom: 1.25rem;">
+          <i class="fas fa-shield-alt" style="color: #FF7A00;"></i> Verified Local Services
+        </div>
+        <h1 style="font-family: 'Plus Jakarta Sans', sans-serif; font-size: 2.1rem; font-weight: 800; line-height: 1.25; margin-bottom: 1rem;">
+          Find Verified Local Experts Near You.
+        </h1>
+        <p style="color: #F4E7D3; font-size: 0.92rem; line-height: 1.55;">
+          Connect directly with certified local electricians, plumbers, tutors, doctors, and mechanics. Zero broker fees.
+        </p>
       </div>
 
-      <!-- Quick Demo Login Presets -->
-      <div style="background: var(--bg-cream); padding: 1rem; border-radius: var(--radius-md); border: 1px solid var(--border-color); margin-bottom: 1.5rem;">
-        <span style="font-size: 0.75rem; font-weight: 700; color: var(--secondary); display: block; margin-bottom: 0.5rem; text-transform: uppercase;">⚡ Quick Demo Presets</span>
-        <div style="display: flex; gap: 0.5rem;">
-          <button class="btn btn-outline btn-sm" style="flex: 1; font-size: 0.75rem;" onclick="AuthPage.demoLogin('customer')">Customer</button>
-          <button class="btn btn-outline btn-sm" style="flex: 1; font-size: 0.75rem;" onclick="AuthPage.demoLogin('provider')">Provider</button>
-          <button class="btn btn-outline btn-sm" style="flex: 1; font-size: 0.75rem;" onclick="AuthPage.demoLogin('admin')">Admin</button>
+      <!-- Feature Badges -->
+      <div class="auth-hero-content">
+        <div class="auth-feature-pill">
+          <i class="fas fa-handshake" style="font-size: 1.3rem; color: #FF7A00;"></i>
+          <div>
+            <div style="font-weight: 700; font-size: 0.95rem;">100% Direct Deals</div>
+            <div style="font-size: 0.8rem; color: #F4E7D3;">Zero broker commission & upfront transparent quotes.</div>
+          </div>
+        </div>
+
+        <div class="auth-feature-pill">
+          <i class="fas fa-user-check" style="font-size: 1.3rem; color: #10B981;"></i>
+          <div>
+            <div style="font-weight: 700; font-size: 0.95rem;">Government ID Verified Pros</div>
+            <div style="font-size: 0.8rem; color: #F4E7D3;">Mandatory skill and background checks for complete peace of mind.</div>
+          </div>
+        </div>
+
+        <div style="display: flex; align-items: center; gap: 1rem; margin-top: 1.5rem; padding-top: 1.25rem; border-top: 1px solid rgba(244, 231, 211, 0.2);">
+          <div style="display: flex;">
+            <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=80" style="width: 38px; height: 38px; border-radius: 50%; border: 2px solid #ffffff; object-fit: cover;" />
+            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=80" style="width: 38px; height: 38px; border-radius: 50%; border: 2px solid #ffffff; object-fit: cover; margin-left: -12px;" />
+            <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&q=80&w=80" style="width: 38px; height: 38px; border-radius: 50%; border: 2px solid #ffffff; object-fit: cover; margin-left: -12px;" />
+          </div>
+          <div>
+            <div style="font-weight: 800; font-size: 0.95rem; color: #ffffff;">10,000+ Happy Customers</div>
+            <div style="font-size: 0.78rem; color: #FF7A00;">★★★★★ 4.9 Average Rating</div>
+          </div>
         </div>
       </div>
-
-      <!-- Form -->
-      <form id="auth-form" onsubmit="AuthPage.handleSubmit(event)">
-        <!-- Register Name (hidden in login mode) -->
-        <div class="form-group" id="group-name" style="display: none;">
-          <label>Full Name</label>
-          <input type="text" id="auth-name" class="form-control" placeholder="Alex Johnson" />
-        </div>
-
-        <div class="form-group">
-          <label>Email Address</label>
-          <input type="email" id="auth-email" class="form-control" placeholder="name@example.com" required />
-        </div>
-
-        <div class="form-group">
-          <label>Password</label>
-          <input type="password" id="auth-password" class="form-control" placeholder="••••••••" required />
-        </div>
-
-        <!-- Register Role Selector (hidden in login mode) -->
-        <div class="form-group" id="group-role" style="display: none;">
-          <label>I want to join as</label>
-          <select id="auth-role" class="form-control">
-            <option value="customer">Customer (Book Services)</option>
-            <option value="provider">Service Provider (Offer Services)</option>
-          </select>
-        </div>
-
-        <button type="submit" id="auth-submit-btn" class="btn btn-primary" style="width: 100%; margin-top: 1rem;">Sign In <i class="fas fa-arrow-right"></i></button>
-      </form>
 
     </div>
-  </main>
+
+    <!-- RIGHT SIDE: AUTHENTICATION CARD -->
+    <div class="auth-form-wrap">
+      <div class="auth-card">
+        
+        <!-- Mode Tabs Header -->
+        <div style="display: flex; border-bottom: 1.5px solid #E2E8F0; margin-bottom: 1.75rem;">
+          <button id="auth-tab-login" class="auth-tab-btn active" onclick="AuthPage.switchMode('login')">
+            Sign In
+          </button>
+          <button id="auth-tab-register" class="auth-tab-btn" onclick="AuthPage.switchMode('register')">
+            Create Account
+          </button>
+        </div>
+
+        <!-- Quick Demo Accounts Preset Strip -->
+        <div style="background: #FFF7ED; padding: 0.85rem 1rem; border-radius: 14px; border: 1px solid #F4E7D3; margin-bottom: 1.5rem;">
+          <div style="font-size: 0.72rem; font-weight: 800; color: #FF7A00; letter-spacing: 0.5px; text-transform: uppercase; margin-bottom: 0.4rem;">
+            ⚡ QUICK DEMO ONE-CLICK SIGN IN
+          </div>
+          <div style="display: flex; gap: 0.4rem;">
+            <button class="btn btn-outline btn-sm" style="flex: 1; font-size: 0.75rem; padding: 0.35rem; border-radius: 8px;" onclick="AuthPage.demoLogin('customer')">Customer</button>
+            <button class="btn btn-outline btn-sm" style="flex: 1; font-size: 0.75rem; padding: 0.35rem; border-radius: 8px;" onclick="AuthPage.demoLogin('provider')">Provider</button>
+            <button class="btn btn-outline btn-sm" style="flex: 1; font-size: 0.75rem; padding: 0.35rem; border-radius: 8px;" onclick="AuthPage.demoLogin('admin')">Admin</button>
+          </div>
+        </div>
+
+        <!-- Dynamic Form Title -->
+        <div style="margin-bottom: 1.5rem;">
+          <h2 style="font-family: 'Plus Jakarta Sans', sans-serif; font-size: 1.6rem; font-weight: 800; color: #5A4634; margin: 0 0 0.3rem 0;" id="auth-form-title">
+            Welcome back
+          </h2>
+          <p style="font-size: 0.88rem; color: #64748B; margin: 0;" id="auth-form-subtitle">
+            Sign in to access your verified bookings and local pros.
+          </p>
+        </div>
+
+        <!-- Main Form -->
+        <form id="auth-form" onsubmit="AuthPage.handleSubmit(event)">
+          
+          <!-- REGISTER: Full Name -->
+          <div class="auth-input-group" id="group-name" style="display: none;">
+            <input type="text" id="auth-name" class="auth-input-control" placeholder="Full Name" />
+            <i class="fas fa-user auth-input-icon"></i>
+          </div>
+
+          <!-- REGISTER: Mobile Number -->
+          <div class="auth-input-group" id="group-phone" style="display: none;">
+            <input type="tel" id="auth-phone" class="auth-input-control" placeholder="Mobile Number (e.g. 9876543210)" />
+            <i class="fas fa-phone auth-input-icon"></i>
+          </div>
+
+          <!-- Email Address -->
+          <div class="auth-input-group">
+            <input type="email" id="auth-email" class="auth-input-control" placeholder="Email Address" required />
+            <i class="fas fa-envelope auth-input-icon"></i>
+          </div>
+
+          <!-- Password -->
+          <div class="auth-input-group" style="margin-bottom: 0.75rem;">
+            <input type="password" id="auth-password" class="auth-input-control" placeholder="Password" oninput="AuthPage.checkPasswordStrength(this.value)" required />
+            <i class="fas fa-lock auth-input-icon"></i>
+            <button type="button" class="pw-toggle-btn" onclick="AuthPage.togglePasswordVisibility('auth-password', 'toggle-pw-eye')">
+              <i class="fas fa-eye" id="toggle-pw-eye"></i>
+            </button>
+          </div>
+
+          <!-- Strength Meter (Register mode) -->
+          <div id="pw-strength-container" style="display: none; margin-bottom: 1.25rem;">
+            <div class="pw-strength-bar">
+              <div id="pw-strength-fill" class="pw-strength-fill"></div>
+            </div>
+            <div style="display: flex; justify-content: space-between; font-size: 0.75rem; color: #64748B; margin-top: 0.3rem;">
+              <span>Password Strength:</span>
+              <strong id="pw-strength-text" style="color: #EF4444;">Weak</strong>
+            </div>
+          </div>
+
+          <!-- REGISTER: Confirm Password -->
+          <div class="auth-input-group" id="group-confirm-pw" style="display: none; margin-bottom: 1.25rem;">
+            <input type="password" id="auth-confirm-password" class="auth-input-control" placeholder="Confirm Password" oninput="AuthPage.checkPasswordMatch()" />
+            <i class="fas fa-shield-halved auth-input-icon"></i>
+            <span id="pw-match-badge" style="font-size: 0.75rem; font-weight: 700; display: block; margin-top: 0.3rem;"></span>
+          </div>
+
+          <!-- REGISTER: Role Selection Radio Tiles -->
+          <div id="group-role" style="display: none; margin-bottom: 1.25rem;">
+            <label style="font-size: 0.82rem; font-weight: 700; color: #5A4634; display: block; margin-bottom: 0.5rem;">Account Type</label>
+            <div style="display: flex; gap: 0.75rem;">
+              <div class="role-option-tile selected" id="role-tile-customer" onclick="AuthPage.selectRole('customer')">
+                <i class="fas fa-user-circle" style="font-size: 1.2rem; margin-bottom: 0.3rem; display: block;"></i>
+                <div style="font-weight: 700; font-size: 0.85rem;">Customer</div>
+                <div style="font-size: 0.72rem; color: #64748B;">Book Services</div>
+              </div>
+              <div class="role-option-tile" id="role-tile-provider" onclick="AuthPage.selectRole('provider')">
+                <i class="fas fa-user-tie" style="font-size: 1.2rem; margin-bottom: 0.3rem; display: block;"></i>
+                <div style="font-weight: 700; font-size: 0.85rem;">Service Provider</div>
+                <div style="font-size: 0.72rem; color: #64748B;">Offer Services</div>
+              </div>
+            </div>
+            <input type="hidden" id="auth-role" value="customer" />
+          </div>
+
+          <!-- LOGIN: Remember Me & Forgot Password Row -->
+          <div id="login-meta-row" style="display: flex; justify-content: space-between; align-items: center; font-size: 0.84rem; margin-bottom: 1.5rem;">
+            <label style="display: flex; align-items: center; gap: 0.4rem; color: #5A4634; font-weight: 500; cursor: pointer;">
+              <input type="checkbox" id="auth-remember" style="accent-color: #FF7A00;" checked /> Remember Me
+            </label>
+            <a href="#" style="color: #FF7A00; text-decoration: none; font-weight: 600;" onclick="Toast.show('Password reset link sent to your email.', 'info')">Forgot Password?</a>
+          </div>
+
+          <!-- REGISTER: Terms Checkbox -->
+          <div id="register-terms-row" style="display: none; margin-bottom: 1.5rem; font-size: 0.82rem; color: #64748B;">
+            <label style="display: flex; align-items: flex-start; gap: 0.5rem; cursor: pointer;">
+              <input type="checkbox" id="auth-terms" style="accent-color: #FF7A00; margin-top: 0.15rem;" required />
+              <span>I agree to Local Hands <a href="#" style="color: #FF7A00; font-weight: 600;">Terms of Service</a> & <a href="#" style="color: #FF7A00; font-weight: 600;">Privacy Policy</a>.</span>
+            </label>
+          </div>
+
+          <!-- Submit Action Button -->
+          <button type="submit" id="auth-submit-btn" class="btn-view-all-orange" style="width: 100%; margin-top: 0; padding: 0.85rem; font-size: 1rem; border-radius: 14px;">
+            <span id="btn-text">Sign In</span> <i class="fas fa-arrow-right" id="btn-icon"></i>
+          </button>
+        </form>
+
+        <!-- Divider -->
+        <div style="display: flex; align-items: center; gap: 1rem; margin: 1.5rem 0; font-size: 0.8rem; color: #94A3B8;">
+          <div style="flex: 1; height: 1px; background: #E2E8F0;"></div>
+          <span>OR</span>
+          <div style="flex: 1; height: 1px; background: #E2E8F0;"></div>
+        </div>
+
+        <!-- Google OAuth Button -->
+        <button class="social-btn" onclick="Toast.show('Google Sign In connecting...', 'info')">
+          <svg width="18" height="18" viewBox="0 0 24 24"><path fill="#4285F4" d="M23.745 12.27c0-.7-.06-1.4-.19-2.07H12v4.51h6.6c-.29 1.52-1.14 2.82-2.4 3.68v3.05h3.88c2.27-2.09 3.665-5.17 3.665-9.17z"/><path fill="#34A853" d="M12 24c3.24 0 5.95-1.08 7.93-2.91l-3.88-3.05c-1.08.72-2.45 1.16-4.05 1.16-3.12 0-5.77-2.1-6.72-4.93H1.26v3.15C3.25 21.3 7.31 24 12 24z"/><path fill="#FBBC05" d="M5.28 14.27c-.25-.72-.38-1.49-.38-2.27s.13-1.55.38-2.27V6.58H1.26C.46 8.18 0 10.02 0 12s.46 3.82 1.26 5.42l4.02-3.15z"/><path fill="#EA4335" d="M12 4.75c1.77 0 3.35.61 4.6 1.8l3.42-3.42C17.95 1.19 15.24 0 12 0 7.31 0 3.25 2.7 1.26 6.58l4.02 3.15c.95-2.83 3.6-4.98 6.72-4.98z"/></svg>
+          Continue with Google
+        </button>
+
+        <!-- Guest Link -->
+        <div style="text-align: center; margin-top: 1.25rem;">
+          <a href="index.html" style="font-size: 0.84rem; color: #64748B; text-decoration: none; font-weight: 500;">
+            <i class="fas fa-arrow-left"></i> Continue as Guest
+          </a>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
 
   <!-- Scripts -->
   <script src="js/toast.js"></script>
@@ -76,5 +421,6 @@
   <script src="js/api.js"></script>
   <script src="js/auth.js"></script>
   <script src="js/login.js"></script>
+  <script src="js/animations.js"></script>
 </body>
 </html>

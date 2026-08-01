@@ -1,39 +1,50 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Outfit:wght@400;500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap');
 
 :root {
-  /* Color Palette - Urban Company & Linear Dark Slate Inspired */
-  --bg-main: #0b0f19;
-  --bg-surface: #111827;
-  --bg-surface-elevated: #1f293d;
-  --bg-glass: rgba(17, 24, 39, 0.75);
-  
-  --border-color: rgba(255, 255, 255, 0.08);
-  --border-highlight: rgba(99, 102, 241, 0.3);
+  /* Official Local Hands Brand Color Palette */
+  --primary: #FF7A00;          /* Primary Orange */
+  --primary-hover: #E06C00;    /* Darker Orange */
+  --primary-soft: #FFF7ED;     /* Soft Orange Background */
+  --primary-light: #F4E7D3;    /* Cream Tint */
+  --primary-foreground: #FFFFFF;
 
-  --primary: #6366f1;
-  --primary-hover: #4f46e5;
-  --primary-light: rgba(99, 102, 241, 0.15);
-  
-  --secondary: #06b6d4;
-  --secondary-hover: #0891b2;
-  
-  --accent: #f59e0b;
-  --success: #10b981;
-  --danger: #ef4444;
-  --warning: #f59e0b;
-  --info: #3b82f6;
+  --brand-brown: #5A4634;      /* Brand Deep Brown */
+  --bg-cream: #F4E7D3;         /* Cream Surface */
+  --bg-light-cream: #F9F6F2;   /* Light Cream Background */
 
-  --text-main: #f9fafb;
-  --text-muted: #9ca3af;
-  --text-subtle: #6b7280;
+  --gradient-brand: linear-gradient(135deg, #FF7A00 0%, #FF9500 100%);
+  --shadow-elevated: 0 20px 30px -5px rgba(90, 70, 52, 0.08), 0 8px 12px -6px rgba(90, 70, 52, 0.04);
 
-  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.3);
-  --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.4);
-  --shadow-lg: 0 16px 40px rgba(0, 0, 0, 0.5);
-  --shadow-glow: 0 0 20px rgba(99, 102, 241, 0.25);
+  --accent: #FF7A00;
+  --accent-green: #10B981;    /* Emerald Green */
+  --accent-orange: #FF7A00;
 
-  --radius-sm: 8px;
-  --radius-md: 14px;
+  --bg-main: #FFFFFF;         /* White Background */
+  --bg-card: #FFFFFF;         /* Card Surface */
+  --bg-surface: #FFFFFF;
+  --bg-blue-section: #5A4634; /* Dark Brown How It Works Section */
+
+  --foreground: #5A4634;      /* Deep Brown Text */
+  --text-main: #5A4634;       /* Dark Slate/Brown Text */
+  --text-muted: #64748B;      /* Gray Subtitle Text */
+  --muted: #F9F6F2;
+  --muted-foreground: #64748B;
+  --text-subtle: #94A3B8;     /* Light Muted Text */
+  --text-on-dark: #FFFFFF;    /* White text on dark */
+
+  --border: #E2E8F0;
+  --border-color: #E2E8F0;    /* Soft Light Border */
+  --border-focus: #FF7A00;
+
+  --success: #10B981;
+  --danger: #EF4444;
+
+  --shadow-sm: 0 2px 8px rgba(90, 70, 52, 0.05);
+  --shadow-md: 0 8px 24px rgba(90, 70, 52, 0.08);
+  --shadow-lg: 0 16px 40px rgba(90, 70, 52, 0.12);
+
+  --radius-sm: 10px;
+  --radius-md: 16px;
   --radius-lg: 20px;
   --radius-full: 9999px;
 
@@ -48,7 +59,7 @@
 }
 
 body {
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-family: 'Plus Jakarta Sans', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
   background-color: var(--bg-main);
   color: var(--text-main);
   line-height: 1.6;
@@ -57,8 +68,8 @@ body {
 }
 
 h1, h2, h3, h4, h5, h6 {
-  font-family: 'Outfit', sans-serif;
-  font-weight: 700;
-  letter-spacing: -0.02em;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-weight: 800;
   color: var(--text-main);
+  letter-spacing: -0.02em;
 }

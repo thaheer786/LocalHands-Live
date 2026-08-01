@@ -87,7 +87,7 @@ router.post('/login', (req, res) => {
 // Demo Quick Login Endpoint
 router.post('/demo-login', (req, res) => {
   const { role } = req.body;
-  let targetEmail = 'alex@example.com'; // customer
+  let targetEmail = 'ramesh@example.com'; // customer
 
   if (role === 'provider') {
     targetEmail = 'marcus@localhands.com';
