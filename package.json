@@ -10,6 +10,9 @@
     "test": "node -e \"console.log('Running automated test suite... Healthcheck passed!'); process.exit(0);\"",
     "seed": "node db/seed.js"
   },
+  "engines": {
+    "node": ">=18.x"
+  },
   "dependencies": {
     "express": "^4.19.2",
     "cors": "^2.8.5",
