@@ -6,8 +6,10 @@ const { db, execSchema, executeRun, queryGet } = require('./database');
 async function seed() {
   console.log('Initializing database schema...');
   const schemaPath = path.join(__dirname, 'schema.sql');
-  const schemaSql = fs.readFileSync(schemaPath, 'utf8');
-  execSchema(schemaSql);
+  if (fs.existsSync(schemaPath)) {
+    const schemaSql = fs.readFileSync(schemaPath, 'utf8');
+    execSchema(schemaSql);
+  }
 
   // Check if categories already exist
   const existingCategory = queryGet('SELECT id FROM categories LIMIT 1');

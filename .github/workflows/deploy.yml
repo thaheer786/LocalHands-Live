@@ -50,4 +50,6 @@ jobs:
           node-version: '20'
 
       - name: Install Vercel CLI & Deploy
-        run: npx vercel --token ${{ secrets.VERCEL_Token }} --prod --confirm
+        run: npx vercel --token ${{ secrets.VERCEL_TOKEN }} --prod --yes
+
+
