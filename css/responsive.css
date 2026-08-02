@@ -1,51 +1,218 @@
-/* Responsive Breakpoints & Mobile Optimization */
-@media (max-width: 992px) {
-  .navbar {
-    padding: 0.85rem 1.25rem;
-  }
-  
-  .nav-links {
-    display: none; /* Drawer for mobile */
-  }
+/* ==========================================================================
+   LOCAL HANDS COMPLETE RESPONSIVE DESIGN SYSTEM
+   ========================================================================== */
 
-  .services-grid,
-  .providers-grid,
-  .stats-grid {
-    grid-template-columns: repeat(2, 1fr) !important;
+/* Mobile Hamburger Toggle Button */
+.nav-toggle-btn {
+  display: none;
+  background: none;
+  border: none;
+  color: #5A4634;
+  font-size: 1.4rem;
+  cursor: pointer;
+  padding: 0.4rem;
+  border-radius: 8px;
+  transition: all 0.2s ease;
+}
+
+.nav-toggle-btn:hover {
+  background: #FFF7ED;
+  color: #FF7A00;
+}
+
+/* ==========================================================================
+   DESKTOP & LARGE TABLETS (min-width: 993px)
+   ========================================================================== */
+@media (min-width: 993px) {
+  .nav-toggle-btn {
+    display: none !important;
   }
 }
 
-@media (max-width: 640px) {
-  .navbar {
-    padding: 0.75rem 1rem;
+/* ==========================================================================
+   TABLET & MEDIUM SCREENS (max-width: 992px)
+   ========================================================================== */
+@media (max-width: 992px) {
+  .container {
+    padding: 0 1.25rem;
   }
 
-  .services-grid,
-  .providers-grid,
-  .stats-grid {
+  .section-padding {
+    padding: 3.5rem 0;
+  }
+
+  /* Header & Navigation Mobile Drawer */
+  .nav-toggle-btn {
+    display: inline-flex !important;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .nav-links {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: #FFFFFF;
+    flex-direction: column;
+    padding: 1.25rem;
+    gap: 1rem;
+    border-bottom: 1px solid #E2E8F0;
+    box-shadow: 0 12px 30px rgba(90, 70, 52, 0.12);
+    z-index: 999;
+  }
+
+  .nav-links.mobile-active {
+    display: flex !important;
+    animation: fadeInDown 0.3s ease-out;
+  }
+
+  /* Hero Section Grid Stacking */
+  .hero-ref-grid {
+    grid-template-columns: 1fr !important;
+    gap: 2rem;
+    text-align: center;
+  }
+
+  .hero-ref-desc {
+    margin: 0 auto 1.75rem auto;
+  }
+
+  .hero-ref-banner-img {
+    justify-content: center;
+    margin: 0 auto;
+  }
+
+  .hero-ref-banner-img img {
+    width: 100%;
+    max-width: 550px;
+    transform: none !important;
+  }
+
+  /* Page Layout Grids Stacking */
+  .sd-layout,
+  .cust-dash-layout,
+  .prov-dash-layout,
+  .map-split-view,
+  .auth-split-layout {
     grid-template-columns: 1fr !important;
   }
 
-  .hero-title {
+  .map-split-view {
+    height: auto !important;
+    min-height: calc(100vh - 72px);
+  }
+
+  .map-sidebar-panel {
+    max-height: 400px;
+    overflow-y: auto;
+  }
+
+  /* Responsive Grids */
+  .services-grid,
+  .providers-grid,
+  .stats-grid,
+  .premium-cat-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 1.25rem !important;
+  }
+}
+
+/* ==========================================================================
+   MOBILE SMARTPHONES (max-width: 640px)
+   ========================================================================== */
+@media (max-width: 640px) {
+  .container {
+    padding: 0 1rem;
+  }
+
+  .section-padding {
+    padding: 2.5rem 0;
+  }
+
+  /* Section Titles & Headings */
+  .section-title {
+    font-size: 1.75rem !important;
+  }
+
+  .section-subtitle {
+    font-size: 0.92rem !important;
+    margin-bottom: 2rem !important;
+  }
+
+  .hero-ref-title {
     font-size: 2rem !important;
   }
 
+  /* 1-Column Stacking for Cards */
+  .services-grid,
+  .providers-grid,
+  .stats-grid,
+  .premium-cat-grid,
+  .why-grid {
+    grid-template-columns: 1fr !important;
+    gap: 1rem !important;
+  }
+
+  /* Form Controls Touch Targets */
+  .form-control,
+  .auth-input-control,
+  .sd-select-control {
+    font-size: 0.9rem !important;
+    padding: 0.75rem 0.9rem !important;
+    min-height: 44px;
+  }
+
+  /* Full Width Buttons on Mobile */
+  .btn-view-all-orange,
+  .btn-teal-pill,
+  .auth-card button[type="submit"] {
+    width: 100% !important;
+    justify-content: center;
+    padding: 0.85rem 1rem !important;
+  }
+
+  /* Mobile Tables Horizontal Scroll Wrapper */
+  table {
+    display: block;
+    overflow-x: auto;
+    white-space: nowrap;
+  }
+
+  /* Modal Adjustments */
   .modal-content {
-    padding: 1.25rem;
+    width: 95% !important;
+    max-width: 95% !important;
+    padding: 1.25rem !important;
+    margin: 1rem auto;
   }
 
-  .step-tracker {
-    flex-wrap: wrap;
-    gap: 1rem;
-  }
-
-  .step-item {
-    width: 45%;
-  }
-
+  /* Toast Notifications Positioning */
   #toast-container {
-    left: 1rem;
-    right: 1rem;
-    max-width: none;
+    left: 0.85rem !important;
+    right: 0.85rem !important;
+    bottom: 0.85rem !important;
+    max-width: none !important;
+  }
+
+  /* Floating Back to Top Button Position */
+  #back-to-top-btn {
+    bottom: 1.25rem !important;
+    right: 1.25rem !important;
+    width: 42px !important;
+    height: 42px !important;
+  }
+}
+
+/* Header Slide Animation */
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
 }

@@ -5,10 +5,34 @@ const AppAnimations = {
   init() {
     this.createProgressBar();
     this.createBackToTopButton();
+    this.initMobileMenu();
     this.initScrollReveal();
     this.initCounterAnimations();
     this.initCardTilt();
     this.bindScrollEvents();
+  },
+
+  initMobileMenu() {
+    const navbar = document.querySelector('.navbar');
+    const navLinks = document.querySelector('.nav-links');
+    if (navbar && navLinks && !document.querySelector('.nav-toggle-btn')) {
+      const toggleBtn = document.createElement('button');
+      toggleBtn.className = 'nav-toggle-btn';
+      toggleBtn.setAttribute('aria-label', 'Toggle navigation menu');
+      toggleBtn.innerHTML = '<i class="fas fa-bars"></i>';
+      toggleBtn.onclick = () => {
+        navLinks.classList.toggle('mobile-active');
+        const icon = toggleBtn.querySelector('i');
+        if (icon) {
+          if (navLinks.classList.contains('mobile-active')) {
+            icon.className = 'fas fa-times';
+          } else {
+            icon.className = 'fas fa-bars';
+          }
+        }
+      };
+      navbar.appendChild(toggleBtn);
+    }
   },
 
   createProgressBar() {
