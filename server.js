@@ -61,8 +61,13 @@ app.use((err, req, res, next) => {
   res.status(500).json({ success: false, error: 'Internal Server Error', details: err.message });
 });
 
-app.listen(PORT, () => {
-  console.log(`=======================================================`);
-  console.log(`🚀 Local Hands Platform running at: http://localhost:${PORT}`);
-  console.log(`=======================================================`);
-});
+// Export Express app for Vercel Serverless Function deployment
+module.exports = app;
+
+if (require.main === module) {
+  app.listen(PORT, () => {
+    console.log(`=======================================================`);
+    console.log(`🚀 Local Hands Platform running at: http://localhost:${PORT}`);
+    console.log(`=======================================================`);
+  });
+}
