@@ -76,27 +76,72 @@ router.get('/:id', (req, res) => {
   res.json({ success: true, provider, reviews, services });
 });
 
-// Update Provider profile
-router.put('/me/profile', authenticateToken, requireRole(['provider']), (req, res) => {
-  const { bio, hourly_rate, availability } = req.body;
-  const provider = queryGet('SELECT id FROM providers WHERE user_id = ?', [req.user.id]);
+// Update Provider profile & business listing
+router.put('/me/profile', authenticateToken, requireRole(['provider', 'admin']), (req, res) => {
+  const {
+    name,
+    phone,
+    city,
+    category_slug,
+    whatsapp,
+    email,
+    availability,
+    bio,
+    full_description,
+    address,
+    service_area,
+    hourly_rate,
+    experience_years,
+    avatar
+  } = req.body;
 
+  let provider = queryGet('SELECT id FROM providers WHERE user_id = ?', [req.user.id]);
+  
   if (!provider) {
-    return res.status(404).json({ success: false, error: 'Provider record not found.' });
+    const newProvId = 'prov-' + Date.now();
+    executeRun(
+      'INSERT INTO providers (id, user_id, bio, full_description, experience_years, hourly_rate, availability, city, category_slug, whatsapp, address, service_area) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
+      [newProvId, req.user.id, bio || '', full_description || '', experience_years || 1, hourly_rate || 400.0, availability || 'available', city || 'Piduguralla', category_slug || 'home-services', whatsapp || '', address || '', service_area || 'Within 15 km']
+    );
+    provider = { id: newProvId };
+  } else {
+    executeRun(
+      `UPDATE providers SET 
+        bio = COALESCE(?, bio),
+        full_description = COALESCE(?, full_description),
+        experience_years = COALESCE(?, experience_years),
+        hourly_rate = COALESCE(?, hourly_rate),
+        availability = COALESCE(?, availability),
+        city = COALESCE(?, city),
+        category_slug = COALESCE(?, category_slug),
+        whatsapp = COALESCE(?, whatsapp),
+        address = COALESCE(?, address),
+        service_area = COALESCE(?, service_area)
+      WHERE id = ?`,
+      [bio, full_description, experience_years, hourly_rate, availability, city, category_slug, whatsapp, address, service_area, provider.id]
+    );
   }
 
-  executeRun(
-    'UPDATE providers SET bio = COALESCE(?, bio), hourly_rate = COALESCE(?, hourly_rate), availability = COALESCE(?, availability) WHERE id = ?',
-    [bio, hourly_rate, availability, provider.id]
-  );
+  // Also update users table name, phone, email, avatar if provided
+  if (name || phone || email || avatar) {
+    executeRun(
+      `UPDATE users SET 
+        name = COALESCE(?, name),
+        phone = COALESCE(?, phone),
+        email = COALESCE(?, email),
+        avatar = COALESCE(?, avatar)
+      WHERE id = ?`,
+      [name, phone, email, avatar, req.user.id]
+    );
+  }
 
   const updatedProvider = queryGet(`
-    SELECT p.*, u.name, u.email, u.avatar 
+    SELECT p.*, u.name, u.email, u.phone, u.avatar 
     FROM providers p JOIN users u ON p.user_id = u.id 
     WHERE p.id = ?
   `, [provider.id]);
 
-  res.json({ success: true, message: 'Provider profile updated successfully.', provider: updatedProvider });
+  res.json({ success: true, message: 'Business listing saved & updated in database!', provider: updatedProvider });
 });
 
 module.exports = router;

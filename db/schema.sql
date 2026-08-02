@@ -22,14 +22,18 @@ CREATE TABLE IF NOT EXISTS providers (
   id TEXT PRIMARY KEY,
   user_id TEXT UNIQUE NOT NULL,
   bio TEXT,
+  full_description TEXT,
   experience_years INTEGER DEFAULT 1,
   rating REAL DEFAULT 5.0,
-  hourly_rate REAL DEFAULT 40.0,
+  hourly_rate REAL DEFAULT 400.0,
   is_verified INTEGER DEFAULT 0,
   availability TEXT CHECK(availability IN ('available', 'busy', 'offline')) DEFAULT 'available',
   completed_jobs INTEGER DEFAULT 0,
   city TEXT DEFAULT 'Piduguralla',
   category_slug TEXT DEFAULT 'home-services',
+  whatsapp TEXT,
+  address TEXT,
+  service_area TEXT,
   FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
 );
 
