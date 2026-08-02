@@ -29,7 +29,7 @@ app.use(express.urlencoded({ extended: true }));
 // Serve static frontend files from current root directory
 app.use(express.static(path.join(__dirname, './')));
 
-// Mount REST API Routers
+// Mount REST API Routers (supporting both /api/* and direct /* rewrites on Vercel)
 app.use('/api/auth', authRoutes);
 app.use('/api/categories', categoryRoutes);
 app.use('/api/services', serviceRoutes);
@@ -40,8 +40,21 @@ app.use('/api/addresses', addressRoutes);
 app.use('/api/admin', adminRoutes);
 app.use('/api/requirements', requirementRoutes);
 
+app.use('/auth', authRoutes);
+app.use('/categories', categoryRoutes);
+app.use('/services', serviceRoutes);
+app.use('/providers', providerRoutes);
+app.use('/bookings', bookingRoutes);
+app.use('/reviews', reviewRoutes);
+app.use('/addresses', addressRoutes);
+app.use('/admin', adminRoutes);
+app.use('/requirements', requirementRoutes);
+
 // Healthcheck
 app.get('/api/health', (req, res) => {
+  res.json({ status: 'ok', service: 'Local Hands API', timestamp: new Date().toISOString() });
+});
+app.get('/health', (req, res) => {
   res.json({ status: 'ok', service: 'Local Hands API', timestamp: new Date().toISOString() });
 });
 

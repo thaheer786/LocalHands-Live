@@ -44,7 +44,14 @@ const API = {
         headers
       });
 
-      const data = await response.json();
+      const responseText = await response.text();
+      let data = {};
+      try {
+        data = JSON.parse(responseText);
+      } catch (e) {
+        console.warn(`Non-JSON response from ${endpoint}:`, responseText);
+        data = { success: false, error: 'Server returned invalid response format.' };
+      }
 
       if (!response.ok) {
         if (response.status === 401 && !endpoint.includes('/auth/login')) {
