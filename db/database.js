@@ -2,7 +2,11 @@ const { DatabaseSync } = require('node:sqlite');
 const path = require('path');
 const fs = require('fs');
 
-const dbPath = path.join(__dirname, '../data/localhands.db');
+const isVercel = process.env.VERCEL || process.env.AWS_LAMBDA_FUNCTION_NAME;
+const dbPath = isVercel
+  ? path.join('/tmp', 'localhands.db')
+  : path.join(__dirname, '../data/localhands.db');
+
 const dataDir = path.dirname(dbPath);
 
 if (!fs.existsSync(dataDir)) {
