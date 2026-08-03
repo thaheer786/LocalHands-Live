@@ -2,7 +2,7 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: "Poppins", sans-serif;
+  font-family: "Plus Jakarta Sans", "Poppins", sans-serif;
 }
 
 body {
@@ -10,14 +10,19 @@ body {
   justify-content: center;
   align-items: center;
   min-height: 100vh;
-  background:#bea183;
+  min-height: 100dvh;
+  background: #bea183;
+  padding: 1.25rem 1rem;
 }
+
 .wrapper {
-  width: 400px;
-  height: 500px;
+  width: 100%;
+  max-width: 400px;
+  min-height: 500px;
   position: relative;
   transform-style: preserve-3d;
   transition: transform 0.8s ease;
+  margin: auto;
 }
 
 .wrapper.active {
@@ -28,14 +33,13 @@ body {
 .wrapper2 {
   width: 100%;
   height: 100%;
-  /* box-shadow: 0 0 50px blanchedalmond; */
   overflow: hidden;
   position: absolute;
   border-radius: 20px;
-
   top: 0;
   left: 0;
   backface-visibility: hidden;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
 }
 
 .wrapper2 {
@@ -47,48 +51,52 @@ body {
   justify-content: center;
   align-items: center;
   height: 100%;
+  min-height: 500px;
   background: #fff;
+  padding: 2.5rem 1.5rem;
 }
 
 form {
-  width: 80%;
+  width: 100%;
+  max-width: 320px;
 }
 
 h2 {
-  font-size: 30px;
+  font-size: clamp(1.5rem, 5vw, 1.875rem);
   color: rgb(252, 105, 25);
   text-align: center;
-  margin-bottom: 25px;
+  margin-bottom: 22px;
+  font-weight: 700;
 }
 
 .input {
   position: relative;
-  margin-bottom: 25px;
+  margin-bottom: 22px;
 }
 
 .input label {
   position: absolute;
   top: 50%;
-  left: 5px;
+  left: 10px;
   transform: translateY(-50%);
-  font-size: 16px;
+  font-size: 15px;
   color: gray;
   padding: 0 5px;
   pointer-events: none;
-  transition: 0.5s;
+  transition: 0.3s ease;
 }
 
 .input input {
   width: 100%;
-  height: 40px;
+  height: 48px;
   font-size: 16px;
   color: black;
-  padding: 0 10px;
+  padding: 0 12px;
   background: transparent;
-  border: 1px solid black;
+  border: 1px solid #ccc;
   outline: none;
-  border-radius: 5px;
-  transition: 0.5s;
+  border-radius: 8px;
+  transition: 0.3s ease;
 }
 
 .input input:focus ~ label,
@@ -96,71 +104,93 @@ h2 {
   top: 0;
   font-size: 12px;
   background: #fff;
-  color: #000;
+  color: rgb(252, 105, 25);
+  font-weight: 600;
+}
+
+.input input:focus {
+  border-color: rgb(252, 105, 25);
+  box-shadow: 0 0 0 3px rgba(252, 105, 25, 0.15);
 }
 
 .box {
-  margin-bottom: 10px;
+  margin-bottom: 14px;
 }
 
 .box label {
-  color: black;
+  color: #333;
   font-size: 14px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
 }
 
 .box label input {
-  accent-color: grey;
+  width: 18px;
+  height: 18px;
+  accent-color: rgb(252, 105, 25);
+  cursor: pointer;
 }
 
 .menu span {
   color: black;
-  font-size: 45px;
+  font-size: 32px;
   position: absolute;
-  top: 5px;
+  top: 12px;
   right: 15px;
   cursor: pointer;
   z-index: 10;
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
+
 .menu span a {
   text-decoration: none;
-  color:orangered;
+  color: orangered;
 }
 
 .forgot-link {
   display: block;
   text-align: right;
   margin-bottom: 20px;
-  /* color: ; */
   font-size: 13px;
+  color: #555;
   text-decoration: none;
   font-weight: 500;
 }
 
 .forgot-link:hover {
   text-decoration: underline;
+  color: rgb(252, 105, 25);
 }
 
 button {
   width: 100%;
-  height: 40px;
-  background:#6B5D50;
-  box-shadow: 0 5px 10px grey;
+  min-height: 46px;
+  background: #6B5D50;
+  box-shadow: 0 4px 12px rgba(107, 93, 80, 0.3);
   font-size: 16px;
   color: #fff;
-  font-weight: 500;
+  font-weight: 600;
   cursor: pointer;
-  border-radius: 5px;
+  border-radius: 8px;
   border: none;
   outline: none;
-  transition: 0.3s;
+  transition: all 0.25s ease;
   margin-bottom: 20px;
 }
-button:hover{
-  background-color:rgb(252, 105, 25);
+
+button:hover {
+  background-color: rgb(252, 105, 25);
+  box-shadow: 0 6px 16px rgba(252, 105, 25, 0.4);
 }
 
 button:active {
-  background: #222;
+  transform: scale(0.98);
 }
 
 .sign-link {
@@ -182,23 +212,26 @@ button:active {
 .sign-link p a:hover {
   text-decoration: underline;
 }
+
 .forgot-box {
   display: none;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 40px;
-  background: rgba(255, 255, 255, 0.1);
+  padding: 30px 20px;
+  background: rgba(15, 23, 42, 0.85);
   backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
   border-radius: 20px;
   color: white;
-  box-shadow: 0 0 30px rgba(0, 0, 0, 0.4);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  animation: box 0.6s ease;
+  z-index: 20;
+  animation: box 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .forgot-box.show {
@@ -206,14 +239,16 @@ button:active {
 }
 
 .forgot-box h2 {
-  margin-bottom: 30px;
+  margin-bottom: 25px;
+  color: #fff;
 }
 
 .forgot-box input {
   width: 100%;
+  min-height: 48px;
   padding: 12px;
   margin-bottom: 20px;
-  background: transparent;
+  background: #fff;
   border: 1px solid #ccc;
   border-radius: 8px;
   color: black;
@@ -223,31 +258,33 @@ button:active {
 }
 
 .forgot-box input:focus {
-  border-color: black;
+  border-color: rgb(252, 105, 25);
 }
 
 .forgot-box button {
   width: 100%;
-  padding: 12px;
-  background-color:#6B5D50;
+  min-height: 48px;
+  background-color: rgb(252, 105, 25);
   color: #fff;
   border: none;
   border-radius: 8px;
   font-size: 16px;
+  font-weight: 600;
   cursor: pointer;
 }
-.forgot-box button:hover{
-  background-color: rgb(252, 105, 25);
-}
 
+.forgot-box button:hover {
+  background-color: #e55800;
+}
 
 .forgot-box .link {
   margin-top: 15px;
 }
 
 .forgot-box .link a {
-  color: red;
+  color: #ff9999;
   text-decoration: none;
+  font-weight: 500;
 }
 
 .forgot-box .link a:hover {
@@ -257,7 +294,7 @@ button:active {
 @keyframes box {
   from {
     opacity: 0;
-    transform: scale(0.9);
+    transform: scale(0.92);
   }
   to {
     opacity: 1;
@@ -265,11 +302,16 @@ button:active {
   }
 }
 
-.open button {
-  background-color: blue;
-  border-radius: 5px;
-  font-size: 26px;
-}
-.open button:hover {
-  background-color: yellow;
+@media (max-width: 480px) {
+  body {
+    padding: 0.75rem;
+  }
+  
+  .form-wrapper {
+    padding: 2rem 1.25rem;
+  }
+
+  .wrapper {
+    min-height: 480px;
+  }
 }

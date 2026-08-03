@@ -15,24 +15,76 @@ const AppAnimations = {
   initMobileMenu() {
     const navbar = document.querySelector('.navbar');
     const navLinks = document.querySelector('.nav-links');
-    if (navbar && navLinks && !document.querySelector('.nav-toggle-btn')) {
-      const toggleBtn = document.createElement('button');
+
+    if (!navbar || !navLinks) return;
+
+    // Create Backdrop element if not already present
+    let backdrop = document.querySelector('.mobile-nav-backdrop');
+    if (!backdrop) {
+      backdrop = document.createElement('div');
+      backdrop.className = 'mobile-nav-backdrop';
+      document.body.appendChild(backdrop);
+    }
+
+    const closeMenu = () => {
+      navLinks.classList.remove('mobile-active');
+      backdrop.classList.remove('active');
+      document.body.classList.remove('menu-open');
+      const toggleBtn = document.querySelector('.nav-toggle-btn');
+      if (toggleBtn) {
+        const icon = toggleBtn.querySelector('i');
+        if (icon) icon.className = 'fas fa-bars';
+        toggleBtn.setAttribute('aria-expanded', 'false');
+      }
+    };
+
+    const openMenu = () => {
+      navLinks.classList.add('mobile-active');
+      backdrop.classList.add('active');
+      document.body.classList.add('menu-open');
+      const toggleBtn = document.querySelector('.nav-toggle-btn');
+      if (toggleBtn) {
+        const icon = toggleBtn.querySelector('i');
+        if (icon) icon.className = 'fas fa-times';
+        toggleBtn.setAttribute('aria-expanded', 'true');
+      }
+    };
+
+    // Add toggle button if not present
+    let toggleBtn = document.querySelector('.nav-toggle-btn');
+    if (!toggleBtn) {
+      toggleBtn = document.createElement('button');
       toggleBtn.className = 'nav-toggle-btn';
       toggleBtn.setAttribute('aria-label', 'Toggle navigation menu');
+      toggleBtn.setAttribute('aria-expanded', 'false');
       toggleBtn.innerHTML = '<i class="fas fa-bars"></i>';
-      toggleBtn.onclick = () => {
-        navLinks.classList.toggle('mobile-active');
-        const icon = toggleBtn.querySelector('i');
-        if (icon) {
-          if (navLinks.classList.contains('mobile-active')) {
-            icon.className = 'fas fa-times';
-          } else {
-            icon.className = 'fas fa-bars';
-          }
-        }
-      };
       navbar.appendChild(toggleBtn);
     }
+
+    toggleBtn.onclick = (e) => {
+      e.stopPropagation();
+      if (navLinks.classList.contains('mobile-active')) {
+        closeMenu();
+      } else {
+        openMenu();
+      }
+    };
+
+    backdrop.onclick = () => closeMenu();
+
+    // Close menu when clicking navigation links inside mobile menu
+    navLinks.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        closeMenu();
+      });
+    });
+
+    // Close menu on screen resize to desktop width
+    window.addEventListener('resize', () => {
+      if (window.innerWidth > 992 && navLinks.classList.contains('mobile-active')) {
+        closeMenu();
+      }
+    });
   },
 
   createProgressBar() {

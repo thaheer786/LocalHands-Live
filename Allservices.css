@@ -184,7 +184,28 @@ body {
   .nav-center {
     display: none;
   }
-  .hamburger {
-    display: block;
+  .page-header h1 {
+    font-size: 1.8rem;
+  }
+  .filter-buttons {
+    display: flex;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scroll-snap-type: x mandatory;
+    padding-bottom: 0.5rem;
+    gap: 8px;
+  }
+  .filter-buttons button {
+    scroll-snap-align: start;
+    flex-shrink: 0;
+    font-size: 0.95rem;
+    padding: 8px 14px;
+    min-height: 44px;
+  }
+  .card-grid {
+    grid-template-columns: 1fr !important;
+    gap: 16px;
+    padding: 20px 12px;
   }
 }

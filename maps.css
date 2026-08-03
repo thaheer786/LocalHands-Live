@@ -433,17 +433,35 @@ body {
 }
 
 
-/* Responsive adjustments for modal */
+/* Responsive adjustments for modal and maps */
+@media (max-width: 992px) {
+    .main-content {
+        flex-direction: column !important;
+        margin: 10px !important;
+        height: auto !important;
+    }
+    .map-section {
+        height: 350px !important;
+        min-height: 280px !important;
+        width: 100% !important;
+    }
+    .sidebar {
+        max-height: 480px !important;
+        width: 100% !important;
+    }
+}
+
 @media (max-width: 768px) {
     .modal-body {
         flex-direction: column;
     }
     .provider-info-section,
     .customer-reviews-section {
-        min-width: unset; /* Remove min-width for stacking */
+        min-width: unset;
     }
     .modal-content {
         padding: 15px;
+        width: 94% !important;
     }
     .close-button {
         font-size: 30px;
