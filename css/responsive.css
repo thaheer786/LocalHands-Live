@@ -1,5 +1,5 @@
 /* ==========================================================================
-   LOCAL HANDS MASTER RESPONSIVE DESIGN SYSTEM (MOBILE S 320px AUDITED)
+   LOCAL HANDS MASTER RESPONSIVE DESIGN SYSTEM (FINAL AUDITED & SCREENSHOT VERIFIED)
    ========================================================================== */
 
 /* --------------------------------------------------------------------------
@@ -214,6 +214,37 @@ button.favourite-btn,
 
   .nav-toggle-btn {
     display: inline-flex !important;
+  }
+
+  /* Sleek User Profile Avatar Pill (Prevents Stretched Beige Rectangle) */
+  .user-name,
+  .user-role-badge,
+  .user-menu i.fa-chevron-down {
+    display: none !important;
+  }
+
+  .user-menu {
+    background: transparent !important;
+    border: none !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    width: 36px !important;
+    height: 36px !important;
+    min-width: 36px !important;
+    box-shadow: none !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    flex-shrink: 0 !important;
+  }
+
+  .user-avatar {
+    width: 34px !important;
+    height: 34px !important;
+    border-radius: 50% !important;
+    border: 2px solid #FF7A00 !important;
+    box-shadow: 0 2px 8px rgba(255, 122, 0, 0.25) !important;
+    object-fit: cover !important;
   }
 
   .nav-links {
@@ -467,30 +498,6 @@ button.favourite-btn,
   .nav-actions {
     gap: 0.4rem !important;
     flex-shrink: 0 !important;
-  }
-
-  .user-name,
-  .user-role-badge,
-  .user-menu i.fa-chevron-down {
-    display: none !important;
-  }
-
-  .user-menu {
-    padding: 0.2rem !important;
-    border-radius: 50% !important;
-    background: transparent !important;
-    border: none !important;
-    width: 36px !important;
-    height: 36px !important;
-    display: flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-  }
-
-  .user-avatar {
-    width: 34px !important;
-    height: 34px !important;
-    border: 2px solid #FF7A00 !important;
   }
 
   .hero-search-subtext {
