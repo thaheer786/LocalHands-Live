@@ -53,7 +53,7 @@ table {
 }
 
 /* --------------------------------------------------------------------------
-   2. TOUCH-FRIENDLY INTERACTIVE TARGETS (MINIMUM 44x44px)
+   2. TOUCH-FRIENDLY INTERACTIVE TARGETS & FORM OVERLAP PREVENTIONS
    -------------------------------------------------------------------------- */
 button, 
 .btn, 
@@ -69,14 +69,40 @@ input[type="reset"],
   box-sizing: border-box;
 }
 
+/* Input text clearance for icons (prevents text overlapping icons) */
+.auth-input-control,
+.has-icon-input {
+  padding-left: 2.8rem !important;
+  padding-right: 2.5rem !important;
+}
+
+.sd-search-box input {
+  padding-left: 0.5rem !important;
+  border: none !important;
+  background: transparent !important;
+  outline: none !important;
+}
+
+.hero-search-input-wrap input {
+  padding: 0.2rem 0.4rem !important;
+  min-height: unset !important;
+  height: auto !important;
+  border: none !important;
+  outline: none !important;
+  background: transparent !important;
+  width: 100% !important;
+}
+
 .nav-toggle-btn {
   display: none;
-  min-width: 44px;
-  min-height: 44px;
-  background: transparent;
-  border: 1px solid rgba(90, 70, 52, 0.15);
-  color: #5A4634;
-  font-size: 1.3rem;
+  min-width: 40px;
+  min-height: 40px;
+  width: 40px;
+  height: 40px;
+  background: #FFF7ED;
+  border: 1px solid #F4E7D3;
+  color: #FF7A00;
+  font-size: 1.2rem;
   cursor: pointer;
   padding: 0;
   border-radius: 10px;
@@ -89,8 +115,8 @@ input[type="reset"],
 
 .nav-toggle-btn:hover,
 .nav-toggle-btn:focus {
-  background: #FFF7ED;
-  color: #FF7A00;
+  background: #FF7A00;
+  color: #FFFFFF;
   border-color: #FF7A00;
 }
 
@@ -162,7 +188,7 @@ input[type="reset"],
     padding: 3.5rem 0;
   }
 
-  /* Navigation Drawer */
+  /* Navigation Header & Drawer */
   .navbar {
     padding: 0.75rem 1.25rem !important;
   }
@@ -250,6 +276,7 @@ input[type="reset"],
   .footer-grid,
   .how-it-works-grid,
   .bottom-cards-grid,
+  .booking-layout-grid,
   .provider-card-grid {
     grid-template-columns: 1fr !important;
   }
@@ -258,7 +285,7 @@ input[type="reset"],
     flex-direction: column !important;
     align-items: flex-start !important;
     padding: 1.75rem 1.5rem !important;
-    gap: 1.5rem !important;
+    gap: 1.25rem !important;
   }
 
   .bottom-card-content {
@@ -377,7 +404,7 @@ input[type="reset"],
 }
 
 /* --------------------------------------------------------------------------
-   7. MOBILE SMARTPHONES & SPECIFIC VIEWS (320px, 375px, 425px)
+   7. MOBILE SMARTPHONES & TARGET VIEWS (320px, 375px, 425px)
    -------------------------------------------------------------------------- */
 @media (max-width: 640px) {
   .container {
@@ -386,23 +413,51 @@ input[type="reset"],
   }
 
   .section-padding {
-    padding: 2.25rem 0;
+    padding: 2rem 0;
   }
 
-  /* Header Profile Pill & Actions for Mobile */
+  /* Header Navbar & Sleek Profile Pill */
+  .navbar {
+    padding: 0.6rem 0.85rem !important;
+    min-height: 56px !important;
+  }
+
+  .nav-brand {
+    font-size: 1.05rem !important;
+    gap: 0.4rem !important;
+  }
+
+  .nav-brand span small {
+    display: none !important;
+  }
+
+  .nav-actions {
+    gap: 0.4rem !important;
+    flex-shrink: 0 !important;
+  }
+
   .user-name,
-  .user-role-badge {
+  .user-role-badge,
+  .user-menu i.fa-chevron-down {
     display: none !important;
   }
 
   .user-menu {
-    padding: 0.25rem 0.5rem !important;
-    gap: 0.35rem !important;
+    padding: 0.2rem !important;
+    border-radius: 50% !important;
+    background: transparent !important;
+    border: none !important;
+    width: 36px !important;
+    height: 36px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
   }
 
   .user-avatar {
-    width: 32px !important;
-    height: 32px !important;
+    width: 34px !important;
+    height: 34px !important;
+    border: 2px solid #FF7A00 !important;
   }
 
   .hero-search-subtext {
@@ -411,7 +466,7 @@ input[type="reset"],
 
   /* Responsive Headers & Typography */
   .section-title {
-    font-size: clamp(1.4rem, 6vw, 1.85rem) !important;
+    font-size: clamp(1.35rem, 6vw, 1.85rem) !important;
   }
 
   .section-subtitle {
@@ -420,7 +475,7 @@ input[type="reset"],
   }
 
   .hero-ref-title {
-    font-size: clamp(1.65rem, 7vw, 2.2rem) !important;
+    font-size: clamp(1.6rem, 7vw, 2.1rem) !important;
   }
 
   /* Single Column Card Stacking */
@@ -436,6 +491,13 @@ input[type="reset"],
   .provider-card-grid {
     grid-template-columns: 1fr !important;
     gap: 1rem !important;
+  }
+
+  /* Bottom Twin Cards Images */
+  .bottom-card img {
+    max-width: 110px !important;
+    height: auto !important;
+    margin: 0 auto;
   }
 
   /* Horizontal Scrollable Service Filter Chips */
@@ -475,7 +537,6 @@ input[type="reset"],
   select,
   textarea,
   .form-control,
-  .auth-input-control,
   .sd-select-control {
     font-size: 16px !important;
     padding: 0.75rem 0.85rem !important;
@@ -523,7 +584,7 @@ input[type="reset"],
   /* Mobile Tables with Horizontal Scroll indicator */
   table {
     display: table;
-    min-width: 520px;
+    min-width: 500px;
   }
 
   .table-responsive {
@@ -559,20 +620,20 @@ input[type="reset"],
 }
 
 /* --------------------------------------------------------------------------
-   8. TARGET MOBILE PHONE VIEWS (320px, 375px, 425px)
+   8. SPECIFIC SMALL MOBILE PHONE VIEWS (320px, 375px, 425px)
    -------------------------------------------------------------------------- */
 @media (max-width: 425px) {
   .nav-brand {
-    font-size: 1.05rem !important;
+    font-size: 1rem !important;
   }
 
   .nav-brand img {
-    height: 28px !important;
-    width: 28px !important;
+    height: 26px !important;
+    width: 26px !important;
   }
 
   .hero-ref-title {
-    font-size: 1.55rem !important;
+    font-size: 1.48rem !important;
   }
 
   .service-card,
@@ -584,6 +645,15 @@ input[type="reset"],
     padding: 1.1rem 0.85rem !important;
   }
 
+  .auth-form-wrap {
+    padding: 1rem 0.6rem !important;
+  }
+
+  .auth-card {
+    padding: 1.25rem 0.85rem !important;
+    border-radius: 16px !important;
+  }
+
   .sd-rating-overlay-badge {
     padding: 0.5rem 0.75rem !important;
     font-size: 0.78rem !important;
@@ -593,12 +663,16 @@ input[type="reset"],
 /* Extra Small Devices (320px width) */
 @media (max-width: 340px) {
   .container {
-    padding-left: 0.6rem !important;
-    padding-right: 0.6rem !important;
+    padding-left: 0.5rem !important;
+    padding-right: 0.5rem !important;
   }
 
   .hero-ref-title {
-    font-size: 1.45rem !important;
+    font-size: 1.38rem !important;
+  }
+
+  .nav-brand span {
+    font-size: 0.95rem !important;
   }
 }
 
@@ -616,14 +690,14 @@ input[type="reset"],
   }
 
   .section-padding {
-    padding: 1.75rem 0 !important;
+    padding: 1.5rem 0 !important;
   }
 
   .hero-section-ref {
-    padding-top: 2rem !important;
+    padding-top: 1.75rem !important;
   }
 
   .modal-content {
-    max-height: 80vh !important;
+    max-height: 78vh !important;
   }
 }
