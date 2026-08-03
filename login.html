@@ -103,27 +103,37 @@
       border-bottom-color: #FF7A00;
     }
     .auth-input-group {
-      position: relative;
+      position: relative !important;
+      width: 100% !important;
+      box-sizing: border-box !important;
       margin-bottom: 1.25rem;
     }
     .auth-input-group i.auth-input-icon {
-      position: absolute;
-      left: 1.1rem;
-      top: 50%;
-      transform: translateY(-50%);
-      color: #94A3B8;
-      font-size: 0.95rem;
-      transition: all 0.2s ease;
+      position: absolute !important;
+      left: 17px !important;
+      top: 50% !important;
+      transform: translateY(-50%) !important;
+      color: #94A3B8 !important;
+      font-size: 0.95rem !important;
+      z-index: 5 !important;
+      pointer-events: none !important;
+      transition: color 0.2s ease;
     }
     .auth-input-control {
-      width: 100%;
-      padding: 0.85rem 1rem 0.85rem 2.8rem;
-      border-radius: 14px;
-      border: 1.5px solid #CBD5E1;
+      width: 100% !important;
+      box-sizing: border-box !important;
+      min-height: 48px !important;
+      height: 48px !important;
+      padding-top: 0.75rem !important;
+      padding-bottom: 0.75rem !important;
+      padding-left: 50px !important;
+      padding-right: 48px !important;
+      border-radius: 14px !important;
+      border: 1.5px solid #CBD5E1 !important;
       background: #FFFFFF !important;
-      font-size: 0.94rem;
-      color: #5A4634;
-      outline: none;
+      font-size: 0.94rem !important;
+      color: #5A4634 !important;
+      outline: none !important;
       transition: all 0.25s ease;
     }
     /* Override browser autofill light blue background */
@@ -139,19 +149,26 @@
       border-color: #FF7A00 !important;
       box-shadow: 0 0 0 4px rgba(255, 122, 0, 0.15) !important;
     }
+    .auth-input-control:focus ~ i.auth-input-icon,
     .auth-input-control:focus + i.auth-input-icon {
-      color: #FF7A00;
+      color: #FF7A00 !important;
     }
     .pw-toggle-btn {
-      position: absolute;
-      right: 1.1rem;
-      top: 50%;
-      transform: translateY(-50%);
-      background: none;
-      border: none;
-      color: #94A3B8;
-      cursor: pointer;
-      font-size: 0.95rem;
+      position: absolute !important;
+      right: 16px !important;
+      top: 50% !important;
+      transform: translateY(-50%) !important;
+      z-index: 5 !important;
+      background: none !important;
+      border: none !important;
+      color: #94A3B8 !important;
+      cursor: pointer !important;
+      font-size: 0.95rem !important;
+      padding: 0 !important;
+      margin: 0 !important;
+      display: flex !important;
+      align-items: center !important;
+      justify-content: center !important;
     }
     .role-option-tile {
       flex: 1;
