@@ -32,7 +32,7 @@ const Auth = {
       `;
     } else {
       navActions.innerHTML = `
-        <a href="login.html" class="btn btn-primary btn-sm">Sign In</a>
+        <a href="login.html" class="profile-btn"><i class="fas fa-user"></i> Profile</a>
       `;
     }
   },

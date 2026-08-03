@@ -1,19 +1,21 @@
-/* Glass Navigation Header */
+/* Reference Spec Navigation Header */
 .navbar {
   position: sticky;
   top: 0;
   z-index: 1000;
   display: flex;
-  align-items: center;
   justify-content: space-between;
-  padding: 1rem 3rem;
-  background: #FFFFFF;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+  align-items: center;
+  padding: 12px 40px;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  box-shadow: 0 4px 20px rgba(90, 70, 52, 0.06);
   border-bottom: 1px solid var(--border-color);
   transition: var(--transition-normal);
 }
 
-.nav-brand {
+.logo, .nav-brand {
   display: flex;
   align-items: center;
   gap: 0.75rem;
@@ -24,46 +26,56 @@
   font-weight: 800;
 }
 
-.nav-brand img {
-  height: 38px;
-  width: 38px;
-  border-radius: var(--radius-sm);
-  object-fit: cover;
+.logo img, .nav-brand img {
+  height: 45px;
 }
 
-.nav-brand span {
-  color: var(--text-main);
-}
-
-.nav-brand span em {
-  color: var(--primary);
-  font-style: normal;
-}
-
-.nav-links {
+.nav-right, .nav-links {
   display: flex;
   align-items: center;
-  gap: 2.25rem;
+  gap: 24px;
   list-style: none;
 }
 
-.nav-links a {
-  color: var(--text-main);
+.nav-right a, .nav-links a {
   text-decoration: none;
-  font-weight: 600;
+  color: #333;
+  font-weight: 500;
   font-size: 0.95rem;
-  transition: var(--transition-fast);
+  transition: 0.3s;
 }
 
-.nav-links a:hover,
-.nav-links a.active {
-  color: var(--primary);
+.nav-right a:hover, .nav-links a:hover, .nav-links a.active {
+  color: #ff6b35;
 }
 
 .nav-actions {
   display: flex;
   align-items: center;
   gap: 1rem;
+}
+
+.profile-btn {
+  padding: 8px 18px;
+  border: none;
+  border-radius: 25px;
+  background: #ff6b35;
+  color: white !important;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 0.9rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  text-decoration: none;
+  transition: 0.3s;
+  box-shadow: 0 4px 12px rgba(255, 107, 53, 0.25);
+}
+
+.profile-btn:hover {
+  background: #e55800;
+  color: white !important;
+  transform: translateY(-1px);
 }
 
 /* User Profile Menu */
