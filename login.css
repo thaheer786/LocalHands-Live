@@ -315,4 +315,17 @@ button:active {
   .wrapper {
     min-height: 480px;
   }
+
+  .demo-btns-wrap {
+    flex-direction: column !important;
+    gap: 0.4rem !important;
+  }
+
+  .demo-btns-wrap button {
+    width: 100% !important;
+    white-space: nowrap !important;
+    padding: 0.5rem !important;
+    min-height: 38px !important;
+    font-size: 0.82rem !important;
+  }
 }
