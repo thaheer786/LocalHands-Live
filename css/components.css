@@ -898,6 +898,28 @@
   position: relative;
 }
 
+.favourite-btn {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  border-radius: 50% !important;
+  width: 32px !important;
+  height: 32px !important;
+  min-width: 32px !important;
+  min-height: 32px !important;
+  max-width: 32px !important;
+  max-height: 32px !important;
+  padding: 0 !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  font-size: 0.85rem !important;
+  background: #ffffff !important;
+  border: 1px solid var(--border-color) !important;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.12) !important;
+  z-index: 10 !important;
+}
+
 .provider-card-v2-img img {
   width: 100%;
   height: 100%;

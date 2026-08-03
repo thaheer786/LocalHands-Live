@@ -47,7 +47,7 @@ const Landing = {
           <div class="provider-card-v2">
             <a href="maps.html?provider_id=${p.id}" class="provider-card-v2-img">
               <img src="${p.avatar || 'assets/bhuvan.jpg'}" alt="${p.name}" onerror="this.src='https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=400';" />
-              <button class="btn btn-secondary btn-sm" style="position: absolute; top: 8px; right: 8px; border-radius: 50%; width: 32px; height: 32px; padding: 0; min-width: unset;" title="Save to Favourites" onclick="event.preventDefault(); Toast.show('${p.name} saved to favourites!', 'success')">
+              <button class="btn btn-secondary btn-sm favourite-btn" style="position: absolute; top: 8px; right: 8px; border-radius: 50%; width: 32px; height: 32px; padding: 0; min-width: unset;" title="Save to Favourites" onclick="event.preventDefault(); Toast.show('${p.name} saved to favourites!', 'success')">
                 <i class="far fa-heart" style="color: #ef4444;"></i>
               </button>
             </a>

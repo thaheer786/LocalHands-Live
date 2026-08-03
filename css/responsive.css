@@ -1,5 +1,5 @@
 /* ==========================================================================
-   LOCAL HANDS MASTER RESPONSIVE DESIGN SYSTEM (AUDITED FOR 320x495, 375x495, 425x495)
+   LOCAL HANDS MASTER RESPONSIVE DESIGN SYSTEM (MOBILE S 320px AUDITED)
    ========================================================================== */
 
 /* --------------------------------------------------------------------------
@@ -53,7 +53,7 @@ table {
 }
 
 /* --------------------------------------------------------------------------
-   2. TOUCH-FRIENDLY INTERACTIVE TARGETS & FORM OVERLAP PREVENTIONS
+   2. TOUCH-FRIENDLY INTERACTIVE TARGETS & OVERLAP PREVENTIONS
    -------------------------------------------------------------------------- */
 button, 
 .btn, 
@@ -67,6 +67,25 @@ input[type="reset"],
   min-height: 44px;
   touch-action: manipulation;
   box-sizing: border-box;
+}
+
+/* Favourite Heart Button Exemption (Prevents 44px forcing) */
+.favourite-btn,
+button.favourite-btn,
+.provider-card-v2-img button {
+  min-height: 32px !important;
+  min-width: 32px !important;
+  width: 32px !important;
+  height: 32px !important;
+  max-width: 32px !important;
+  max-height: 32px !important;
+  padding: 0 !important;
+  border-radius: 50% !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  font-size: 0.85rem !important;
+  flex-shrink: 0 !important;
 }
 
 /* Input text clearance for icons (prevents text overlapping icons) */
@@ -201,15 +220,15 @@ input[type="reset"],
     position: fixed;
     top: 0;
     left: 0;
-    width: 290px;
-    max-width: 85vw;
+    width: 270px;
+    max-width: 82vw;
     height: 100vh;
     height: 100dvh;
     background: #FFFFFF;
     flex-direction: column;
     align-items: flex-start;
-    padding: 5.5rem 1.75rem 2rem 1.75rem;
-    gap: 1.25rem;
+    padding: 5rem 1.5rem 2rem 1.5rem;
+    gap: 1.1rem;
     box-shadow: 10px 0 30px rgba(15, 23, 42, 0.15);
     z-index: 999;
     transform: translateX(-100%);
@@ -229,9 +248,9 @@ input[type="reset"],
     display: flex;
     align-items: center;
     width: 100%;
-    padding: 0.75rem 1rem;
+    padding: 0.7rem 0.9rem;
     border-radius: 10px;
-    font-size: 1.05rem;
+    font-size: 1rem;
     font-weight: 600;
     color: #334155;
     transition: background-color 0.2s ease, color 0.2s ease;
@@ -283,7 +302,8 @@ input[type="reset"],
 
   .bottom-card {
     flex-direction: column !important;
-    align-items: flex-start !important;
+    align-items: center !important;
+    text-align: center !important;
     padding: 1.75rem 1.5rem !important;
     gap: 1.25rem !important;
   }
@@ -291,6 +311,19 @@ input[type="reset"],
   .bottom-card-content {
     max-width: 100% !important;
     width: 100% !important;
+    text-align: center !important;
+  }
+
+  .bottom-card-content .btn-view-all-orange {
+    margin-left: auto !important;
+    margin-right: auto !important;
+  }
+
+  .bottom-card img {
+    max-width: 110px !important;
+    height: auto !important;
+    margin: 0 auto !important;
+    display: block !important;
   }
 
   .sd-filter-bar {
@@ -464,6 +497,32 @@ input[type="reset"],
     display: none !important;
   }
 
+  /* Bottom Twin Cards Centered Formatting */
+  .bottom-card {
+    flex-direction: column !important;
+    align-items: center !important;
+    text-align: center !important;
+    padding: 1.5rem 1rem !important;
+    gap: 1.25rem !important;
+  }
+
+  .bottom-card-content {
+    text-align: center !important;
+    width: 100% !important;
+  }
+
+  .bottom-card-content h2,
+  .bottom-card-content p {
+    text-align: center !important;
+  }
+
+  .bottom-card img {
+    max-width: 100px !important;
+    height: auto !important;
+    margin: 0 auto !important;
+    display: block !important;
+  }
+
   /* Responsive Headers & Typography */
   .section-title {
     font-size: clamp(1.35rem, 6vw, 1.85rem) !important;
@@ -491,13 +550,6 @@ input[type="reset"],
   .provider-card-grid {
     grid-template-columns: 1fr !important;
     gap: 1rem !important;
-  }
-
-  /* Bottom Twin Cards Images */
-  .bottom-card img {
-    max-width: 110px !important;
-    height: auto !important;
-    margin: 0 auto;
   }
 
   /* Horizontal Scrollable Service Filter Chips */
@@ -620,11 +672,24 @@ input[type="reset"],
 }
 
 /* --------------------------------------------------------------------------
-   8. SPECIFIC SMALL MOBILE PHONE VIEWS (320px, 375px, 425px)
+   8. SPECIFIC MOBILE S PHONE VIEWS (320px)
    -------------------------------------------------------------------------- */
-@media (max-width: 425px) {
+@media (max-width: 380px) {
+  .nav-links {
+    width: 240px !important;
+    max-width: 78vw !important;
+    padding: 4.5rem 1.25rem 1.5rem 1.25rem !important;
+    gap: 0.85rem !important;
+  }
+
+  .nav-links a {
+    padding: 0.6rem 0.85rem !important;
+    font-size: 0.95rem !important;
+    min-height: 40px !important;
+  }
+
   .nav-brand {
-    font-size: 1rem !important;
+    font-size: 0.98rem !important;
   }
 
   .nav-brand img {
@@ -633,7 +698,7 @@ input[type="reset"],
   }
 
   .hero-ref-title {
-    font-size: 1.48rem !important;
+    font-size: 1.45rem !important;
   }
 
   .service-card,
@@ -646,11 +711,11 @@ input[type="reset"],
   }
 
   .auth-form-wrap {
-    padding: 1rem 0.6rem !important;
+    padding: 0.85rem 0.5rem !important;
   }
 
   .auth-card {
-    padding: 1.25rem 0.85rem !important;
+    padding: 1.1rem 0.75rem !important;
     border-radius: 16px !important;
   }
 
@@ -672,7 +737,7 @@ input[type="reset"],
   }
 
   .nav-brand span {
-    font-size: 0.95rem !important;
+    font-size: 0.92rem !important;
   }
 }
 
@@ -686,7 +751,7 @@ input[type="reset"],
   }
 
   .nav-links {
-    padding-top: 3.75rem !important;
+    padding-top: 3.5rem !important;
   }
 
   .section-padding {
